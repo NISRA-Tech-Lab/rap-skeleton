@@ -1,0 +1,195 @@
+---
+title: "06 Map Sub Report"
+output: html_document
+knit: (function(input, ...) {
+    rmarkdown::render(
+      input,
+       output_dir = "../demo/demo_outputs/",
+      output_file = paste0(
+        xfun::sans_ext(input), '_', format(Sys.time(), "%d-%m-%Y_%H%M") , '.html'
+      ),
+      envir = globalenv()
+    )
+  })
+---
+  
+  
+
+```{r, include=FALSE}
+# this chunk sets chunk options for all chunks in this file
+knitr::opts_chunk$set(
+  message= FALSE, echo = FALSE
+)
+
+library(here)
+
+source(paste0(here(),"/code/config.R"))
+source(paste0(here(),"/code/demo/demo_data_prep.R"))
+source(paste0(here(),"/code/demo/demo_config.R"))
+```
+
+
+This section includes a static map and an interactive map. If you create a map in another package and import as an image, ensure it meets accessibility requirements for an infographic.
+
+### Static Map (h3)
+
+This section includes a map generated in R. General principles to consider are:
+
+- ensure contrast between text labels and background colour is at least 4.5:1
+- ensure contrast between adjacent colours is at least 3:1, if they don't use borders that do
+- verify using online tools like [WebAIM contrast checker](https://webaim.org/resources/contrastchecker/)
+- ensure colour is not the only way of conveying meaning
+- use clear and descriptive labels
+
+Here the data labels are displayed on the map, alt text is included and the shapefile has been simplified to reduce the file size.
+
+We have used 3 colours. More than 3 colours increases the difficulty of creating sufficient contrast.
+
+Ensure the data underlying the maps is accessible to users who cannot perceive images. In this case, the data is in a table in a previous section. You could also make it available as a download.
+
+Include descriptive text before or after the map.
+
+#### Map 1: Proportion of people aged under 25 in NI by LGD
+
+
+```{r map_static, echo = FALSE, warnings = FALSE, message = FALSE, fig.alt="Map of Northern Ireland shaded by percentage of under 25s living in each Local Government District. More detail on the trends are included in the text directly above or below the map", out.width="100%"}
+
+map1_static_map <- tm_shape(df_map_data,
+                            # Default is km
+                            unit = "imperial") +  
+                   tm_polygons(# Colours the map sections based on these values
+                               col = "lgd_young_perc",
+                               #Legend title
+                               title = "Percentage of under 25s",
+                               # Number of different colours to use
+                               n = 3,
+                               # Quantiles gives even sized groupings
+                               style = "quantile",
+                               # Colour palette. Execute the command tmaptools::palette_explorer() in R console to see range of options
+                               palette = "Blues",
+                               # Add transparency to polygons improving contrast with text
+                               alpha = 0.5,
+                               border.col = "grey"
+                            ) +
+                    
+                   tm_text(# add labels to polygons, change text colour to black and move labels to fit within shapes
+                           "map_label",
+                            size = 0.8,
+                            col = "#000000",
+                            auto.placement = F,
+                            xmod = c(0.8, 0, 0, 0.5, 0, 1.1, 0.5, 0.5, 0, 1, -1),
+                            ymod = c(-0.5, 0, 0.2, 0.3, 0, 0, 1.4, -0.5, 0.3, 0, -1)
+                            ) +
+                   tm_add_legend(# add manual legend as a key
+                                 'symbol',
+                                 col = '#00205b',
+                                 title = 'Key',
+                                 labels = c(
+                                   'AN = Antrim and Newtownabbey',
+                                   'AND = Ards and North Down',
+                                   'B = Belfast'
+                                 )
+                            ) +
+                   tm_format(# setting format to worldwide creates a wider rectangle shape that fits width of page
+                             "World_wide", 
+                             legend.position = c("left", "top"))
+
+# Plotting map:
+tmap_mode("plot") # Set to "view" for interactive map or "plot" for static
+
+map1_static_map
+
+```
+
+### Interactive Map (h3)
+
+This section shows the same map produced as an interactive plot.
+The figures are displayed on the map, council names show on hover and the council name and figures display on click.
+The shapefile has been simplified to reduce file size and not slow page load speed.
+
+Ensure the data underlying the maps is accessible to users who cannot perceive images. In this case, the data is in a table in a previous section. You could also make it available as a download.
+
+The default rendering tabs through the LGDs but the focus area is not visible for keyboard users. This is an accessibility fail. Additional code has been added to remove the map from the tab order and to add alt text to the LGDs for screen reader users. See sections of code in the final code chunk (download buttons) which creates alt text and in the script section at the very end of the code to create an array of alt texts for the map and remove tabs from the LGDs.  
+
+Include descriptive text before or after the map.
+
+#### Map 2: Proportion of people aged under 25 in NI by LGD
+
+```{r map_interactive, echo = FALSE, warnings = FALSE, message = FALSE, fig.alt="alt text for interactive map", fig.cap="caption for interactive map", out.width="100%"}
+
+# Reduce the size of the shapefile using the simplify command in rmaptools.
+
+
+#### interactive map ####
+
+map2_interactive_map <- tm_shape(df_map_data %>% 
+                                 select(lgd2014name, lgd_young_perc, map_label_value_only),
+                                 # Default is km
+                                 unit = "imperial") +
+  
+                        tm_basemap(# Adds background map.
+                                   "Esri.WorldGrayCanvas") +
+                        tm_polygons(# Colours the map sections based on these values
+                                    col = "lgd_young_perc",
+                                    # Number of different colours to use
+                                    n = 3,
+                                    # Quantiles gives even sized groupings
+                                    style = "quantile",
+                                    # Colour palette
+                                    palette = "Blues",
+                                    # Add transparency to polygons improving contrast with text
+                                    alpha = 0.5,
+                                    border.alpha = 1,
+                                    legend.show = FALSE,
+                                    popup.vars  = c("Percentage of under 25s: " = "lgd_young_perc")) +
+                        tm_add_legend("fill",
+                                      col = RColorBrewer::brewer.pal(3, "Blues"),
+                                      border.col = "#454A58",
+                                      labels = c("27.7  to 31.0", "31.0 to 32.9", "32.9 to 33.9"),
+                                      title = "Percentage of under 25s") +
+                        tm_view(# Re-positioning legend
+                                view.legend.position = c("left", "top"),
+                                # Re-positioning layer controls  
+                                control.position = c("left", "bottom"),
+                                leaflet.options = c(
+                                       zoomControl  = FALSE,
+                                       # Removes zoom and drag options
+                                       dragging = FALSE,
+                                       keyboard = FALSE,
+                                       boxZoom = FALSE,
+                                       doubleClickZoom = FALSE,
+                                       scrollWheelZoom = FALSE,
+                                       tap = FALSE,
+                                       touchZoom = FALSE,
+                                       zoom = 8,
+                                       minZoom = 8,
+                                       maxZoom = 8,
+                                       attributionControl = FALSE)) +
+                        tm_text(# Label polygons, increase font size, set colour to black (better contrast) and adjust positioning so they are contained as much as possible within the polygons
+                                "map_label_value_only",
+                                size = 1.2,
+                                col = "#000000",
+                                auto.placement = F,
+                                xmod = c(3, 1, 0, 1.5, 0, 1.5, 0, 0, 0, 1, 1),
+                                ymod = c(0, 3, 0, 0, 0, 0, 1, 0, 0, 0, -3)) +
+                        tm_scale_bar(width = 250) +
+                        tmap_mode(# Set to "view" for interactive map or "plot" for static
+                                  "view") 
+
+map2_interactive_map
+
+
+
+```
+
+
+
+
+```{r alt text for maps, echo = FALSE}
+
+# Alt text values for tabRemove() function in the interactive map
+mapAlt <- paste0(df_map_data$lgd2014name, " ", df_map_data$map_label_value_only)
+mapAlt <- paste(mapAlt, collapse = '", "')
+mapAlt <- paste0('["',mapAlt,'"]')
+
+```

@@ -1,0 +1,8 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+outputs
+code/demo/demo_outputs
+packages.R
+data/*.xlsx

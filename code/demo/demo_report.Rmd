@@ -1,0 +1,283 @@
+---
+title: "RAP Demo Report"
+lang: "en"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 4
+    code_download: no
+    css: "../style.css"
+knit: (function(input, ...) {
+    rmarkdown::render(
+      input,
+      output_dir = "../demo/demo_outputs/",
+      output_file = paste0(
+        xfun::sans_ext(input), '_', format(Sys.time(), "%d-%m-%Y_%H%M") , '.html'
+      ),
+      envir = globalenv()
+    )
+  })
+params:
+  nicstheme: dof
+  prerelease: TRUE
+---
+<!-- params:
+     nicstheme - can be any of teo, daera, dfc, de, dfe, dof, dfi, doh, doj
+     prerelease - can be TRUE or FALSE
+-->
+
+<!--Add tabs to table of contents-->
+<body onload="tabOrder()">
+
+<!--html_preserve-->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-72688332-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-72688332-4');
+</script>
+<!--/html_preserve-->
+
+```{r settings, include=FALSE}
+# this chunk sets chunk options for all chunks in this file
+knitr::opts_chunk$set(
+  message= FALSE, echo = FALSE, warning = FALSE
+)
+```
+<div data-nics-theme="`r params$nicstheme`">
+
+
+```{r setup, warnings = FALSE}
+
+
+library(here)
+
+source(paste0(here(),"/code/config.R"))
+source(paste0(here(),"/code/demo/demo_data_prep.R"))
+source(paste0(here(),"/code/demo/demo_config.R"))
+
+```
+
+<!-- calling the banner code -->
+`r f_banner()`
+
+<!-- Header section -->
+`r f_header()`
+
+
+
+<!-- Introduction section -->
+
+<!-- open main div -->
+<div id="main" role="main">
+
+<!-- calling the borderline code -->
+`r f_borderline()`
+
+## 1. Key points (h2)
+
+This section includes the key points of your publication (in an unordered list).  The logos used in the banner are intentionally placed in order. If no National Statistics logo is required, the departmental logo can go to the right and NISRA to the left. Logo placement is automated in the code depending on which logos are required. 
+
+There are some key accessibility features to highlight here:
+
+- the language element is set to English, which is done in the YAML section of the code 
+- there is a named accessibility contact at the end of the doc
+- you will see from the code that the main sections of the html are enclosed in div elements
+
+It can help automation of reports to include sections of text that contain numerical values calculated by code. These will then update automatically when the data changes. This has been implemented below. For key points with accompanying charts or graphics, a 2 column structure can be used.
+
+### Population change
+
+```{r key_point_2_column, fig.alt="info"}
+
+# create a bullet point in unicode called 'b'
+b <- "\U2022"
+
+point_1 <- paste0(b, " the Northern Ireland population has grown from ", round(ni_earliest_total,2)," million in ", earliest_year, " to ", round(ni_latest_total,2), " million in ", latest_year, " an increase of ", round(ni_earliest_latest_change,0), " percent.")
+
+point_2 <- paste0(b," Under 25s make up the largest age group in the population")
+
+point_3 <- paste0(b, " Derry City and Strabane has seen the largest increase of all the LGDs (Local Government Districts)")
+
+
+change_chart <- paste0(images_source_root_demo, "mini_population.png")
+
+div(class = "row",
+    div(class = "col-sm-6", style = "margin-top: 10px; font-size:120%;",
+        point_1, br(), p(), point_2, br(), p(),  point_3, br()),
+    div(class = "col-sm-6", img(src = change_chart, alt="Column chart showing relative increase in population")))
+
+
+```
+
+
+
+`r f_borderline()`
+
+## 2. Introduction (h2)
+
+```{r introduction_sub_report, child='02_introduction.Rmd' }
+```
+
+
+`r f_borderline()`
+
+## 3. Infographics (h2)
+
+```{r infographics_sub_report , child='03_infographics.Rmd'}
+```
+
+`r f_borderline()`
+
+## 4. Tables (h2)
+
+```{r tables_sub_report , child='04_tables.Rmd'}
+```
+
+`r f_borderline()`
+
+## 5. Charts (h2)
+
+```{r charts_sub_report  , child='05_charts.Rmd'}
+```
+
+`r f_borderline()`
+
+## 6. Maps (h2)
+
+```{r maps_sub_report , child='06_maps.Rmd'}
+```
+
+`r f_borderline()`
+
+## 7. Download data
+
+```{r data_download, eval=demo_excel_ready}
+# embeds the spreadsheets
+embexcel <- embed_file(paste0(outputs_source_root_demo, "RAP_demo_tables.xlsx"),
+                       text = "Publication tables: 15KB")
+ div(
+    
+    div(class = "row", style = "display: flex;",
+        div(class = "row-indent"),
+        div(class = "download", "Download data: ", style = "font-size: 12pt"),
+        div(class = "row-indent"),
+        div(class = "xl-button2", embexcel),
+        div(class="download", style="padding-top: 7px; padding-left: 5px; padding-right: 5px;"))
+  )
+```
+`r f_borderline()`
+
+<!-- close main div -->
+</div>
+
+<!-- open footer div -->
+<div class="footer">
+
+## 8. Text section (h2)
+```{r text_sub_report, child='07_text.Rmd'}
+
+```
+`r f_borderline()`
+
+## 9. Useful acessibility links (h2)
+
+```{r useful_links_sub_report, child='08_useful_links.Rmd'}
+
+```
+
+`r f_borderline()`
+
+## 10. National statistics statement (h2) {#NatStats}
+
+```{r national_stats_sub_report, child='09_national_stats.Rmd'}
+
+```
+
+`r f_borderline()`
+
+## 11. Accessibility
+
+### Accessibility statement
+
+This report by Tech Lab has been formally accessibility quality assured to WCAG 2.1 Level AA standards. 
+
+NISRA includes accessibility throughout our internal policies, we employ formal accessibility quality assurance methods and include people with disabilities in our user testing process.
+
+We want as many people as possible to be able to access this report. That means you should be able to:
+
+* zoom in up to 300% without the text spilling off the screen
+* navigate most of the website using just a keyboard
+* navigate most of the website using speech recognition software
+* listen to most of the website using a screen reader (including the most recent versions of JAWS, NVDA and VoiceOver).
+
+We’ve also made the text as simple as possible to understand.
+
+It is not compatible with older browsers or Internet Explorer.
+
+This html report relies on the following technologies to work with the particular combination of web browser and any assistive technologies or plugins installed on your computer:
+
+* HTML
+* WAI-ARIA
+* CSS
+* JavaScript
+
+These technologies are relied upon for conformance with the accessibility standards used.
+
+### Limitations and alternatives
+
+Despite our best efforts to ensure accessibility of this report, there may be some limitations. Below is a description of known limitations and potential solutions. Please contact us if you observe an issue not listed below.
+
+1. Mobile users: some of the charts are resized along the x-axis for display on smaller screens. Please rotate your device to view charts in landscape for a better experience
+
+1. Excel documents for screen reader users: headings are not tagged as h1 but are placed in cell A1 of each sheet. Please navigate to the relevant tables using the table of contents or by sheet starting in cell A1.
+
+1. CSV files for screen reader users: these data files only contain a single header row, no titles or definitions so users may lose context of these files in isolation. They are provided as an alternative format to charts and are also available in excel format which may be preferable.
+
+### Accessibility contact
+
+Please contact Dissemination Branch for assistance with accessibility requirements or alternative formats. Contact details are at the top of this page.
+
+
+
+```{js}
+
+
+// Create array of alt texts for map shapes
+const mapAlt = `r mapAlt`;
+
+
+// Function to remove map shapes from tab order, and add tabs to table of contents
+
+function tabOrder() {
+
+  // Removes tabs from individual map shapes and appends alt texts
+
+  var shapes = document.getElementsByClassName('leaflet-marker-icon leaflet-zoom-animated leaflet-interactive');
+
+  for (var i=0; i<shapes.length; i++) {
+    shapes[i].tabIndex = -1;
+    shapes[i].alt = mapAlt[i];
+  }
+  
+  // Make side menu tabbable
+
+  var headings = document.getElementsByClassName('tocify-item list-group-item');
+  
+  for (var i=0; i<headings.length; i++) {
+    headings[i].innerHTML = "<a href='#'>" + headings[i].innerHTML +  "</a>";
+  }
+  
+};
+```
+
+<!-- close footer div -->
+</div>
+
+<!-- close data-nics-theme div -->
+</div>
+
+

@@ -1,0 +1,59 @@
+---
+title: "08 Useful Links Sub Report"
+output: html_document
+knit: (function(input, ...) {
+    rmarkdown::render(
+      input,
+       output_dir = "../demo/demo_outputs/",
+      output_file = paste0(
+        xfun::sans_ext(input), '_', format(Sys.time(), "%d-%m-%Y_%H%M") , '.html'
+      ),
+      envir = globalenv()
+    )
+  })
+---
+  
+  
+
+```{r, include=FALSE}
+# this chunk sets chunk options for all chunks in this file
+knitr::opts_chunk$set(
+  message= FALSE, echo = FALSE
+)
+
+library(here)
+
+source(paste0(here(),"/code/config.R"))
+source(paste0(here(),"/code/demo/demo_data_prep.R"))
+source(paste0(here(),"/code/demo/demo_config.R"))
+```
+
+
+Some features may not work or be accessible in older browsers.
+
+[New Analysis Function website](https://analysisfunction.civilservice.gov.uk) - General guidance
+
+[New Guidance Hub](https://analysisfunction.civilservice.gov.uk/policy-store/) - Guidance hub including some specific accessibility guides and references (see below)
+
+[Government Analysis Function - Accessibility support for statistical and analytical publications](https://analysisfunction.civilservice.gov.uk/news/accessibility-support-for-statistical-and-analytical-publications/) - provides information on all the help that is available from the Government Analysis Function, including details on their online tool (basecamp for statistics) that has a message board and other functions where you can ask questions about accessibility as well as information on the available drop in clinics
+
+[Government Analysis Function - Making analytical publications accessible](https://analysisfunction.civilservice.gov.uk/policy-store/making-analytical-publications-accessible/) - Guide on making analytical publications accessible
+
+[Government Analysis Function  - Releasing statistics in spreadsheets](https://analysisfunction.civilservice.gov.uk/policy-store/releasing-statistics-in-spreadsheets/) - General guide including specific section on accessibility with links to Web Content Accessibility Guidelines (WCAG) 2.1
+
+[Government Analysis Function  - Making spreadsheets accessible: a checklist of the basics](https://analysisfunction.civilservice.gov.uk/policy-store/making-spreadsheets-accessible-a-brief-checklist-of-the-basics/) - Specific guide on making accessible spreadsheets
+
+[Government Analysis Function  - Data visualisation: tables ](https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-tables/) - guidance on how to present tables
+
+[Government Analysis Function  - Data visualisation: charts ](https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-charts/) - guidance on how to create accessible charts
+
+[Government Analysis Function  - Data visualisation: colours ](https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-colours-in-charts/) - guidance on using colours in data visualisations s
+
+[Government Analysis Function  - Data visualisation: examples ](https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-chart-examples/) - Specific examples of using the datavisualisation guidance with real-life charts and tables  
+
+[Government Analysis Function  - Data visualisation: examples ](https://analysisfunction.civilservice.gov.uk/policy-store/symbols-in-tables-definitions-and-help/) - guidance providing a consistent shorthand to be used in statistical and analytical publicaitons produced by the public sector 
+
+[Government Analysis Function - infographics](https://analysisfunction.civilservice.gov.uk/policy-store/infographics/) - guidance on infographics
+
+[Office for National Statistics (ONS) - Style.ONS - A guide to writing about statistics](https://style.ons.gov.uk) - General style guide for writing about statistics. 'Web accessibility' section under 'Writing for the web' offers specifics around accessibility.
+

@@ -1,0 +1,519 @@
+/* Departmental colour
+
+Department of Finance (Default):
+
+ 1 # banner background                      #00205B aka "nisra_navy" JSOK
+ 2 # banner background bottom border        #3878c5 aka "nisra_blue" JSOS
+ 3 # a:link                                 #2574a9 
+ 4 # h1, h2, h3                             #1460aa
+ 5 # 3-bar line break - colours #1          # [same as 1]
+ 6 # 3-bar line break - colours #2          # [same as 2]
+ 7 # 3-bar line break - colours #3          #CEDC20 aka "nisra_green" JSOK
+
+---------------------------------------------------------------------
+
+ Department of Education:
+ 
+ 1 # banner background                      #
+ 2 # banner background bottom border        #ca2c93 aka "dePink" JSOK
+ 3 # a:link                                 #
+ 4 # h1, h2, h3                             #
+ 5 # 3-bar line break - colours #1          #
+ 6 # 3-bar line break - colours #2          # [same as 2]
+ 7 # 3-bar line break - colours #3          #
+
+Other: #142062 aka deBlue JSOK
+
+---------------------------------------------------------------------
+
+ Department of Agriculture, Environment and Rural Affairs:
+
+ 1 # banner background                      #
+ 2 # banner background bottom border        #009a44 (official, can use with black text) JSOK
+ 3 # a:link                                 #
+ 4 # h1, h2, h3                             #
+ 5 # 3-bar line break - colours #1          #
+ 6 # 3-bar line break - colours #2          #
+ 7 # 3-bar line break - colours #3          #
+ 
+---------------------------------------------------------------------
+
+ Department of Justice:
+
+ 1 # banner background                      #
+ 2 # banner background bottom border        #893b67 (Official) JSOK
+ 3 # a:link                                 #
+ 4 # h1, h2, h3                             #
+ 5 # 3-bar line break - colours #1          #
+ 6 # 3-bar line break - colours #2          #
+ 7 # 3-bar line break - colours #3          #
+ 
+  ---------------------------------------------------------------------
+
+Department of Infrastructure:
+
+ 1 # banner background                      #061f5c aka "dfiBlue"
+ 2 # banner background bottom border        #ffb81c (Official) JSOK
+ 3 # a:link                                 # [same as DoF]
+ 4 # h1, h2, h3                             #6c748a aka "dfiGrey"
+ 5 # 3-bar line break - colours #1          #061f5c aka "dfiBlue"
+ 6 # 3-bar line break - colours #2          # [same as 2]
+ 7 # 3-bar line break - colours #3          # [same as 4]
+ 
+ Other: #ffb718 aka "dfiYellow"
+ 
+ ---------------------------------------------------------------------
+ 
+ Department for Health:
+ 
+ 1 # banner background                      #12436d aka "ons_blue"
+ 2 # banner background bottom border        #008eaa (Official) JSOK
+ 3 # a:link                                 # [same as DoF]
+ 4 # h1, h2, h3                             #
+ 5 # 3-bar line break - colours #1          #
+ 6 # 3-bar line break - colours #2          #
+ 7 # 3-bar line break - colours #3          #
+ 
+ Misc:
+ ons_red = "#801650"
+ ons_orange = "#f46a25"
+ ons_purple = "#360036"
+ ons_green = "#28a197"
+ https://datavis.nisra.gov.uk/health/ni-cancer-waiting-times-jul-sep-22.html
+
+---------------------------------------------------------------------
+
+ Department for the Economy:
+
+ 1 # banner background                      #
+ 2 # banner background bottom border        #0072CE (Official) JSOK
+ 3 # a:link                                 #
+ 4 # h1, h2, h3                             #
+ 5 # 3-bar line break - colours #1          #
+ 6 # 3-bar line break - colours #2          #
+ 7 # 3-bar line break - colours #3          #
+ 
+  ---------------------------------------------------------------------
+ 
+ Department for Communities:
+ 
+ 1 # banner background                      #
+ 2 # banner background bottom border        #7d55c7 (Official) JSOK
+ 3 # a:link                                 #
+ 4 # h1, h2, h3                             #
+ 5 # 3-bar line break - colours #1          #00205B
+ 6 # 3-bar line break - colours #2          #7B549E
+ 7 # 3-bar line break - colours #3          #
+ 
+ Misc:
+ #7B549E
+
+---------------------------------------------------------------------
+
+ The Executive Office:
+
+ 1 # banner background                      #08215a or #002469
+ 2 # banner background bottom border        #7bafd4 (Official) JSOK
+ 3 # a:link                                 #
+ 4 # h1, h2, h3                             #
+ 5 # 3-bar line break - colours #1          #
+ 6 # 3-bar line break - colours #2          #
+ 7 # 3-bar line break - colours #3          #deebf7
+ 
+ Misc:
+ #7eb0d3 
+ 
+ ---------------------------------------------------------------------
+
+ Template:
+
+ 1 # banner background                      #
+ 2 # banner background bottom border        #
+ 3 # a:link                                 #
+ 4 # h1, h2, h3                             #
+ 5 # 3-bar line break - colours #1          #
+ 6 # 3-bar line break - colours #2          #
+ 7 # 3-bar line break - colours #3          #
+ 
+  ---------------------------------------------------------------------
+ 
+*/
+
+/*
+
+ done font - currently #333333; but maybe should be black - won't change between Department
+ done h2, h3 - #1460aa
+ done h2 - 30px
+ done h3 - 24px
+ done h4 - 18px, black bold 
+ done h5 - 16px, black and bold
+ 
+
+*/
+
+/* :root vars are global. If a data-nics-theme below is specified below, that will take precdence */
+:root {
+  --nics-links: #2574a9;
+  --nics-links-hover: #9900cc;
+  
+  --nics-banner-bg: #00205B; /* JSOK */
+  --nics-banner-highlight: #3878c5; /* JSOK */
+  
+  --nics-headings-h1-h2-h3: #1460aa;
+  
+  --nics-three-bar-colour-1: var(--nics-banner-bg);
+  --nics-three-bar-colour-2: var(--nics-banner-highlight);
+  --nics-three-bar-colour-3: var(--nics-banner-bg);
+  
+  --nics-download-button-1: var(--nics-banner-bg);
+  --nics-download-button-2: var(--nics-banner-highlight);
+
+  --nics-chart-dark: var(--nics-banner-bg);
+  --nics-chart-light: var(--nics-banner-highlight);
+}
+
+
+
+
+
+
+
+[data-nics-theme=teo] {
+  --nics-banner-highlight: #7bafd4;
+  --nics-three-bar-colour-2: var(--nics-banner-highlight);
+}
+
+[data-nics-theme=daera] {
+  --nics-banner-highlight: #009a44;
+  --nics-three-bar-colour-2: var(--nics-banner-highlight);
+}
+
+[data-nics-theme=dfc] {
+  --nics-banner-highlight: #7d55c7;
+  --nics-three-bar-colour-2: var(--nics-banner-highlight);
+}
+
+[data-nics-theme=de] {
+  --nics-banner-highlight: #ca2c93;
+  --nics-three-bar-colour-2: var(--nics-banner-highlight);
+}
+
+[data-nics-theme=dfe] {
+  --nics-banner-highlight: #0072CE;
+  --nics-three-bar-colour-2: var(--nics-banner-highlight);
+}
+
+[data-nics-theme=dof] {
+  --nics-three-bar-colour-3: #cedc20;
+}
+
+[data-nics-theme=dfi] {
+  --nics-banner-highlight: #ffb81c;
+  --nics-three-bar-colour-2: var(--nics-banner-highlight);
+}
+
+[data-nics-theme=doh] {
+  --nics-banner-highlight: #008eaa;
+  --nics-three-bar-colour-2: var(--nics-banner-highlight);
+}
+
+[data-nics-theme=doj] {
+  --nics-banner-highlight: #893b67;
+  --nics-three-bar-colour-2: var(--nics-banner-highlight);
+}
+
+body {
+  background-color: #FFFFFF;
+  color: #333333;
+}
+
+p, li, td, th {
+  font-size: 16px;
+  /* color: #333333; */
+}
+
+h1, h2, h3 {
+ color: var(--nics-headings-h1-h2-h3);
+}
+
+h2 {
+  font-size: 30px;
+  page-break-before: always;
+}
+
+h3 {
+  margin-top: 30px;
+  font-size: 24px;
+}
+
+h4, h5 {
+    font-weight: bold;
+    color: #000000;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+h5 {
+  font-size: 16px;
+}
+
+a {
+  color: var(--nics-links);
+  text-decoration: underline;
+}
+
+a:hover {
+  color: var(--nics-links-hover);
+}
+
+a:focus{
+  outline: 2px solid red;
+}
+
+  caption {
+	  font-size: 120%;
+	  color: #000000;
+}
+
+/* Has the title element from YAML only appear in the metadata */
+.title {
+  display: none;
+}
+
+.middle p {
+  color: #ffffff;
+  font-size: 30px;
+  text-transform: capitalize;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.middle {
+  width: 56%;
+  text-align: center;
+  vertical-align: middle;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: var(--nics-banner-bg);
+}
+
+.middlenatstats {
+  width: 56%;
+  text-align: center;
+  vertical-align: middle;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: var(--nics-banner-bg);
+  padding-top: 20px;
+}
+
+/* Sets dimensions for logos in title area */
+.left, .right {
+  width: 22%;
+  padding-top: 25px;
+  background-color: var(--nics-banner-bg);
+}
+
+/* Indents First NISRA logo from left */
+.left {
+  padding-left: 25px;
+
+}
+
+/* Indents NISRA logo from right */
+.right {
+  padding-right: 25px;
+}
+
+/* Sets dimensions for decorative elements */
+.border {
+  width: 33.33%;
+  height: 9px;
+}
+
+/* Sets dimensions for subtitle */
+.findings {
+  background-color: var(--nics-banner-bg);
+  font-size:18px;
+  color: #ffffff;
+  text-align: center;
+  vertical-align: text-top;
+  width: 100%;
+  padding-bottom:10px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.row-indent {
+  width: 15px;
+}
+
+
+/* .csv-button {
+  height: 35px;
+  width: 75px;
+  background-color: #00205B;
+  text-align: center;
+  padding-top: 5px;
+} */
+
+.csv-button2 {
+  height: 35px;
+  width: 200px;
+  background-color: var(--nics-download-button-1);
+  text-align: center;
+  padding-top: 5px;
+}
+
+/* .csv-button a:link,
+.csv-button a:visited,
+.csv-button a:active,
+.csv-button a:hover {
+  color: #ffffff;
+  font-size: 18px;
+} */
+
+.csv-button2 a:link,
+.csv-button2 a:visited,
+.csv-button2 a:active,
+.csv-button2 a:hover {
+  color: #ffffff;
+  font-size: 18px;
+}
+
+/* .xl-button {
+  height: 35px;
+  width: 200px;
+  background-color: #3878c5;
+  text-align: center;
+  padding-top: 5px;
+} */
+
+.xl-button2 {
+  height: 35px;
+  width: 200px;
+  background-color: var(--nics-download-button-2);
+  text-align: center;
+  padding-top: 5px;
+}
+
+/* .xl-button a:link {
+  color: #ffffff;
+  font-size: 18px;
+} */
+
+.xl-button2 a:link,
+.xl-button2 a:visited,
+.xl-button2 a:active,
+.xl-button2 a:hover {
+  color: #ffffff;
+  font-size: 18px;
+}
+
+
+
+/* Boxes for definitions */
+.defboxes {
+  background:#ebf2ff; border:3px; border-style:solid; border-color: #00205b; padding: 1em;
+} 
+
+
+/* Boxes for statuses */
+.statusbox {
+  background:#FFBCD9; border:3px; border-style:solid; border-color: #ff0000; padding: 1em;
+} 
+
+
+.statusbox_red {
+  background:#FFBCD9; border:3px; border-style:solid; border-color: #ff0000; padding: 1em;
+} 
+
+.statusbox_green {
+  background:#00FF00; border:3px; border-style:solid; border-color: #00b300; padding: 1em;
+} 
+
+.statusbox_amber {
+  background:#FFBF00; border:3px; border-style:solid; border-color: #ff7c00; padding: 1em;
+} 
+
+
+.statusbox_blue {
+  background:#00FFFF; border:3px; border-style:solid; border-color: #0000FF; padding: 1em;
+} 
+
+.statusbox_purple {
+  background:=#DDA0DD; border:3px; border-style:solid; border-color: #800080; padding: 1em;
+} 
+
+.statusbox_grey {
+  background:=#DADADA; border:3px; border-style:solid; border-color: #808080; padding: 1em;
+} 
+
+
+/* Reset styles for toc */
+.tocify-item.list-group-item a {
+  text-decoration: none;
+  color: #333333;
+}
+
+.tocify-item.list-group-item.active a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+li .tocify-item.list-group-item {
+  font-size: 16px;
+}
+
+/* Fixes hyperlink print issue */
+@media print {
+  a[href]:after {
+    content: none !important;
+  }
+}
+
+
+.prerelease-stripes {
+  background: repeating-linear-gradient(
+    -45deg,
+    #ffff00,
+    #ffff00 10px,
+    #000000 10px,
+    #000000 20px
+  );
+  
+}
+
+.prerelease {
+  border: 5px solid black;
+  background-color: #ffff00;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+/* Unindent and then re-indent toc items */
+/* .tocify-item.list-group-item.active, .tocify-item.list-group-item {
+  text-indent: -0.33em;
+  padding-left: 1em;
+}
+
+.tocify-subheader.list-group .tocify-item.list-group-item.active{
+  text-indent: 1em;
+}
+
+.tocify-subheader.list-group .tocify-item.list-group-item{
+  text-indent: 1em;
+} */
+
+/* Avoid page breaks inside plots */
+.plot-container.plotly {
+  page-break-inside: avoid;
+}
+

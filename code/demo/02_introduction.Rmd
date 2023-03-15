@@ -1,0 +1,49 @@
+---
+title: "02 Introduction Sub Report"
+output: html_document
+knit: (function(input, ...) {
+    rmarkdown::render(
+      input,
+       output_dir = "../demo/demo_outputs/",
+        output_file = paste0(
+        xfun::sans_ext(input), '_', format(Sys.time(), "%d-%m-%Y_%H%M") , '.html'
+      ),
+      envir = globalenv()
+    )
+  })
+---
+  
+  
+
+```{r, include=FALSE}
+# this chunk sets chunk options for all chunks in this file
+knitr::opts_chunk$set(
+  message= FALSE, echo = FALSE
+)
+
+library(here)
+
+source(paste0(here(),"/code/config.R"))
+source(paste0(here(),"/code/demo/demo_data_prep.R"))
+source(paste0(here(),"/code/demo/demo_config.R"))
+
+```
+
+This is a section with some basic paragraphs of text like you would use for an introduction or commentary. The data used in this exemplar are from the [Mid-Year Population Estimates by LGD on OpenDataNI]( https://www.opendatani.gov.uk/dataset/population-estimates-for-northern-ireland). It includes LGD2014, single year of age and gender mid-year estimates for years `r earliest_year` to `r latest_year`. We are using it to outline some accessibility features. If a report uses a number of different data sources, they should be provided along with their respective figures/tables. For example:
+
+> Source: [NISRA - 2019 Mid Year Population Estimates for Northern Ireland](https://www.nisra.gov.uk/publications/2019-mid-year-population-estimates-northern-ireland)
+
+The source can be specified in the 'fig.cap' option of R Markdown blocks to be included underneath figures.
+
+### Text and hyperlinks
+
+A key element is using header tags to structure your document. Screen readers use these to scan and navigate documents so it's important that headings are tagged correctly. The colour used in these headings is #1460aa rather than NISRA blue to meet accessibility standards. 
+
+* the title of the document is tagged as h1, don't use elsewhere
+* don't use heading styles to format text that isn't a heading (for example to emphasise a point) 
+* don't use bold, colour or text size to create visual headings without tagging at the appropriate level
+* don't skip any heading levels, follow order h1, h2, h3, h4
+
+More detailed guidance on writing for web is available in the Drupal user manual published by Dissemination Branch. You can find the [Drupal user manual and other accessibility guidance on Nisranet.](https://www.nisranet.com/documents/accessibility-guidance.asp) 
+
+When creating a hyperlink, do not use the url. Instead, create link text that describes the link destination and if appropriate a file type and size. If linking to a data download, we are advising against linking directly to the actual file, instead link to the publication page. If linking directly to the file you have to include the file type and size in the link text and tell users if it opens in a new window. The colour of hyperlinks in this exemplar were changed in the cascading style sheets (CSS) because the default colour was too low contrast to meet accessibility standards. 

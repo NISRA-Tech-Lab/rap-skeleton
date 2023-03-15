@@ -1,0 +1,216 @@
+---
+title: "04 Tables Sub Report"
+output: html_document
+knit: (function(input, ...) {
+    rmarkdown::render(
+      input,
+      output_dir = "../demo/demo_outputs/",
+      output_file = paste0(
+        xfun::sans_ext(input), '_', format(Sys.time(), "%d-%m-%Y_%H%M") , '.html'
+      ),
+      envir = globalenv()
+    )
+  })
+---
+  
+  
+
+```{r, include=FALSE}
+# this chunk sets chunk options for all chunks in this file
+knitr::opts_chunk$set(
+  message= FALSE, echo = FALSE
+)
+
+library(here)
+
+source(paste0(here(),"/code/config.R"))
+source(paste0(here(),"/code/demo/demo_data_prep.R"))
+source(paste0(here(),"/code/demo/demo_config.R"))
+
+```
+
+
+This section has a number of basic tables. The Good Practice Team recommend that only small demonstration tables should be included in the publication itself. Demonstration tables are small tables which highlight one or two messages clearly and are supported by commentary.
+
+When it comes to accessibility, a good rule of thumb is to use a simple structure. Use a simple table matrix with a single row of column headers describing what is in each column. Other considerations are as follows:
+
+* don't merge cells
+* don't have blank rows or columns
+* every column should have a heading
+* make sure all headings and labels are visible
+* use consistent rounding
+* left align text, or row labels, right align numbers
+* use thousand comma separator
+* avoid abbreviations or make sure they are explained fully
+* use caption for table titles
+* put any data labels in the headings such as % or millions or STG
+* don't use symbols such as * or superscripts to create notes or explanations
+
+### Basic table (h3)
+
+#### Table 1: Mid Ulster had the highest proportion of under 25s (h4) {#table2 .tabset .tabset-pills}
+
+**Select the tab to view population of young or elderly people.**
+
+##### 1a Population of young people by LGD 
+ 
+```{r table 2 youth}
+
+# kable code needs to be created as a string to allow correct rendering of source code on second tab
+
+table_2_youth = 'kable(df_mye_latest_year_youthrate,
+
+      #left align text, right align numbers
+      align = ("lrrr"),
+      
+      #full and descriptive headings
+      col.names = c("Local Government District (LGD)",
+          "Young people in LGD",
+          "Total population of LGD",
+          "Young people as percentage"),
+          
+      #use caption to keep text associated with table
+      caption = paste0("Population of young people by Local Government District in NI, ", latest_year),
+      
+      #add thousand separator
+      format.args = list(big.mark = ","),
+      label = NA)%>%
+  kable_styling()'
+
+eval(str2expression(table_2_youth))
+
+```
+Commentary describing the key messages you want readers to take from the table could go here.
+
+##### 1a Source
+
+```{r table_2_youth_source}
+f_print_code(table_2_youth)
+```
+
+##### 1b Population of elderly people by LGD
+
+```{r table 2 elderly}
+
+# kable code needs to be created as a string to allow correct rendering of source code on fourth tab
+
+table_2_elderly = 'kable(df_mye_latest_year_elderlyrate,
+
+      #left align text, right align numbers
+      align = ("lrrr"),
+      
+      #full and descriptive headings
+      col.names = c("Local Government District (LGD)",
+          "Elderly people in LGD",
+          "Total population of LGD",
+          "Elderly people as percentage"),
+          
+      #use caption to keep text associated with table
+      caption = paste0("Population of elderly people by Local Government District in NI, ", latest_year),
+      
+      #add thousand separator
+      format.args = list(big.mark = ","),
+      label = NA)%>%
+  kable_styling()'
+
+eval(str2expression(table_2_elderly))
+
+```
+
+Commentary describing the key messages you want readers to take from the table could go here.
+
+##### 1b Source
+
+```{r table_2_elderly_source}
+f_print_code(table_2_elderly)
+```
+
+### Pagination (h3)
+
+#### Table 2: NI population is growing year on year (h4)
+
+```{r table_pagnination, echo=FALSE, warning=FALSE, message=FALSE, out.width="100%"}
+
+datatable(df_mye_year_gender_t,
+          #DT creates row numbers by default. Suppress to ensure all cols have a header         
+          rownames = FALSE, 
+          #Rename column headers to make them descriptive          
+          colnames = c("Mid Year Ending",
+                    "Females",
+                    "Males",
+                    "NI Population Total"),
+          caption = paste0("Number of males and females making up the total NI population from ", earliest_year, - latest_year),
+          #left align first column and add thousand separator to numbers
+          options = list(columnDefs = list(list(className = 'dt-left', targets = 0)))
+) %>%
+  formatRound(c('Females', 'Males', 'All persons'), digits = 0, interval = 3, mark = ",")
+
+
+```
+Descriptive commentary to highlight key point from this table. Females outnumber males year on year and population growth is driven by both sexes
+
+
+
+### Cross-tabulation (h3)
+#### Table 3: Under 25s were the largest age group in NI
+
+```{r table_crosstab, echo = FALSE, warnings = FALSE, message = FALSE, out.width="100%"}
+
+CrossTabData = df_mye_latest_year_agegroup_gender %>%
+  pivot_wider(names_from = gender, values_from = pop_total) %>%
+  mutate(persons = Males+Females)
+
+CrossTabData["Female_Male_ratio_100"] = round(CrossTabData$Females / CrossTabData$Males * 100,0)
+
+# Adding thousand separator
+CrossTabData$Females= prettyNum(CrossTabData$Females, big.mark = ",")
+CrossTabData$Males = prettyNum(CrossTabData$Males, big.mark = ",")
+CrossTabData$persons = prettyNum(CrossTabData$persons, big.mark = ",")
+
+kable(CrossTabData,
+      #left row labels, right align numbers
+      align = "lrrrr",
+      #make column headings clear and descriptive
+      col.names = c("Age group",
+      "Females",
+      "Males",
+      "Total persons",
+     "Number of females to every 100 males"),
+     #use caption for descriptive title
+    caption = paste0("NI population by broad age band and gender ", latest_year),
+    )%>%
+    kable_styling()
+
+
+```
+
+If we group the population into broad age bands we can compare the proportion of males to females. Males outnumber females in the under 25 age group only. As age increases, the ratio of females to males increases.
+
+### Table with colour scales
+#### Table 4: Armagh City, Banbridge and Craigavon saw greatest increase in population from `r latest_year - 1` to `r latest_year`
+
+```{r t4-formattable}
+
+# function to add thousand separator
+mycomma <- function(digits = 0) {
+      formatter("span", x ~ comma(x, digits = digits)
+      )
+}
+
+# up and down arrows added to column 4
+# colour tiles added to column 5. Colour selected is a lighter shade of nisra_blue (which failed accessibility check). Seems that colour specified in code is the mid point of the tiles generated so needs to be pale to ensure contrast for higher levels is sufficient.
+t4 <- formattable(df_t4_html,
+                  align = c("lrrrr"),
+                  list(
+                  area(col = 2:3) ~mycomma(digits = 0), # apply mycomma fn
+                  area(col = 5)  ~color_tile("transparent", "#7ca6da"),
+                 `Change` = formatter("span", style = ~ style(
+                    color = ifelse(
+                      `Change` > 0, "black", "red")),
+                  ~icontext(ifelse(
+                   `Change` >0, "arrow-up",
+                  "arrow-down"), format(`Change`, big.mark = ","))
+                   )
+                  ))
+t4
+```

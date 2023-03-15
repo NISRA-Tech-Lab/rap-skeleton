@@ -1,0 +1,145 @@
+---
+title: "RAP Skeleton"
+lang: "en"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 4
+    code_download: no
+    css: "style.css"
+knit: (function(input, ...) {
+    rmarkdown::render(
+      input,
+      output_dir = "../outputs/",
+      output_file = paste0(
+        xfun::sans_ext(input), '_', format(Sys.time(), "%d-%m-%Y_%H%M") , '.html'
+      ),
+      envir = globalenv()
+    )
+  })
+params:
+  nicstheme: dof
+  prerelease: TRUE
+---
+<!-- params:
+     nicstheme - can be any of teo, daera, dfc, de, dfe, dof, dfi, doh, doj
+     prerelease - can be TRUE or FALSE
+-->
+
+<!--Add tabs to table of contents-->
+<body onload="tabOrder()">
+
+<!--html_preserve-->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-72688332-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-72688332-4');
+</script>
+<!--/html_preserve-->
+
+<!-- message to rotate screen when width is too low -->
+
+```{r settings, include=FALSE}
+# this chunk sets chunk options for all chunks in this file
+knitr::opts_chunk$set(
+  message= FALSE, echo = FALSE, warning = FALSE
+)
+```
+<div data-nics-theme="`r params$nicstheme`">
+
+
+```{r setup, warnings = FALSE}
+
+library(here)
+       
+source(paste0(here(),"/code/config.R"))
+source(paste0(here(),"/code/data_prep.R"))
+
+```
+
+
+`r f_banner()`  <!-- calling the banner code -->
+
+<!-- Header section -->
+
+`r f_header()`
+
+
+
+<!-- Introduction section -->
+
+<div id="main" role="main">
+`r f_borderline()`  <!-- calling the borderline code -->
+ 
+<!-- Single Rmd -vs- 'sub-reports' -->
+<!-- Depending on your requirements, you can edit this document - add text, charts, links etc. directly into report.Rmd and knit -->
+<!-- For larger projects with multiple large sections, or when you need many contributors to edit it simultaneously, a s'sub-report' approach is available -->
+<!-- With 'sub-reports', you can dynamically reference other .Rmd content into this file, similar to a cell reference in Excel -->
+<!-- The demo code (code/demo/demo_report.Rmd) makes use of this (Note: you can have a hybrid e.g. Key points is hard-coded and sub-reports for other sections  -->
+
+<!-- Example: code/demo/demo_report.Rmd: -->
+<!-- ```{r introduction_sub_report, child='02_introduction.Rmd' }               -->
+<!-- ```                                                                        -->
+<!-- 'introduction_sub_report' is the name of the section                       -->
+<!-- child='02_introduction.Rmd' is a reference to the file you want to include -->
+
+
+## 1. Section header (h2)
+
+Section text.
+
+### Subsection heading (h3)
+
+Subsection text.
+
+<!-- closing main div -->
+</div>
+
+<!-- open footer div -->
+<div class="footer">
+
+<!-- message to rotate screen if it is below 400px width -->
+<div id="rotate-screen">
+  <p style="color: white;">Please rotate your screen for optimal experience</p>
+</div>
+
+
+```{js}
+
+
+// Create array of alt texts for map shapes
+const mapAlt = `r mapAlt`;
+
+
+// Function to remove map shapes from tab order, and add tabs to table of contents
+
+function tabOrder() {
+
+  // Removes tabs from individual map shapes and appends alt texts
+
+  var shapes = document.getElementsByClassName('leaflet-marker-icon leaflet-zoom-animated leaflet-interactive');
+
+  for (var i=0; i<shapes.length; i++) {
+    shapes[i].tabIndex = -1;
+    shapes[i].alt = mapAlt[i];
+  }
+  
+  // Make side menu tabbable
+
+  var headings = document.getElementsByClassName('tocify-item list-group-item');
+  
+  for (var i=0; i<headings.length; i++) {
+    headings[i].innerHTML = "<a href='#'>" + headings[i].innerHTML +  "</a>";
+  }
+  
+};
+```
+<!-- close footer div -->
+</div>
+
+<!-- close data-nics-theme div-->
+</div>

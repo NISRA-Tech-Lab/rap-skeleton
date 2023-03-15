@@ -1,0 +1,105 @@
+---
+title: "07 Text Sub  Report"
+output: html_document
+knit: (function(input, ...) {
+    rmarkdown::render(
+      input,
+      output_dir = "../demo/demo_outputs/",
+      output_file = paste0(
+        xfun::sans_ext(input), '_', format(Sys.time(), "%d-%m-%Y_%H%M") , '.html'
+      ),
+      envir = globalenv()
+    )
+  })
+---
+  
+  
+
+```{r, include=FALSE}
+# this chunk sets chunk options for all chunks in this file
+knitr::opts_chunk$set(
+  message= FALSE, echo = FALSE
+)
+
+library(here)
+
+source(paste0(here(),"/code/config.R"))
+source(paste0(here(),"/code/demo/demo_data_prep.R"))
+source(paste0(here(),"/code/demo/demo_config.R"))
+
+```
+
+
+
+
+
+This section includes more subheading levels, a quote, unordered lists, ordered lists and links.
+
+<!-- coloured definiton boxes -->
+<p class="defboxes">
+  <font color = `r nisra_navy`>__Mid Year Estimates:__<br>
+    In June each year NISRA prepares data on the size of the Northern Ireland population and includes statistics on a range of     administrative and statistical geographies. A style like this could be used for definitions or for emphasis.
+  </font>
+</p> 
+
+### Notes (h3)
+
+This section has been separated from the main section of the document to aid navigation.
+
+1. It may include a series of methodology notes
+2. It may include contact details
+3. Email addresses should all be lowercase jo.bloggs@nisra.gov.uk and it is good practice to include a named individual (some exemptions apply) 
+4. Links to [previous publications](https://www.nisra.gov.uk/publications/2020-mid-year-population-estimates-northern-ireland)
+5. Links to downloads should have file type and size in the link text [2020 Mid-year population estimates statistical bulletin pdf 694KB](https://www.nisra.gov.uk/sites/nisra.gov.uk/files/publications/MYE20-Bulletin.pdf)
+6. It may include links to social media accounts [Twitter](https://twitter.com/NISRA) and [Facebook](https://www.facebook.com/nisra.gov.uk)
+7. It should include key quality information (including any limitations or key caveats) and a link to the Background Quality Report (or the equivalent)
+8.	Where appropriate, limitations or caveats should also be flagged in the text alongside the data, as not all users will read the Notes section
+9.	It should include links to the equivalent statistics in England, Scotland and Wales (and if appropriate RoI) or indicate that equivalent statistics are not available  (with an explanation or guidance on comparison if appropriate) - assuming this information is not included elsewhere in the publication.
+10.	It should include definitions (or a link to definitions) of all relevant concepts and terms.  Whether the definition is included in the text, the Notes section or a link provided depends on the importance of the reader knowing the correct definition
+
+
+
+### Administrative geographies (h3)
+
+#### Local Government Districts (h4)
+
+1. Antrim and Newtownabbey (no ampersand).
+2. Ards and North Down.
+3. Armagh City, Banbridge and Craigavon.
+4. Belfast.
+5. Causeway Coast and Glens.
+6. Derry and Strabane.
+7. Fermanagh and Omagh.
+8. Lisburn and Castlereagh.
+9. Mid and East Antrim.
+10. Mid Ulster.
+11. Newry, Mourne and Down.
+
+#### Health and Social Care Trusts (h4)
+
+1. Belfast HSC Trust.
+2. South Eastern HSC Trust.
+3. Western HSC Trust.
+4. Southern HSC Trust.
+5. Northern HSC Trust.
+6. NI Ambulance Service.
+
+### Statistical geographies (h3)
+
+* NUTS III areas.
+* Super Output Areas.
+* Census Small Areas.
+
+### Former administrative and statistical geographies (h3)
+
+-	Parliamentary Constituencies (Assembly Areas). 
+-	Health & Social Care Trusts. 
+-	The former Education & Library Boards. 
+-	The former Health & Social Services Boards.
+- The former NUTS-III areas. 
+-	The former 582 Electoral Wards.
+
+Bullets following a heading start with a capital letter, finish with a full stop and are short (no more than one sentence)
+
+Bullets as a list within the text should always have a lead-in line, start in lowercase (unless it starts with a proper noun), don't have full stops within bullets or at the end. For more guidance see the [ONS punctuation guide](https://style.ons.gov.uk/category/house-style/punctuation/#bullet-points).
+
