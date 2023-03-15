@@ -34,18 +34,31 @@ Initially Tech Lab itself expects to be the primary customer but we hope experie
 
 ## :bell: Getting started
 
-### FOR RENV USERS ONLY !!! Renv - package management - getting started
+### renv
 
-Renv is package management tool for R that support reproducible code over time - it keeps a record of packages and package versions. When you first start/download a project with renv, you need to run a few commands but after that it is fairly hands off.
+#### What is renv?
 
-- Download this project and open the `rap-skeleton.Rproj` file
-- A message about `Bootstrapping renv` might appear. If you get `Error in bootstrap` at the end, run `renv::init()` (if this fails, run `install.packages(renv)` in the Terminal to install or click the yellow banner in Rstudio to install renv if that appears)
-- You should be presented with some options - select option `1` for `Restore the project from the lockfile`. This will begin downloading and installing the specific versions of packages that it was built with.
-- If some packages fail, try running `renv::restore()` again
-- If they continue to fail, try running `renv::install(packagename)`
-- If that doesn't work, try running `install.packages(packagename)` and then running `renv::restore()`
-- If you get a warning `renv 0.16.0 was loaded from project library, but this project is configured to use renv 0.17.0.`, it should be safe to run the command it lists to update to the requested version.
-- Once this completes without error, the result of `renv::status()` should be `* The project is already synchronized with the lockfile.`
+Renv is a tool that supports reproducibility in R projects. See [their website](https://rstudio.github.io/renv/index.html) for more details. 
+
+#### Why are we moving to renv?
+
+Renv supports the reproducibility of projects both over time (so a project from 2 years ago is more likely to work because you can get the exact packages it was built with) and between users (if you have code problem and your colleague doesn't, you can usually rule out package version differences as the cause). It also helped us solve problems with repository issues that were presenting randomly within and between users.
+
+#### Is renv perfect?
+
+No. renv introduces issues itself, but we feel these are more manageable and easier to pinpoint than alternatives. The main issue we have found is when a package updates and a user is forced to build an older version from source - with `sf`/`terra` in particular this requires updates to Rtools (a program installed alongside R to help building packages). Newer versions of Rtools seem to work with newer packages, but break building very old versions of packages. We're still exploring this area.
+
+#### renv setup
+
+- Download/clone this project and open the project (`rap-skeleton.Rproj`) 
+- To install and configure renv for this project, run `source("renv/activate.R")` in the Console of RStudio 
+- Disable the MRAN repository using `options(renv.config.mran.enabled = FALSE)` 
+- Tell renv to download and install the packages this projects needs with `renv::restore()` 
+
+#### renv troubleshooting
+
+- sf/terra and other rspatial packages might give errors while building from source. Go to [CRAN](https://cran.r-project.org/web/packages/sf/index.html) and find out the latest version of the troublesome package. Tell renv to use that version using `renvv::record()`. For example, if the latest version of sf is `1.0-12` you would run `renv::record("sf@1.0-12")` and then run `renv::restore()` 
+- If you get an error that mentions 'mran' e.g. `failed to retrieve 'https://rstudio-buildtools.s3.amazonaws.com/renv/mran/packages.rds' [error code 22]`, re-run `options(renv.config.mran.enabled = FALSE)` (sometimes it re-enables itself) 
 
 ### Key files and folders
 
