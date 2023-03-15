@@ -51,9 +51,16 @@ No. renv introduces issues itself, but we feel these are more manageable and eas
 #### renv setup
 
 - Download/clone this project and open the project (`rap-skeleton.Rproj`) 
-- To install and configure renv for this project, run `source("renv/activate.R")` in the Console of RStudio 
-- Disable the MRAN repository using `options(renv.config.mran.enabled = FALSE)` 
-- Tell renv to download and install the packages this projects needs with `renv::restore()` 
+- To install and configure renv for this project, run `source("renv/activate.R")`  
+- Disable the MRAN repository using `options(renv.config.mran.enabled = FALSE)` (it won't return any results if it works)
+- Tell renv to download and install the packages this projects needs with `renv::restore()` and then press 'y' to accept
+
+#### renv setup summary
+
+- Open project 
+- `source("renv/activate.R")` 
+- `options(renv.config.mran.enabled = FALSE)` 
+- `renv::restore()` and press 'y' to accept
 
 #### renv troubleshooting
 
