@@ -18,7 +18,7 @@ knit: (function(input, ...) {
 ```{r, include=FALSE}
 # this chunk sets chunk options for all chunks in this file
 knitr::opts_chunk$set(
-  message= FALSE, echo = FALSE
+  warning = FALSE, message= FALSE, echo = FALSE
 )
 
 library(here)
@@ -49,12 +49,13 @@ Ensure the data underlying the maps is accessible to users who cannot perceive i
 
 Include descriptive text before or after the map.
 
-#### Map 1: Proportion of people aged under 25 in NI by LGD
+#### Map 1: Proportion of people aged under 25 in NI by LGD {#map1 .tabset .tabset-pills}
 
+##### Map output
 
 ```{r map_static, echo = FALSE, warnings = FALSE, message = FALSE, fig.alt="Map of Northern Ireland shaded by percentage of under 25s living in each Local Government District. More detail on the trends are included in the text directly above or below the map", out.width="100%"}
 
-map1_static_map <- tm_shape(df_map_data,
+map_1 = 'map1_static_map <- tm_shape(df_map_data,
                             # Default is km
                             unit = "imperial") +  
                    tm_polygons(# Colours the map sections based on these values
@@ -81,13 +82,13 @@ map1_static_map <- tm_shape(df_map_data,
                             ymod = c(-0.5, 0, 0.2, 0.3, 0, 0, 1.4, -0.5, 0.3, 0, -1)
                             ) +
                    tm_add_legend(# add manual legend as a key
-                                 'symbol',
-                                 col = '#00205b',
-                                 title = 'Key',
+                                 "symbol",
+                                 col = "#00205b",
+                                 title = "Key",
                                  labels = c(
-                                   'AN = Antrim and Newtownabbey',
-                                   'AND = Ards and North Down',
-                                   'B = Belfast'
+                                   "AN = Antrim and Newtownabbey",
+                                   "AND = Ards and North Dow",
+                                   "B = Belfast"
                                  )
                             ) +
                    tm_format(# setting format to worldwide creates a wider rectangle shape that fits width of page
@@ -97,8 +98,17 @@ map1_static_map <- tm_shape(df_map_data,
 # Plotting map:
 tmap_mode("plot") # Set to "view" for interactive map or "plot" for static
 
-map1_static_map
+map1_static_map'
 
+eval(str2expression(map_1))
+
+
+```
+
+##### Map source
+
+```{r}
+f_print_code(map_1)
 ```
 
 ### Interactive Map (h3)
@@ -113,11 +123,13 @@ The default rendering tabs through the LGDs but the focus area is not visible fo
 
 Include descriptive text before or after the map.
 
-#### Map 2: Proportion of people aged under 25 in NI by LGD
+#### Map 2: Proportion of people aged under 25 in NI by LGD {#map2 .tabset .tabset-pills}
+
+##### Map (interactive) output
 
 ```{r map_interactive, echo = FALSE, warnings = FALSE, message = FALSE, fig.alt="alt text for interactive map", fig.cap="caption for interactive map", out.width="100%"}
 
-# Reduce the size of the shapefile using the simplify command in rmaptools.
+map_2 = '# Reduce the size of the shapefile using the simplify command in rmaptools.
 
 
 #### interactive map ####
@@ -178,11 +190,18 @@ map2_interactive_map <- tm_shape(df_map_data %>%
 
 map2_interactive_map
 
+# please also refer to the "alt text for maps" chunk in the source code of this section for additional configurations'
+
+eval(str2expression(map_2))
 
 
 ```
 
+##### Map (interactive) source
 
+```{r}
+f_print_code(map_2)
+```
 
 
 ```{r alt text for maps, echo = FALSE}
