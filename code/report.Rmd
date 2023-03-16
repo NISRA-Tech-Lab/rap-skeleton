@@ -23,7 +23,7 @@ params:
   prerelease: TRUE
 ---
 <!-- params:
-     nicstheme - can be any of teo, daera, dfc, de, dfe, dof, dfi, doh, doj
+     nicstheme - can be any of teo, daera, dfc, de, dfe, dof, dfi, doh, doj, bso
      prerelease - can be TRUE or FALSE
 -->
 
