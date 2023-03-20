@@ -48,17 +48,17 @@ When it comes to accessibility, a good rule of thumb is to use a simple structur
 
 ### Basic table (h3)
 
-#### Table 1: Mid Ulster had the highest proportion of under 25s (h4) {#table2 .tabset .tabset-pills}
+#### Table 1: Mid Ulster had the highest proportion of under 25s (h4) {#table1 .tabset .tabset-pills}
 
 **Select the tab to view population of young or elderly people.**
 
 ##### 1a Population of young people by LGD 
  
-```{r table 2 youth}
+```{r}
 
 # kable code needs to be created as a string to allow correct rendering of source code on second tab
 
-table_2_youth = 'kable(df_mye_latest_year_youthrate,
+table_1_youth = 'kable(df_mye_latest_year_youthrate,
 
       #left align text, right align numbers
       align = ("lrrr"),
@@ -77,24 +77,24 @@ table_2_youth = 'kable(df_mye_latest_year_youthrate,
       label = NA)%>%
   kable_styling()'
 
-eval(str2expression(table_2_youth))
+eval(str2expression(table_1_youth))
 
 ```
 Commentary describing the key messages you want readers to take from the table could go here.
 
 ##### 1a Source
 
-```{r table_2_youth_source}
-f_print_code(table_2_youth)
+```{r}
+f_print_code(table_1_youth)
 ```
 
 ##### 1b Population of elderly people by LGD
 
-```{r table 2 elderly}
+```{r}
 
 # kable code needs to be created as a string to allow correct rendering of source code on fourth tab
 
-table_2_elderly = 'kable(df_mye_latest_year_elderlyrate,
+table_1_elderly = 'kable(df_mye_latest_year_elderlyrate,
 
       #left align text, right align numbers
       align = ("lrrr"),
@@ -113,7 +113,7 @@ table_2_elderly = 'kable(df_mye_latest_year_elderlyrate,
       label = NA)%>%
   kable_styling()'
 
-eval(str2expression(table_2_elderly))
+eval(str2expression(table_1_elderly))
 
 ```
 
@@ -121,17 +121,19 @@ Commentary describing the key messages you want readers to take from the table c
 
 ##### 1b Source
 
-```{r table_2_elderly_source}
-f_print_code(table_2_elderly)
+```{r}
+f_print_code(table_1_elderly)
 ```
 
 ### Pagination (h3)
 
-#### Table 2: NI population is growing year on year (h4)
+#### Table 2: NI population is growing year on year (h4) {#table2 .tabset .tabset-pills}
 
-```{r table_pagnination, echo=FALSE, warning=FALSE, message=FALSE, out.width="100%"}
+##### Table 2 output
 
-datatable(df_mye_year_gender_t,
+```{r, echo=FALSE, warning=FALSE, message=FALSE, out.width="100%"}
+
+table_2 = 'datatable(df_mye_year_gender_t,
           #DT creates row numbers by default. Suppress to ensure all cols have a header         
           rownames = FALSE, 
           #Rename column headers to make them descriptive          
@@ -141,22 +143,28 @@ datatable(df_mye_year_gender_t,
                     "NI Population Total"),
           caption = paste0("Number of males and females making up the total NI population from ", earliest_year, - latest_year),
           #left align first column and add thousand separator to numbers
-          options = list(columnDefs = list(list(className = 'dt-left', targets = 0)))
-) %>%
-  formatRound(c('Females', 'Males', 'All persons'), digits = 0, interval = 3, mark = ",")
+          options = list(columnDefs = list(list(className = "dt-left", targets = 0)))) %>%
+  formatRound(c("Females", "Males", "All persons"), digits = 0, interval = 3, mark = ",")'
 
+eval(str2expression(table_2))
 
 ```
 Descriptive commentary to highlight key point from this table. Females outnumber males year on year and population growth is driven by both sexes
 
+##### Table 2 source
 
+```{r}
+f_print_code(table_2)
+```
 
 ### Cross-tabulation (h3)
-#### Table 3: Under 25s were the largest age group in NI
+#### Table 3: Under 25s were the largest age group in NI {#table3 .tabset .tabset-pills}
 
-```{r table_crosstab, echo = FALSE, warnings = FALSE, message = FALSE, out.width="100%"}
+##### Table 3 output
 
-CrossTabData = df_mye_latest_year_agegroup_gender %>%
+```{r, echo = FALSE, warnings = FALSE, message = FALSE, out.width="100%"}
+
+table_3 = ('CrossTabData = df_mye_latest_year_agegroup_gender %>%
   pivot_wider(names_from = gender, values_from = pop_total) %>%
   mutate(persons = Males+Females)
 
@@ -179,19 +187,28 @@ kable(CrossTabData,
      #use caption for descriptive title
     caption = paste0("NI population by broad age band and gender ", latest_year),
     )%>%
-    kable_styling()
+    kable_styling()')
 
+eval(str2expression(table_3))
 
 ```
 
 If we group the population into broad age bands we can compare the proportion of males to females. Males outnumber females in the under 25 age group only. As age increases, the ratio of females to males increases.
 
+##### Table 3 source
+
+```{r}
+f_print_code(table_3)
+```
+
 ### Table with colour scales
-#### Table 4: Armagh City, Banbridge and Craigavon saw greatest increase in population from `r latest_year - 1` to `r latest_year`
+#### Table 4: Armagh City, Banbridge and Craigavon saw greatest increase in population from `r latest_year - 1` to `r latest_year` {#table4 .tabset .tabset-pills}
 
-```{r t4-formattable}
+##### Table 4 output
 
-# function to add thousand separator
+```{r}
+
+table_4 = '# function to add thousand separator
 mycomma <- function(digits = 0) {
       formatter("span", x ~ comma(x, digits = digits)
       )
@@ -212,5 +229,15 @@ t4 <- formattable(df_t4_html,
                   "arrow-down"), format(`Change`, big.mark = ","))
                    )
                   ))
-t4
+
+t4'
+
+eval(str2expression(table_4))
+
+```
+
+##### Table 4 source
+
+```{r}
+f_print_code(table_4)
 ```
