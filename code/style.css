@@ -124,6 +124,21 @@ Department of Infrastructure:
  #7eb0d3 
  
  ---------------------------------------------------------------------
+ 
+  Business Services Organisation:
+
+ 1 # banner background                      #
+ 2 # banner background bottom border        #
+ 3 # a:link                                 #
+ 4 # h1, h2, h3                             #
+ 5 # 3-bar line break - colours #1          #
+ 6 # 3-bar line break - colours #2          #
+ 7 # 3-bar line break - colours #3          #
+ 
+ Misc:
+ #7eb0d3 
+ 
+ ---------------------------------------------------------------------
 
  Template:
 
@@ -220,6 +235,9 @@ Department of Infrastructure:
 [data-nics-theme=doj] {
   --nics-banner-highlight: #893b67;
   --nics-three-bar-colour-2: var(--nics-banner-highlight);
+}
+
+[data-nics-theme=bso] {
 }
 
 body {
