@@ -32,6 +32,10 @@ Initially Tech Lab itself expects to be the primary customer but we hope experie
 - Pre-release warning coded (see `prerelease` option in Rmd YAML)  
 - Notification for mobile users that some charts may not be optimised for mobile viewing
 
+## Roadmap
+
+![five-stages](https://user-images.githubusercontent.com/85889714/226331135-e0b45758-cdfc-43f1-800f-368391cd87d6.png)
+
 ## :bell: Getting started
 
 ### renv
