@@ -18,13 +18,13 @@ knit: (function(input, ...) {
 ```{r, include=FALSE}
 # this chunk sets chunk options for all chunks in this file
 knitr::opts_chunk$set(
-  message= FALSE, echo = FALSE
+  warning = FALSE, message= FALSE, echo = FALSE
 )
 
 ```
 
 
-```{r setup charts}
+```{r setup_charts}
 
 library(here)
 
@@ -66,12 +66,42 @@ The value labels have to meet the colour contrast requirements for normal sized 
 Include descriptive text before or after the chart.
 
 
-#### Figure 1: Mid year population estimates continue to increase
-##### Northern Ireland mid year population estimate (total) between `r earliest_year` and `r latest_year` {.tabset .tabset-pills}
+#### Figure 1: Mid year population estimates continue to increase 
+##### Northern Ireland mid year population estimate (total) between `r earliest_year` and `r latest_year` {#figure1 .tabset .tabset-pills}
 
-###### Fig 1 chart
+###### Figure 1 plotly output
 
-```{r Plotlyline, echo = FALSE, warnings = FALSE, message = FALSE, fig.alt="Figure 1 alt text example. More detail on the trends are included in the text directly above or below the chart, and data can be downloaded using the button below.", out.width="100%", out.height="100%"}
+```{r, echo = FALSE, warnings = FALSE, message = FALSE, fig.alt="Figure 1 alt text example. More detail on the trends are included in the text directly above or below the chart, and data can be downloaded using the button below.", out.width="100%", out.height="100%"}
+
+figure_1_plotly = ('year1_lab <- list(
+  x = ~mid_year_ending[1], y = ~ni_pop_total[1], # sets position of label
+  xanchor = "right", yanchor = "middle", # alignment of label
+  text = ~paste0(earliest_year, ": ", round(ni_pop_total[1]/1e6, 2), "m"), 
+  # punctuated and formatted label text
+  showarrow = FALSE, # turn off otherwise get line between label and chart
+  font = list(color = nisra_blue))
+ 
+ year2_lab <- list(
+   x = ~tail(mid_year_ending, n=1), # position at last value of x variable
+   y = ~tail(ni_pop_total, n=1), # position at last value of y variable
+   xanchor = "left", yanchor = "middle", # alignment
+   # punctuated and formatted label text
+   text = ~paste0(latest_year, ": ", round(tail(ni_pop_total, n=1) / 1e6, 2), "m"),
+   showarrow = FALSE,
+   font = list(color = nisra_blue))
+ 
+ # create annotations
+ # annotation on vertical line
+ note_1 <- list(x = 0.47, y = 1, # position of annotation
+                text = "2009",
+                showarrow = FALSE, xref = "paper", yref = "paper",
+                xanchor = "left", align = "left", 
+                font = list(size = 14, color = nisra_navy))
+ # use annotation rather than y axis title variable for horizontal text
+ yaxistitle <- list(x = 0, y = 1.06, text = "Population",
+                   showarrow = FALSE, xref = "paper", yref = "paper",
+                   xanchor = "center", yanchor = "centre", xshift = 0, yshift = 0,
+                   font = list(size = 14, color = "black"))
 
 # aesthetic definitions for vertical line used in fig1
 vline <- function(x = 0, color = nisra_navy) {
@@ -87,7 +117,7 @@ vline <- function(x = 0, color = nisra_navy) {
 }
 
 # create line chart (type = scatter and mode = line)
-fig1 <- plot_ly(df_annual_pop_tot,
+plot_ly(df_annual_pop_tot,
                 x = ~mid_year_ending,
                 y = ~ni_pop_total,
                 name = "NI population",
@@ -97,7 +127,7 @@ fig1 <- plot_ly(df_annual_pop_tot,
                 hoverinfo = "text",
                 # formatting hover text to millions(m) to 2dp
                 text = ~paste0(mid_year_ending, ": ", 
-                               round(ni_pop_total/ 1e6, 2), 'm')) %>%
+                               round(ni_pop_total/ 1e6, 2), "m")) %>%
   layout(showlegend = FALSE,
          xaxis = list(title = "Year",
                       showline = TRUE,
@@ -108,63 +138,35 @@ fig1 <- plot_ly(df_annual_pop_tot,
          yaxis = list(title = "",
                       showline = TRUE,
                       showgrid = FALSE)) %>%
-  layout(shapes = list(vline(2009))) # add vertical line at 2009 on x axis
-
-# build annotations for selected years and y axis title
-
-
- year1_lab <- list(
-  x = ~mid_year_ending[1], y = ~ni_pop_total[1], # sets position of label
-  xanchor = "right", yanchor = "middle", # alignment of label
-  text = ~paste0(earliest_year, ": ", round(ni_pop_total[1]/1e6, 2), "m"), 
-  # punctuated and formatted label text
-  showarrow = FALSE, # turn off otherwise get line between label and chart
-  font = list(color = nisra_blue))
- 
- year2_lab <- list(
-   x = ~tail(mid_year_ending, n=1), # position at last value of x variable
-   y = ~tail(ni_pop_total, n=1), # position at last value of y variable
-   xanchor = "left", yanchor = "middle", # alignment
-   # punctuated and formatted label text
-   text = ~paste0(latest_year, ": ", round(tail(ni_pop_total, n=1) / 1e6, 2), 'm'),
-   showarrow = FALSE,
-   font = list(color = nisra_blue))
- 
- # create annotations
- # annotation on vertical line
- note_1 <- list(x = 0.47, y = 1, # position of annotation
-                text = "2009",
-                showarrow = FALSE, xref = 'paper', yref = 'paper',
-                xanchor = 'left', align = 'left', 
-                font = list(size = 14, color = nisra_navy))
- # use annotation rather than y axis title variable for horizontal text
- yaxistitle <- list(x = 0, y = 1.06, text = 'Population',
-                   showarrow = FALSE, xref = 'paper', yref = 'paper',
-                   xanchor = 'center', yanchor = 'centre', xshift = 0, yshift = 0,
-                   font = list(size = 14, color = 'black'))
-
-  # add annotations to chart
-  fig1 <- fig1 %>% layout(annotations = list(year1_lab, 
+  layout(shapes = list(vline(2009))) %>% layout(annotations = list(year1_lab, 
                          year2_lab,
                          note_1,
                          yaxistitle
-                         )) %>%
-    # modebar is series of icons and plotly logo linked to plotly site. Turned off throughout to avoid multiple links going to same destination (poor accessibility) and icons can create visual clutter.
-   config(fig1, displayModeBar = FALSE)
+                         )) %>% 
+                         config( displayModeBar = FALSE)
+                         
+# modebar is series of icons and plotly logo linked to plotly site. Turned off throughout to avoid multiple links going to same destination (poor accessibility) and icons can create visual clutter.')
 
 
-fig1
+
+
+eval(str2expression(figure_1_plotly))
+
 # call make tables function to create chart download buttons
 f_make_tables(data = df_fig1_xls, title = fig1_title, data_style = ns_comma, data_dir = demo_data_dir)
 
 ```
 
+###### Figure 1 plotly source
+```{r}
+f_print_code(figure_1_plotly)
+```
 
-###### Fig 1 static
+###### Figure 1 static output
 
-```{r fig1b, out.width="100%", fig.alt="line chart showing growth in population from 2001 to 2019. More detail on trends is included in text immediately above or below the chart" }
+```{r, out.width="100%", fig.alt="line chart showing growth in population from 2001 to 2019. More detail on trends is included in text immediately above or below the chart" }
 
-fig1b <- ggline(df_annual_pop_tot,
+figure_1_static = ('fig1b <- ggline(df_annual_pop_tot,
                 x = "mid_year_ending",
                 y = "ni_pop_total",
                 #lines rather than points or points + lines
@@ -211,8 +213,16 @@ fig1b <- ggline(df_annual_pop_tot,
 
 fig1b
 
-# make tables function should be called to create download buttons
+# make tables function should be called to create download buttons - see plotly tab for example')
 
+eval(str2expression(figure_1_static))
+
+```
+
+###### Figure 1 static source
+
+```{r}
+f_print_code(figure_1_static)
 ```
 
 
@@ -228,11 +238,13 @@ Include descriptive text before or after the chart.
 
 
 #### Figure 2: Females outnumber males in total population
-##### Northern Ireland mid year population estimate (gender) `r earliest_year` to `r latest_year` 
+##### Northern Ireland mid year population estimate (gender) `r earliest_year` to `r latest_year` {#figure2 .tabset .tabset-pills}
+
+###### Figure 2 output
 
 ```{r linechart_multiple, echo = FALSE, warnings = FALSE, message = FALSE, fig.alt="Figure 2 alt text example. More detail on the trends are included in the text directly above or below the chart, and data can be downloaded using the button below.", out.width="100%"}
 
-# Create separate dataframe for selected datapoints from main dataframe
+figure_2 = '# Create separate dataframe for selected datapoints from main dataframe
 df_mye_selected_years_gender <- df_mye_year_gender %>% 
   filter(mid_year_ending %in% c(2001, 2012, 2019)) %>% 
   # format numbers
@@ -276,7 +288,7 @@ fig2 <-ggplot(df_mye_year_gender,
        scale_color_manual(values=c(nisra_blue, nisra_navy)) +
 
 
-  # Using NITotals_lab_select_multiple from above to pick the years that will have 'points', specifying the size of the dots
+  # Using NITotals_lab_select_multiple from above to pick the years that will have "points", specifying the size of the dots
   geom_point(data=df_mye_selected_years_gender, 
     aes(x=mid_year_ending, y=mye_pop), size = 3) +
   labs(x = "Year",
@@ -319,13 +331,19 @@ fig2 <-ggplot(df_mye_year_gender,
   theme(plot.tag.position = c(0.23, 0.2))
   
 
-fig2
+fig2'
 
+eval(str2expression(figure_2))
 
 f_make_tables(data = df_fig2_xls, title = paste0("Figure 2: Northern Ireland mid year population estimate (gender) ", earliest_year, " to ", latest_year), data_style = ns_comma, data_dir = demo_data_dir)
 
 ```
 
+###### Figure 2 source
+
+```{r}
+f_print_code(figure_2)
+```
 
 ### Multiple single line charts (h3)
 
@@ -338,11 +356,13 @@ This is a static chart as it is more mobile friendly.
 Include descriptive text before or after the chart.
 
 #### Figure 3: In `r latest_year`, Belfast Local Government District (LGD) has more younger people than other areas
-##### Northern Ireland mid year population estimate by LGD in `r latest_year`
+##### Northern Ireland mid year population estimate by LGD in `r latest_year` {#figure3 .tabset .tabset-pills}
+
+###### Figure 3 output
 
 ```{r linechart_facet, echo = FALSE, warnings = FALSE, message = FALSE, fig.alt="Figure 3 alt text example. More detail on the trends are included in the text directly above or below the chart, and data can be downloaded using the button below.", out.width="100%"}
 
-ggplot(df_mye_latest_5yr_age_lgd, 
+figure_3 = 'ggplot(df_mye_latest_5yr_age_lgd, 
        aes(x = age_group_5, 
            y = population_latest)) +
   geom_line(linewidth=1, group=1, color = nisra_blue) +
@@ -368,7 +388,9 @@ ggplot(df_mye_latest_5yr_age_lgd,
         strip.background = element_blank()) +
   scale_x_discrete(breaks = c("0-4", "45-49", "90-94"),labels = c("0-4", "45-49", "90+")) + 
   # ACC: add comma to y labels
-  scale_y_continuous(labels = comma)
+  scale_y_continuous(labels = comma)'
+
+eval(str2expression(figure_3))
 
 # download buttons
 f_make_tables(data = df_fig3_xls,
@@ -378,7 +400,11 @@ f_make_tables(data = df_fig3_xls,
 
 ```
 
+###### Figure 3 source
 
+```{r}
+f_print_code(figure_3)
+```
 
 ### Bar chart (a-z) (h3)
 
@@ -388,13 +414,13 @@ Include descriptive text before or after the chart.
 
 
 #### Figure 4: Young people by LGD
-##### Data from `r latest_year` mid-year estimates (MYEs) showing the percentage of each LGD population that is under 25 
+##### Data from `r latest_year` mid-year estimates (MYEs) showing the percentage of each LGD population that is under 25 {#figure4 .tabset .tabset-pills}
 
-
+###### Figure 4 output
 
 ```{r barchart_az, echo = FALSE, warnings = FALSE, message = FALSE, fig.alt="Figure 4 alt text example. More detail on the trends are included in the text directly above or below the chart, and data can be downloaded using the button below.", out.width="100%"}
 
-# create amended df for chart. Reorder factors for plotting (need lgd names in reverse alphabetical order as coord flip reverses order). Remove unnecessary columns
+figure_4 = '# create amended df for chart. Reorder factors for plotting (need lgd names in reverse alphabetical order as coord flip reverses order). Remove unnecessary columns
 fig4_data <- df_mye_latest_year_youthrate %>%
   mutate(lgd2014name = fct_reorder(lgd2014name, desc(lgd2014name))) %>%
   select(-under25_pop, -lgd_pop_total)
@@ -424,7 +450,9 @@ ggplot(fig4_data, aes(x = lgd2014name, y = youthrate)) +
         # yaxis line black
         axis.line.y = element_line(colour = "#000000"),
         ) +
-  coord_flip()
+  coord_flip()'
+
+eval(str2expression(figure_4))
 
 # download buttons
 f_make_tables(data = df_fig4_5_xls,
@@ -434,7 +462,11 @@ f_make_tables(data = df_fig4_5_xls,
 
 ```
 
+###### Figure 4 source
 
+```{r}
+f_print_code(figure_4)
+```
 
 The chart shows that LGD with the greatest percentage of population less than 25 is Mid Ulster. Ards and North down is the LGD with the smallest percentage.
 
@@ -446,14 +478,16 @@ When resized for mobile the bars shorten but the labels remain a more readable s
 Include descriptive text before or after the chart highlighting the key message.
 
 #### Figure 5: Proportion of under 25s was higher in `r earliest_year`.
-##### Percentage of population aged under 25 by LGD, `r earliest_year` MYEs
+##### Percentage of population aged under 25 by LGD, `r earliest_year` MYEs {#figure5 .tabset .tabset-pills}
 
 Dashed line represents NI mean.
+
+###### Figure 5 output
 
 ```{r barchart_interactive, echo = FALSE, warnings = FALSE, message = FALSE, fig.alt="Figure 5 alt text example. More detail on the trends are included in the text directly above or below the chart, and data can be downloaded using the button below.", out.width="100%"}
 
 
-fig5 <- plot_ly(df_mye_earliest_youthrate,
+figure_5 = 'fig5 <- plot_ly(df_mye_earliest_youthrate,
                 x = ~earliest_youthrate,
                 y = ~lgd2014name,
                 type = "bar",
@@ -466,11 +500,11 @@ fig5 <- plot_ly(df_mye_earliest_youthrate,
                 )
 # create annotation for y axis title so it can be horizontal. title function will create a vertical label
 yaxistitle <- list(x = -0.3, y = 1.06, # position of y axis title
-                   text = 'LGD', # title
-                   showarrow = FALSE, xref = 'paper', yref = 'paper',
-                   xanchor = 'center', yanchor = 'centre', # alignment
+                   text = "LGD", # title
+                   showarrow = FALSE, xref = "paper", yref = "paper",
+                   xanchor = "center", yanchor = "centre", # alignment
                    xshift = 0, yshift = 0,
-                   font = list(size = 14, color = 'black'))
+                   font = list(size = 14, color = "black"))
 
  fig5 <- fig5 %>% 
    layout(# add annotation
@@ -482,7 +516,9 @@ yaxistitle <- list(x = -0.3, y = 1.06, # position of y axis title
    config(fig5, displayModeBar = FALSE) %>%
    layout(shapes = list(vline(~mean(earliest_youthrate), color = nisra_blue)))
 
- fig5
+ fig5'
+
+eval(str2expression(figure_5))
 
 # download buttons
 f_make_tables(df_fig4_5_xls,
@@ -491,6 +527,11 @@ f_make_tables(df_fig4_5_xls,
 
 ```
 
+###### Figure 5 source
+
+```{r}
+f_print_code(figure_5)
+```
 
 The chart shows that LGD with the greatest percentage of population under 25 in `r earliest_year` was Derry City and Strabane. Ards and North down was the LGD with the smallest percentage.
 
@@ -505,13 +546,13 @@ The stacked bars have been created in plotly. They resize well for small screens
 Include descriptive text before or after the chart.
 
 #### Figure 6: Females outnumber males in all age groups except the under 25s
-##### NI population in `r latest_year` by age group {.tabset .tabset-pills}
+##### NI population in `r latest_year` by age group {#figure6 .tabset .tabset-pills}
 
-###### ggplot static
+###### ggplot static output
 
 ```{r columnchart, echo = FALSE, warnings = FALSE, message = FALSE, fig.alt="Figure 6 alt text example. More detail on the trends are included in the text directly above or below the chart, and data can be downloaded using the button below.", out.width="100%"}
 
-fig6 <- ggplot(df_mye_latest_year_agegroup_gender,
+figure_6_ggplot_static = 'fig6 <- ggplot(df_mye_latest_year_agegroup_gender,
                 aes(x = age_group,
                     y = pop_total,
                     fill = gender)) +
@@ -547,7 +588,9 @@ fig6 <- ggplot(df_mye_latest_year_agegroup_gender,
         # add thousand separator to y axis labels
         scale_y_continuous(labels = comma)
 
-fig6
+fig6'
+
+eval(str2expression(figure_6_ggplot_static))
 
 # download buttons
 f_make_tables(df_fig6_xls,
@@ -557,12 +600,17 @@ f_make_tables(df_fig6_xls,
 
 ```
 
+###### ggplot static source
 
-###### plotly
+```{r}
+f_print_code(figure_6_ggplot_static)
+```
+
+###### plotly output
 
 ```{r fig6b, fig.alt="Figure 6b alt text example. More detail on the trends are included in the text directly above or below the chart, and data can be downloaded using the button below", out.width="100%"}
 
-# reshape df to create plot
+figure_6_plotly = '# reshape df to create plot
 df_fig6 <- pivot_wider(df_mye_latest_year_agegroup_gender, names_from = gender, values_from = pop_total)
 
 fig6b <- plot_ly(df_fig6,
@@ -597,15 +645,23 @@ fig6b <- plot_ly(df_fig6,
   )
 # here legend is ok because the order in legend follows order of bars and we have used contrast rather than colour.
 
-config(fig6b, displayModeBar = FALSE)
+config(fig6b, displayModeBar = FALSE)'
+
+eval(str2expression(figure_6_plotly))
 
 ```
 
-###### Stacked bar
+###### plotly source
+
+```{r}
+f_print_code(figure_6_plotly)
+```
+
+###### Stacked bar output
 
 ```{r Fig6d, fig.alt="Figure 6e alt text example. More detail on the trends are included in the text directly above or below the chart, and data can be downloaded using the button below", out.width="100%"}
 
-df_fig6 <- pivot_wider(df_mye_latest_year_agegroup_gender, names_from = gender, values_from = pop_total)
+figure_6_stacked = 'df_fig6 <- pivot_wider(df_mye_latest_year_agegroup_gender, names_from = gender, values_from = pop_total)
 
 fig6c <- plot_ly(df_fig6,
                  x = ~age_group,
@@ -635,46 +691,60 @@ fig6c <- plot_ly(df_fig6,
          font = list(size = 14)
   )
 
-config(fig6c, displayModeBar = FALSE)
+config(fig6c, displayModeBar = FALSE)'
+
+eval(str2expression(figure_6_stacked))
 
 ```
 
-###### Stacked horizontal bar (%)
+###### Stacked bar source
+
+```{r}
+f_print_code(figure_6_stacked)
+```
+
+###### Stacked horizontal bar (%) output
 
 ```{r fig6d, fig.alt="Figure 6e alt text example. More detail on the trends are included in the text directly above or below the chart, and data can be downloaded using the button below", out.width="100%"}
 
-# for stacked horizontal bar set orientation to 'h' (horizontal) and barmode to stack
+figure_6_stacked = '# for stacked horizontal bar set orientation to "h" (horizontal) and barmode to stack
 fig6d <- plot_ly(df_latest_year_agegroup_gender_pct,
                  x = ~Females,
                  y = ~age_group,
                  marker = list(color = nisra_navy),
-                 type = 'bar',
-                 orientation = 'h',
+                 type = "bar",
+                 orientation = "h",
                  name = "Females",
                  text = ~format(f_round_1dp(Females), nsmall = 1),
                  # use excel rounding function, display to 1dp
-                 hoverinfo = 'text') %>%
+                 hoverinfo = "text") %>%
          add_trace(x = ~Males,
                    marker = list(color = nisra_blue),
                    name = "Males",
                    text = ~format(f_round_1dp(Males), nsmall = 1)) %>%
-         layout(barmode = 'stack',
+         layout(barmode = "stack",
                 yaxis = list(title = "",
                              # default was 65+ at top
                              autorange = "reversed"),
                 xaxis = list(title = "Percentage (%)"),
-                legend = list(orientation = 'h', 
-                              xanchor = 'center',
+                legend = list(orientation = "h", 
+                              xanchor = "center",
                               x = 0.4, 
                               y = 1.1,
                               traceorder = "normal"))
 # ensure legend is same order as stacks
 
-config(fig6d, displayModeBar = FALSE)
+config(fig6d, displayModeBar = FALSE)'
+
+eval(str2expression(figure_6_stacked))
 
 ```
 
+###### Stacked horizontal bar (%) source
 
+```{r}
+f_print_code(figure_6_stacked)
+```
 
 ### Pie chart (h3)
 
@@ -685,12 +755,14 @@ These pie charts have been placed in 2 columns so that when resized for mobile t
 Include descriptive text before or after the chart.
 
 #### Figure 7: Higher percentage of females than males in the over 65 age group in
-##### Percentage of NI population aged 65 plus by gender, `r latest_year` 
+##### Percentage of NI population aged 65 plus by gender, `r latest_year` {#figure7 .tabset .tabset-pills}
+
+###### Piechart output
 
 ```{r piechart, fig.alt="Figure 7 alt text example. More detail on the trends are included in the text directly above or below the chart, and data can be downloaded using the button below"}
 
 
-fig7a <- plot_ly(df_mye_latest_over_under_65,
+figure_7 = 'fig7a <- plot_ly(df_mye_latest_over_under_65,
                  labels = ~age_65split,
                  values = ~Females,
                  type = "pie",
@@ -707,7 +779,7 @@ fig7a <- plot_ly(df_mye_latest_over_under_65,
                                line = list(color = "black", width = 1)),
                 showlegend = FALSE) %>%
          config(displayModeBar = FALSE) %>%
-         layout(annotations = list(x = 0.5, y = 1.08, xanchor = 'center',
+         layout(annotations = list(x = 0.5, y = 1.08, xanchor = "center",
                                    text = ~paste("<b> Females </b>"),
                                    showarrow = F,
                                    font = list(size = 16)))
@@ -715,10 +787,10 @@ fig7a <- plot_ly(df_mye_latest_over_under_65,
 fig7b <-  plot_ly(df_mye_latest_over_under_65,
                   labels = ~age_65split,
                   values = ~Males,
-                  type = 'pie',
+                  type = "pie",
                   text = ~paste0(age_65split, " <br> (", 
                         f_round_1dp(Males / sum(Males)*100), "%)"),
-                  textinfo = 'text',
+                  textinfo = "text",
                   hoverinfo = "text",
                   #increase label size
                   insidetextfont = list(size = 16),
@@ -728,7 +800,7 @@ fig7b <-  plot_ly(df_mye_latest_over_under_65,
                   showlegend = FALSE) %>%
           config(displayModeBar = FALSE) %>%
           layout(annotations = list(x = 0.5, y = 1.08, 
-                                    xanchor = 'center',
+                                    xanchor = "center",
                                     text = ~paste("<b> Males </b>"),
                                     showarrow = F,
                                     font = list(size = 16)))
@@ -737,7 +809,9 @@ fig7b <-  plot_ly(df_mye_latest_over_under_65,
 div(class = "row",
     div(class = "col-sm-6", style = "margin-top: 10px;",
         fig7a),
-    div(class = "col-sm-6", fig7b))
+    div(class = "col-sm-6", fig7b))'
+
+eval(str2expression(figure_7))
 
 # download buttons
 f_make_tables(df_mye_latest_over_under_65,
@@ -745,6 +819,12 @@ f_make_tables(df_mye_latest_over_under_65,
               data_style = ns_comma,
               data_dir = demo_data_dir)
 
+```
+
+###### Piechart source
+
+```{r}
+f_print_code(figure_7)
 ```
 
 
@@ -757,17 +837,19 @@ Borders are used around the tiles to ensure the contrast requirements are met. T
 Include descriptive text before or after the chart.
 
 #### Figure 8: Larger differences in size in the female population are seen in the under 25s and over 65s
-##### Female population of NI by age group, `r latest_year`
+##### Female population of NI by age group, `r latest_year` {#figure8 .tabset .tabset-pills}
+
+###### Treemap output
 
 ```{r treemap, echo = FALSE, warnings = FALSE, message = FALSE, fig.alt="Figure 8 alt text example. More detail on the trends are included in the text directly above or below the chart, and data can be downloaded using the button below", out.width="100%"}
 
 
-fig8 <- plot_ly(df_fig8,
+figure_8 = 'fig8 <- plot_ly(df_fig8,
                 type = "treemap",
                 labels = ~age_group,
                 parents = ~gender,
                 values = ~pop_total,
-                # punctuated labels so that readers don't rely solely on colour
+                # punctuated labels so that readers do not rely solely on colour
                 # or shape to understand the chart and screen readers vocalise ok
                 text = ~paste0("Age ", age_group, ":",
                                "<br>", format(pop_total, big.mark = ",")),
@@ -780,7 +862,9 @@ fig8 <- plot_ly(df_fig8,
                               line = list(color = "black", width  = 1)),
                 textfont = list(size = 16))
 
-config(fig8, displayModeBar = FALSE)
+config(fig8, displayModeBar = FALSE)'
+
+eval(str2expression(figure_8))
 
 f_make_tables(df_fig8_xls,
               title = paste0("Figure 8: Female population of NI by age group, ",
@@ -790,7 +874,11 @@ f_make_tables(df_fig8_xls,
 
 ```
 
+###### Treemap source
 
+```{r}
+f_print_code(figure_8)
+```
 
 ### Donut chart
 
@@ -799,29 +887,30 @@ This donut chart has 4 sections and ONS have devised a sequential colour scheme 
 Keep labels short and concise when using plotly for donut so that labels remain visible on mobile.
 
 #### Figure 9: Under 25s largest age group in NI 
-##### NI population by age group `r latest_year` 
+##### NI population by age group `r latest_year` {#figure9 .tabset .tabset-pills}
 
+###### Donut chart output
 
 ```{r fig9 donut, echo = FALSE, warnings = FALSE, message = FALSE, fig.alt="Figure 9 alt text example. More detail on the trends are included in the text directly above or below the chart, and data can be downloaded using the button below", out.width="100%"}
 
 
-fig9 <- plot_ly(df_mye_latest_year_agegroup,
-                type = 'pie',
+figure_9 = 'fig9 <- plot_ly(df_mye_latest_year_agegroup,
+                type = "pie",
                 labels = ~age_group,
                 values = ~agegroup_total,
                 # default orders segments by size
                 sort = FALSE,
                 # accompanies sort argument
-                direction = 'clockwise',
+                direction = "clockwise",
                 # turns pie into donut
                 hole = 0.5,
                 #create labels with age group and percentage values in brackets
                 text = ~paste0(age_group, ": <br> (", 
                                f_round_1dp(agegroup_total / sum(agegroup_total)*100), "%)"),
-                hoverinfo = 'text',
-                textinfo = 'text',
+                hoverinfo = "text",
+                textinfo = "text",
                 # keeps labels horizontal
-                insidetextorientation = 'horizontal',
+                insidetextorientation = "horizontal",
                 # use ons sequential colour palette
                 marker = list(colors = c(ons_blue, ons_green,
                                          ons_red, ons_orange),
@@ -834,13 +923,17 @@ fig9 <- plot_ly(df_mye_latest_year_agegroup,
          showlegend = FALSE)
 
 
-config(fig9, displayModeBar = FALSE)
+config(fig9, displayModeBar = FALSE)'
 
-
+eval(str2expression(figure_9))
 
 f_make_tables(fig9_xls, paste0("Figure 9: NI population by age group ", latest_year), data_style = ns_comma, data_dir = demo_data_dir)
 
 ```
 
+###### Donut chart source
 
+```{r}
+f_print_code(figure_9)
+```
 
