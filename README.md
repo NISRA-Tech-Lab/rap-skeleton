@@ -68,8 +68,10 @@ No. renv introduces issues itself, but we feel these are more manageable and eas
 
 #### renv troubleshooting
 
-- `terra` `sf` `-lblosc` `-lkea` `-lsz1` related - rspatial packages might give errors while building from source. Go to [CRAN](https://cran.r-project.org/web/packages/sf/index.html) and find out the latest version of the troublesome package. Tell renv to use that version using `renvv::record()`. For example, if the latest version of sf is `1.0-12` you would run `renv::record("sf@1.0-12")` and then run `renv::restore()` 
+- `terra` `sf` `-lblosc` `-lkea` `-lsz1` related - rspatial packages might give errors while building from source. Go to [CRAN](https://cran.r-project.org/web/packages/sf/index.html) and find out the latest version<sup>3</sup> of the troublesome package. Tell renv to use that version using `renvv::record()`. For example, if the latest version of sf is `1.0-12` you would run `renv::record("sf@1.0-12")` and then run `renv::restore()` 
 - `mran` `aws` related - e.g. `failed to retrieve 'https://rstudio-buildtools.s3.amazonaws.com/renv/mran/packages.rds' [error code 22]`, re-run `options(renv.config.mran.enabled = FALSE)` (sometimes it re-enables itself) 
+
+<sup>3</sup> If a package has been updated recently, CRAN might not be serving the binary - drop the release version down 1 notch until you can get renv to give a binary of that package. For example, on 19/03/2023, `sf` was updated to `1.0-12`. The renv.lock file asks for 1.0-10 but it is only available from source. `1.0-12` is the latest version, but the `r-release` (i.e. the current stable version of R (4.2 at the moment)) binary is listed as `1.0-.11`. Therefore, we need to ask renv for that version with `renv::record("sf@1.0-11")`. CRAN might start serving `1.0-12` as the `r-release` binary in the future.
 
 ### Key files and folders
 
