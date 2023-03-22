@@ -82,10 +82,13 @@ When running renv, IT may contact you regarding `curl` being run on your machine
 
 ### Setting up a new repo with the rap-skeleton
 
-#### Set up a blank repo
-- Open Rstudio and close down existing projects
-- Create an empty directory for your project e.g. `Desktop\01-doj-newpublication`
-- In Rstudio, open `Terminal` tab and move into the created directory. `cd` will bring you to `C:\Users\123456`. From there, `cd Desktop` will you into the desktop and finally cd `01-doj-newpublication` will enter the new directory
+#### Get the skeleton
+- Download the latest release as a ZIP file from the [latest releases page](https://github.com/NISRA-Tech-Lab/rap-skeleton/releases)
+- Extract the contents and rename the folder to something appropriate e.g. from `rap-skeleton-1.0.0` to `01-doj-newpublication`
+- Rename the .Rproj file to something appropriate e.g. `01-doj-newpublication.Rproj`
+- Open the Rproject file
+
+#### Create your repo on Github and link your project to it
 - In Github.com, create a new repository
   - `Repository name` should be the same as the folder you created e.g. `01-doj-newpublication`
   - Make it Private
@@ -103,17 +106,14 @@ When running renv, IT may contact you regarding `curl` being run on your machine
 - A popup will appear. Click `Sign in with your browser`. A tab will open in your browser and authenticate you. **If you get an error here, try running `git push -u origin main` again**
 - If you refresh your repo on Github.com, you should now see the README file
 
-### Add rap-skeleton to your new repo
-- Download the latest release as a ZIP file from the [latest releases page](https://github.com/NISRA-Tech-Lab/rap-skeleton/releases)
-- Extract and copy the contents of the ZIP file e.g. the code/data/renv etc. folders and files
-- Paste them into the repo you created in the last steps e.g. `01-doj-newpublication` - optionally overwrite the README when asked
+### Upload the project to Github
 - In Rstudio's `Terminal`, run 
   - `git add .` to stage all the files. **Ignore the warnings about LF and CRLF.**
   - `git -m "initial upload"` to add a commit message
   - `git push` to push them up to the remote repository
 - Your files are now on the github repo and you can now begin development
-- It is recommended that you modify the README and rename the Rproj file to something appropriate for your project
-- - **You need to close down Rstudio and re-open the Rproj file once it is set up to get Rstudio to show the `Git` tab**
+- It is recommended that you modify the README to include project specific information
+- **You need to close down Rstudio and re-open the Rproj file once it is set up to get Rstudio to show the `Git` tab**
 
 ### Key files and folders
 
