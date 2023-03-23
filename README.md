@@ -112,7 +112,12 @@ When running renv, IT may contact you regarding `curl` being run on your machine
   - `git commit -m "initial upload"` to add a commit message
   - `git push` to push them up to the remote repository
 - Your files are now on the github repo and you can now begin development
-- It is recommended that you modify the README to include project specific information
+- It is recommended that you modify the README to include project specific information. You could change the README to something like:
+```
+# My New Project Title
+
+Please refer [the main rap-skeleton README](https://github.com/NISRA-Tech-Lab/rap-skeleton#bell-getting-started) for the most up to date information on using RAP code.
+```
 - **You need to close down Rstudio and re-open the Rproj file once it is set up to get Rstudio to show the `Git` tab**
 
 ### Key files and folders
