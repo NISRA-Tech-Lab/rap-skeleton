@@ -106,7 +106,7 @@ When running renv, IT may contact you regarding `curl` being run on your machine
 - A popup will appear. Click `Sign in with your browser`. A tab will open in your browser and authenticate you. **If you get an error here, try running `git push -u origin main` again**
 - If you refresh your repo on Github.com, you should now see the README file
 
-### Upload the project to Github
+#### Upload the project to Github
 - In Rstudio's `Terminal`, run 
   - `git add .` to stage all the files. **Ignore the warnings about LF and CRLF.**
   - `git -m "initial upload"` to add a commit message
