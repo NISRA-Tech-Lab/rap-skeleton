@@ -109,7 +109,7 @@ When running renv, IT may contact you regarding `curl` being run on your machine
 #### Upload the project to Github
 - In Rstudio's `Terminal`, run 
   - `git add .` to stage all the files. **Ignore the warnings about LF and CRLF.**
-  - `git -m "initial upload"` to add a commit message
+  - `git commit -m "initial upload"` to add a commit message
   - `git push` to push them up to the remote repository
 - Your files are now on the github repo and you can now begin development
 - It is recommended that you modify the README to include project specific information
