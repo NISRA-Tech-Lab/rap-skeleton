@@ -27,9 +27,6 @@ params:
      prerelease - can be TRUE or FALSE
 -->
 
-<!--Add tabs to table of contents-->
-<body onload="tabOrder()">
-
 <!--html_preserve-->
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-72688332-4"></script>
@@ -137,6 +134,9 @@ function tabOrder() {
   }
   
 };
+
+// Instruct web browser to run above function when loaded
+window.onload = tabOrder;
 ```
 <!-- close footer div -->
 </div>
