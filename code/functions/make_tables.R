@@ -15,7 +15,8 @@ f_make_tables <- function (data, title, footnotes = NA, data_style = ns_comma, d
               file=paste0(data_dir, csvFile),
               append = F,
               sep=',',
-              row.names=F)
+              row.names=F,
+              fileEncoding = "utf-16le")
   
   # Write the excel file
   # Creates a new excel workbook
