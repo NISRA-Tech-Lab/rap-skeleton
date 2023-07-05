@@ -238,14 +238,12 @@ Despite our best efforts to ensure accessibility of this report, there may be so
 
 Please contact Dissemination Branch for assistance with accessibility requirements or alternative formats. Contact details are at the top of this page.
 
-
+<script>
+  // Create array of alt texts for map shapes
+  const mapAlt = `r if (exists("mapAlt")) {mapAlt} else {"[]"}`;
+</script>
 
 ```{js}
-
-
-// Create array of alt texts for map shapes
-const mapAlt = `r mapAlt`;
-
 
 // Function to remove map shapes from tab order, and add tabs to table of contents
 
