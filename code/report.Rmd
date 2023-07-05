@@ -110,13 +110,12 @@ Subsection text.
   <p style="color: white;">Please rotate your screen for optimal experience</p>
 </div>
 
+<script>
+  // Create array of alt texts for map shapes
+  const mapAlt = `r if (exists("mapAlt")) {mapAlt} else {"[]"}`;
+</script>
 
 ```{js}
-
-
-// Create array of alt texts for map shapes
-const mapAlt = `r mapAlt`;
-
 
 // Function to remove map shapes from tab order, and add tabs to table of contents
 
