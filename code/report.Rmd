@@ -8,6 +8,8 @@ output:
     toc_depth: 4
     code_download: no
     css: "style.css"
+    includes:
+      in_header: "nisracookies.html"
 knit: (function(input, ...) {
     rmarkdown::render(
       input,
@@ -27,25 +29,28 @@ params:
      prerelease - can be TRUE or FALSE
 -->
 
-<!--html_preserve-->
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-72688332-4"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'UA-72688332-4');
-</script>
-<!--/html_preserve-->
-
-<!-- message to rotate screen when width is too low -->
-
 ```{r settings, include=FALSE}
 # this chunk sets chunk options for all chunks in this file
 knitr::opts_chunk$set(
   message= FALSE, echo = FALSE, warning = FALSE
 )
 ```
+
+
+<div id="cookie-banner" class="cookies-infobar" style="display: none; width:100%; position: fixed;">
+<div class="container-fluid main-container">
+<p><strong>Cookies on the NI Executive spending webpage</strong></p>
+<p>This prototype web page places small amounts of information known as cookies on your device. <a href="https://www.nisra.gov.uk/cookies" class="cookiesbarlink"><u>Find out more about cookies</u></a>.</p>
+
+<button id="accept-cookies" class="cookies-infobar_btn">Accept cookies</button>
+<button id="reject-cookies" class="cookies-infobar_btn_reject">Reject cookies</button>
+</div>
+</div>
+
+
+<!-- message to rotate screen when width is too low -->
+
+
 <div data-nics-theme="`r params$nicstheme`">
 
 
@@ -57,6 +62,7 @@ source(paste0(here(),"/code/config.R"))
 source(paste0(here(),"/code/data_prep.R"))
 
 ```
+
 
 
 `r f_banner()`  <!-- calling the banner code -->

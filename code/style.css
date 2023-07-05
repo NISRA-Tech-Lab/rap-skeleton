@@ -535,3 +535,65 @@ li .tocify-item.list-group-item {
   page-break-inside: avoid;
 }
 
+
+#cookie-banner {
+	top: 0;
+	left: 0;
+	width: 100%;
+	background-color:#00205b;
+	color:#FFF;
+			padding: 10px;
+	text-align: left;
+	border-bottom: 5px solid #3878c5;
+}
+
+.cookies-infobar {
+background-color: rgb(0, 32, 91);
+color: #fff;
+width: 100%;
+left: 0;
+right: 0;
+top: 0;
+padding: 10px;
+text-align: left;
+}
+
+.cookies-infobar.cookies-infobar_accepted {
+  display: none;
+}
+
+.cookies-infobar_wrapper {
+  margin: 10px;
+}
+
+.cookies-infobar a {
+  color: inherit;
+}
+
+
+
+.cookies-infobar_btn {
+  display: inline-block;
+  padding: 5px 10px;
+  background: #0f8243;
+  text-decoration: none;
+  color: #fff;
+  text-transform: none;
+  font-size: 1.2em;
+}
+
+a.cookies-infobar_btn, a.cookies-infobar_btn_reject, a.cookiesbarlink {
+	color: #fff !important;
+}
+
+.cookies-infobar_btn_reject {
+  display: inline-block;
+  padding: 5px 10px;
+  background: #6d6e72;
+  text-decoration: none;
+  border-radius: 3px;
+  color: #fff;
+  text-transform: none;
+  font-size: 1.2em;
+}
+
