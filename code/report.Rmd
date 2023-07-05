@@ -39,7 +39,7 @@ knitr::opts_chunk$set(
 
 <div id="cookie-banner" class="cookies-infobar" style="display: none; width:100%; position: fixed;">
 <div class="container-fluid main-container">
-<p><strong>Cookies on the NI Executive spending webpage</strong></p>
+<p><strong>Cookies on the Northern Ireland Statistics and Research Agency website</strong></p>
 <p>This prototype web page places small amounts of information known as cookies on your device. <a href="https://www.nisra.gov.uk/cookies" class="cookiesbarlink"><u>Find out more about cookies</u></a>.</p>
 
 <button id="accept-cookies" class="cookies-infobar_btn">Accept cookies</button>
