@@ -74,7 +74,7 @@ f_footer <- function() {
       <li>|</li>
       <li><a href="https://www.nisra.gov.uk/nisra-privacy-notice">Privacy</a></li>
       <li>|</li>
-      <li><a href="https://www.nisra.gov.uk/accessibility-statement-nisra">Accessibility Statement</a></li>
+      <li><a href="https://datavis.nisra.gov.uk/dissemination/accessibility-statement-visualisations.html">Accessibility Statement</a></li>
     </ul>
   </div>
 </footer>
