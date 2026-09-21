@@ -29,7 +29,7 @@ f_make_tables <- function(data,
 
   # Write the dataframe to the csv file
   write.table(data,
-    file = paste0(data_dir, csv_file),
+    file = here(data_dir, csv_file),
     append = FALSE,
     sep = ",",
     row.names = FALSE,
@@ -118,9 +118,9 @@ f_make_tables <- function(data,
   setColWidths(wb, sheet, cols = 2:length(data), widths = 14)
 
   # Workbook saved
-  saveWorkbook(wb, paste0(data_dir, excel_file), overwrite = TRUE)
+  saveWorkbook(wb, here(data_dir, excel_file), overwrite = TRUE)
 
-  csv_size <- round_half_up(file.size(paste0(data_dir, csv_file)) / 1000)
+  csv_size <- round_half_up(file.size(here(data_dir, csv_file)) / 1000)
 
   csv_size <- if (csv_size == 0) {
     "1kB"
@@ -129,18 +129,18 @@ f_make_tables <- function(data,
   }
 
   xl_size <- paste0(
-    round_half_up(file.size(paste0(data_dir, excel_file)) / 1000),
+    round_half_up(file.size(here(data_dir, excel_file)) / 1000),
     "kB"
   )
 
 
-  em_csv <- embed_file(paste0(data_dir, csv_file),
+  em_csv <- embed_file(here(data_dir, csv_file),
     text = paste0(
       sub("fig", "Figure ", sheet),
       ".CSV", " (", csv_size, ")"
     )
   )
-  em_xl <- embed_file(paste0(data_dir, excel_file),
+  em_xl <- embed_file(here(data_dir, excel_file),
     text = paste0(
       sub("fig", "Figure ", sheet),
       ".XLSX", " (", xl_size, ")"
