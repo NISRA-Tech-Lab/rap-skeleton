@@ -32,8 +32,7 @@ f_make_tables <- function(data,
     file = here(data_dir, csv_file),
     append = FALSE,
     sep = ",",
-    row.names = FALSE,
-    fileEncoding = "utf-16le"
+    row.names = FALSE
   )
 
   # Write the excel file
