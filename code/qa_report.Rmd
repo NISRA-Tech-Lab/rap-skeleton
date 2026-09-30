@@ -1,0 +1,92 @@
+---
+title: "NISRA Technology and Support Lab RAP Skeleton QA Report"
+lang: "en"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 4
+    code_download: no
+    css: "style.css"
+    includes:
+      in_header:
+        - "consent_head.html"
+      after_body:
+        - "cookie_banner.html"
+knit: (function(input, ...) {
+    rmarkdown::render(
+      input,
+      output_dir = "../outputs/",
+      output_file = paste0(
+        xfun::sans_ext(input),
+        "_",
+        format(
+          Sys.time(),
+          "%d-%m-%Y_%H%M"
+        ),
+        ".html"
+      ),
+      envir = globalenv()
+    )
+  })
+params:
+  annotations: true
+---
+
+<div id="cookie-banner"></div>
+
+```{r settings, include=FALSE}
+# this chunk sets chunk options for all chunks in this file
+knitr::opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  echo = FALSE
+)
+```
+
+```{r setup, warnings = FALSE}
+library(here)
+
+source(
+  here(
+    "code",
+    "demo",
+    "demo_data_prep.R"
+  )
+)
+```
+
+<div data-nics-theme="`r nics_theme`">
+
+<!-- open main div -->
+
+<main id="main">
+
+## Overall Figures (h2)
+
+Section text.
+
+## Compare Trends (h2)
+
+Subsection text.  
+
+## Counts by Variables (h2)
+
+Subsection text.
+
+## Suppression (h2)
+
+Subsection text.
+
+<!-- close main div -->
+
+</main>
+
+```{r render-footer, results='asis', echo=FALSE}
+f_footer()
+```
+
+`r if (params$annotations) '<script id="annotation-script" src="annotation.js"></script>'`
+
+<!-- close data-nics-theme div -->
+</div>

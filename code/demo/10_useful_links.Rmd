@@ -2,58 +2,92 @@
 title: "10 Useful Links Sub Report"
 output: html_document
 knit: (function(input, ...) {
-    rmarkdown::render(
-      input,
-       output_dir = "../demo/demo_outputs/",
-      output_file = paste0(
-        xfun::sans_ext(input), '_', format(Sys.time(), "%d-%m-%Y_%H%M") , '.html'
-      ),
-      envir = globalenv()
-    )
-  })
+  rmarkdown::render(
+    input,
+    output_dir = "../demo/demo_outputs/",
+    output_file = paste0(
+      xfun::sans_ext(input),
+      "_",
+      format(Sys.time(), "%d-%m-%Y_%H%M"),
+      ".html"
+    ),
+    envir = globalenv()
+  )
+})
 ---
-  
-  
 
-```{r, include=FALSE}
-# this chunk sets chunk options for all chunks in this file
+```{r useful_links_settings, include=FALSE}
+# Set chunk options for all chunks in this file.
+
 knitr::opts_chunk$set(
-  message = FALSE, echo = FALSE
+  message = FALSE,
+  warning = FALSE,
+  echo = FALSE
 )
 
 library(here)
 
-source(here("code/demo/demo_data_prep.R"))
+source(
+  here(
+    "code",
+    "demo",
+    "demo_data_prep.R"
+  )
+)
 ```
 
 Some features may not work or be accessible in older browsers.
 
-The [NISRA Accessibility Statement](https://datavis.nisra.gov.uk/dissemination/accessibility-statement-visualisations.html) is now included as a link in the footer of the RAP Skeleton.
+The [NISRA Accessibility Statement](https://datavis.nisra.gov.uk/dissemination/accessibility-statement-visualisations.html)
+is now included as a link in the footer of the RAP Skeleton.
 
-[New Analysis Function website](https://analysisfunction.civilservice.gov.uk) - General guidance
+[New Analysis Function website](https://analysisfunction.civilservice.gov.uk)
+- General guidance.
 
-[New Guidance Hub](https://analysisfunction.civilservice.gov.uk/policy-store/) - Guidance hub including some specific accessibility guides and references (see below)
+[New Guidance Hub](https://analysisfunction.civilservice.gov.uk/policy-store/)
+- Guidance hub including some specific accessibility guides and references (see below).
 
-[Government Analysis Function - Accessibility support for statistical and analytical publications](https://analysisfunction.civilservice.gov.uk/news/accessibility-support-for-statistical-and-analytical-publications/) - provides information on all the help that is available from the Government Analysis Function, including details on their online tool (basecamp for statistics) that has a message board and other functions where you can ask questions about accessibility as well as information on the available drop in clinics
+[Government Analysis Function - Accessibility support for statistical and analytical publications](https://analysisfunction.civilservice.gov.uk/news/accessibility-support-for-statistical-and-analytical-publications/)
+- Provides information on all the help that is available from the Government
+Analysis Function, including details on their online tool (basecamp for
+statistics) that has a message board and other functions where you can ask
+questions about accessibility as well as information on the available drop in
+clinics.
 
-[Government Analysis Function - Making analytical publications accessible](https://analysisfunction.civilservice.gov.uk/policy-store/making-analytical-publications-accessible/) - Guide on making analytical publications accessible
+[Government Analysis Function - Making analytical publications accessible](https://analysisfunction.civilservice.gov.uk/policy-store/making-analytical-publications-accessible/)
+- Guide on making analytical publications accessible.
 
-[Government Analysis Function  - Releasing statistics in spreadsheets](https://analysisfunction.civilservice.gov.uk/policy-store/releasing-statistics-in-spreadsheets/) - General guide including specific section on accessibility with links to Web Content Accessibility Guidelines (WCAG) 2.1
+[Government Analysis Function  - Releasing statistics in spreadsheets](https://analysisfunction.civilservice.gov.uk/policy-store/releasing-statistics-in-spreadsheets/)
+- General guide including specific section on accessibility with links to Web
+Content Accessibility Guidelines (WCAG) 2.2.
 
-[Government Analysis Function  - Making spreadsheets accessible: a checklist of the basics](https://analysisfunction.civilservice.gov.uk/policy-store/making-spreadsheets-accessible-a-brief-checklist-of-the-basics/) - Specific guide on making accessible spreadsheets
+[Government Analysis Function  - Making spreadsheets accessible: a checklist of the basics](https://analysisfunction.civilservice.gov.uk/policy-store/making-spreadsheets-accessible-a-brief-checklist-of-the-basics/)
+- Specific guide on making accessible spreadsheets.
 
-[Government Analysis Function  - Data visualisation: tables ](https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-tables/) - guidance on how to present tables
+[Government Analysis Function  - Data visualisation: tables ](https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-tables/)
+- Guidance on how to present tables.
 
-[Government Analysis Function  - Data visualisation: charts ](https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-charts/) - guidance on how to create accessible charts
+[Government Analysis Function  - Data visualisation: charts ](https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-charts/)
+- Guidance on how to create accessible charts.
 
-[Government Analysis Function  - Data visualisation: colours ](https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-colours-in-charts/) - guidance on using colours in data visualisations s
+[Government Analysis Function  - Data visualisation: colours ](https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-colours-in-charts/)
+- Guidance on using colours in data visualisations.
 
-[Government Analysis Function  - Data visualisation: examples ](https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-chart-examples/) - Specific examples of using the datavisualisation guidance with real-life charts and tables  
+[Government Analysis Function  - Data visualisation: examples ](https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-chart-examples/)
+- Specific examples of using the data visualisation guidance with real-life
+charts and tables.  
 
-[Government Analysis Function  - Data visualisation: examples ](https://analysisfunction.civilservice.gov.uk/policy-store/symbols-in-tables-definitions-and-help/) - guidance providing a consistent shorthand to be used in statistical and analytical publicaitons produced by the public sector 
+[Government Analysis Function  - Data visualisation: examples ](https://analysisfunction.civilservice.gov.uk/policy-store/symbols-in-tables-definitions-and-help/)
+- guidance providing a consistent shorthand to be used in statistical and
+analytical publicaitons produced by the public sector.
 
-[Government Analysis Function - infographics](https://analysisfunction.civilservice.gov.uk/policy-store/infographics/) - guidance on infographics
+[Government Analysis Function - infographics](https://analysisfunction.civilservice.gov.uk/policy-store/infographics/)
+- guidance on infographics.
 
-[Office for National Statistics (ONS) - Style.ONS - A guide to writing about statistics](https://style.ons.gov.uk) - General style guide for writing about statistics. 'Web accessibility' section under 'Writing for the web' offers specifics around accessibility.
+[Office for National Statistics (ONS) - Style.ONS - A guide to writing about statistics](https://style.ons.gov.uk)
+- General style guide for writing about statistics. 'Web accessibility' section
+under 'Writing for the web' offers specifics around accessibility.
 
-[NISRA Dissemination Branch guidance on creating an accessible infographic](https://nicsonline.sharepoint.com/:w:/r/sites/TM-DOF-NISRATEAM/Shared%20Documents/Dissemination%20Team/Creating%20an%20Accessible%20Infographic.DOCX?d=wbfd3f8b30e7b4e7d872b2f25bc4538b3&csf=1&web=1&e=0020gi) - Guidance shared by NISRA Dissemination Branch on how to create an accessible infographic.
+[NISRA Dissemination Branch guidance on creating an accessible infographic](https://nicsonline.sharepoint.com/:w:/r/sites/TM-DOF-NISRATEAM/Shared%20Documents/Dissemination%20Team/Creating%20an%20Accessible%20Infographic.DOCX?d=wbfd3f8b30e7b4e7d872b2f25bc4538b3&csf=1&web=1&e=0020gi)
+- Guidance shared by NISRA Dissemination Branch on how to create an accessible
+infographic.

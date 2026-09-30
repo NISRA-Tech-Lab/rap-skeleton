@@ -2,59 +2,72 @@
 title: "09 Text Presentation Sub Report"
 output: html_document
 knit: (function(input, ...) {
-    rmarkdown::render(
-      input,
-      output_dir = "../demo/demo_outputs/",
-      output_file = paste0(
-        xfun::sans_ext(input), '_', format(Sys.time(), "%d-%m-%Y_%H%M") , '.html'
-      ),
-      envir = globalenv()
-    )
-  })
+  rmarkdown::render(
+    input,
+    output_dir = "../demo/demo_outputs/",
+    output_file = paste0(
+      xfun::sans_ext(input),
+      "_",
+      format(Sys.time(), "%d-%m-%Y_%H%M"),
+      ".html"
+    ),
+    envir = globalenv()
+  )
+})
 ---
-  
-  
 
-```{r, include=FALSE}
-# this chunk sets chunk options for all chunks in this file
+```{r text_presentation_settings, include=FALSE}
+# Set chunk options for all chunks in this file.
+
 knitr::opts_chunk$set(
-  message = FALSE, echo = FALSE
+  message = FALSE,
+  warning = FALSE,
+  echo = FALSE
 )
 
 library(here)
 
-source(here("code/demo/demo_data_prep.R"))
-
+source(
+  here(
+    "code",
+    "demo",
+    "demo_data_prep.R"
+  )
+)
 ```
 
-This section includes a quote, more subheading levels, unordered lists, ordered lists and links.
+This section includes a quote, more subheading levels, unordered lists, ordered
+lists and links.
 
-### Quote box (h3)
+### Quote box
 
 <!-- coloured definiton boxes -->
 <p class="defboxes">
   <font color = `r nisra_navy`><strong>Mid Year Estimates:</strong>    
-    In June each year NISRA prepares data on the size of the Northern Ireland population and includes statistics on a range of administrative and statistical geographies. A style like this could be used for definitions or for emphasis.
+    Every June, NISRA counts how many people live in Northern Ireland. It also
+    shares information about different places and areas across the country. A
+    style like this can be used to explain important words or to make something
+    stand out.
   </font>
 </p> 
 
-### Administrative geographies (h3)
+### Areas of Northern Ireland 
 
-#### Local government districts (h4)
+#### Local government districts 
 
   1. Antrim and Newtownabbey (no ampersand).
   2. Ards and North Down.
   3. Armagh City, Banbridge and Craigavon.
   4. Belfast.
   5. Causeway Coast and Glens.
-  6. Derry and Strabane.
+  6. Derry City and Strabane.
   7. Fermanagh and Omagh.
   8. Lisburn and Castlereagh.
   9. Mid and East Antrim.
   10. Mid Ulster.
   11. Newry, Mourne and Down.
 
-#### Health and social care trusts (h4)
+#### Health and social care trusts in Northern Ireland
 
   1. Belfast HSC Trust.
   2. South Eastern HSC Trust.
@@ -63,13 +76,16 @@ This section includes a quote, more subheading levels, unordered lists, ordered 
   5. Northern HSC Trust.
   6. Northern Ireland Ambulance Service.
 
-### Statistical geographies (h3)
+#### Geography levels in Northern Ireland 
 
-  * NUTS III areas.
-  * Super Output Areas.
-  * Census Small Areas.
+  * NUTS III areas - large parts of Northern Ireland that are used to group
+  places together and compare information.
+  * Super Output Areas - small local areas that help us understand what is
+  happening in different neighbourhoods.
+  * Census Small Areas - very small areas made up of a few streets or homes.
+  They help us to count people and learn about local communities.
 
-### Former administrative and statistical geographies (h3) 
+#### Former areas and health trusts in Northern Ireland 
 
   -	Parliamentary Constituencies (Assembly Areas). 
   -	Health and Social Care Trusts. 
@@ -78,80 +94,135 @@ This section includes a quote, more subheading levels, unordered lists, ordered 
   - The former NUTS-III areas. 
   -	The former 582 Electoral Wards.
 
-Bullets following a heading start with a capital letter, finish with a full stop and are short (no more than one sentence)
 
-Bullets as a list within the text should always have a lead-in line, start in lowercase (unless it starts with a proper noun), don't have full stops within bullets or at the end. For more guidance see the [ONS punctuation guide](https://style.ons.gov.uk/category/house-style/punctuation/#bullet-points).
+### Using bullet points.
+There are two ways to use bullet points.
+
+#### After a heading
+
+- Start each bullet with a capital letter.
+- End each bullet with a full stop.
+-	Keep each bullet short.
+
+In a list within a sentence:
+
+- add a short lead-in line before the list
+- start each bullet with a lowercase letter, unless it starts with a name
+-	do not use full stops at the end of the bullets
+
+For more help, see the ONS punctuation guide.
 
 ### Accordions
 
-Notes can be stored in accordions, as shown below. This can be useful to reduce clutter in your HTML and allow users to access notes when needed.
+Accordions are useful when you want to switch between hiding and showing a large
+amount of content.
+
+Notes can be placed inside an accordion, like the example below. Accordions help
+keep pages tidy. Users can open them when they want to read more information.
+
 
 ```{r results='asis', echo = TRUE}
-htmltools::HTML("
-<div class='accordion'> 
-  <button class='accordion-toggle' aria-expanded='false' 
-          aria-controls='panel1' id='accordion1'> 
-    Local Government Districts 
-    <span class='accordion-arrow'>▶</span>
-  </button> 
-  <div class='accordion-panel' id='panel1' role='region' 
-       aria-labelledby='accordion1' hidden> 
+htmltools::HTML(
+  "
+  <div class='accordion'>
+    <button class='accordion-toggle' aria-expanded='false'
+            aria-controls='panel1' id='accordion1'>
+      Local Government Districts
+      <span class='accordion-arrow'>⌵</span>
+    </button>
+    <div class='accordion-panel' id='panel1' role='region'
+         aria-labelledby='accordion1'>
 
-    <ul>
-      <li>Antrim and Newtownabbey (no ampersand).</li>
-      <li>Ards and North Down.</li>
-      <li>Armagh City, Banbridge and Craigavon.</li>
-      <li>Belfast.</li>
-      <li>Causeway Coast and Glens.</li>
-      <li>Derry and Strabane.</li>
-      <li>Fermanagh and Omagh.</li>
-      <li>Lisburn and Castlereagh.</li>
-      <li>Mid and East Antrim.</li>
-      <li>Mid Ulster.</li>
-      <li>Newry, Mourne and Down.</li>
-    </ul>
+      <ul>
+        <li>Antrim and Newtownabbey (no ampersand).</li>
+        <li>Ards and North Down.</li>
+        <li>Armagh City, Banbridge and Craigavon.</li>
+        <li>Belfast.</li>
+        <li>Causeway Coast and Glens.</li>
+        <li>Derry and Strabane.</li>
+        <li>Fermanagh and Omagh.</li>
+        <li>Lisburn and Castlereagh.</li>
+        <li>Mid and East Antrim.</li>
+        <li>Mid Ulster.</li>
+        <li>Newry, Mourne and Down.</li>
+      </ul>
 
-  </div> 
-</div> 
+    </div>
+  </div>
 
-<script> 
-document.getElementById('accordion1').addEventListener('click', function() { 
-  var expanded = this.getAttribute('aria-expanded') === 'true'; 
-  this.setAttribute('aria-expanded', !expanded); 
-  var panel = document.getElementById(this.getAttribute('aria-controls')); 
-  panel.hidden = expanded; 
-}); 
-</script>
-")
+  <script>
+  document
+    .getElementById('accordion1')
+    .addEventListener('click', function() {
+      const expanded =
+        this.getAttribute('aria-expanded') === 'true';
+      const panel =
+        document.getElementById(this.getAttribute('aria-controls'));
+
+      this.setAttribute('aria-expanded', !expanded);
+
+      if (!expanded) {
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+        panel.style.opacity = '1';
+        panel.style.transform = 'translateY(0)';
+      } else {
+        panel.style.maxHeight = '0';
+        panel.style.opacity = '0';
+        panel.style.transform = 'translateY(-10px)';
+      }
+    });
+  </script>
+  "
+)
 ```
 
-### Hyperlinks (h3)
+### Hyperlinks
 
-When creating a hyperlink, do not use the url. Instead, create link text that describes the link destination and if appropriate a file type and size. If linking to a data download, we are advising against linking directly to the actual file, instead link to the publication page. If linking directly to the file you have to include the file type and size in the link text and tell users if it opens in a new window. The colour of hyperlinks in this demo report were changed in the cascading style sheets (CSS) because the default colour was too low contrast to meet accessibility standards. 
+A hyperlink is a piece of text which allows people to navigate between different
+web pages. When adding a link, do not use the web address as the link text.
 
-#### Examples of adding links (h4)
+Use words that tell users where the link will take them. If the link is to a
+file, include the file type and size in the link text.
 
-For a link that opens in the same window, in the R code simply give the link a relevant name in square brackets and add the link url in brackets immediately after. For accessibility it is recommended that links open in the same window in so far as possible.  
+For data downloads, it is usually better to link to the publication page rather
+than the file itself.
+
+If you link directly to a file:
+
+- include the file type and size in the link text
+- tell users if the file opens in a new window
+
+The hyperlink colour in this demo report was changed because the default colour
+did not have enough contrast to meet accessibility standards.
+
+#### Examples of adding links 
+
+For a link that opens in the same browser window, put the link name in square
+brackets. Then put the url in round brackets immediately after. For
+accessibility links should open in the same window.  
 
 [NISRA - 2022 Mid Year Population Estimates for Northern Ireland](https://www.nisra.gov.uk/publications/2022-mid-year-population-estimates-northern-ireland)  
 
-```{r, echo = TRUE, eval = FALSE}
+```markdown
 [NISRA - 2022 Mid Year Population Estimates for Northern Ireland](https://www.nisra.gov.uk/publications/2022-mid-year-population-estimates-northern-ireland)
 ```
+Where a link will open in a new window the "(opens in a new window)" text should
+be added to the end of the link name. In addition an icon to show the user it
+opens in a new window can be added with R markdown code such as
+`<span class="new-tab-icon"></span>)`. When target = "_blank" is set the link
+opens in a new window or tab.  
 
-  
-Where a link will open in a new window the "(opens in a new window)" text should be added to the end of the link name. In addition an icon to show the user it opens in a new window can be added with the r inline code (fa("arrow-up-right-from-square")). When target = "_blank" is set the link opens in a new window or tab.  
+[NISRA - 2022 Mid Year Population Estimates for Northern Ireland (opens in a new window) <span class="new-tab-icon"></span>](https://www.nisra.gov.uk/publications/2022-mid-year-population-estimates-northern-ireland){target="_blank"}  
 
-[NISRA - 2022 Mid Year Population Estimates for Northern Ireland (opens in a new window) `r fa("arrow-up-right-from-square")`](https://www.nisra.gov.uk/publications/2022-mid-year-population-estimates-northern-ireland){target="_blank"}  
-
-```{r, echo = TRUE, eval = FALSE}
-[NISRA - 2022 Mid Year Population Estimates for Northern Ireland (opens in a new window) `r fa("arrow-up-right-from-square")`](https://www.nisra.gov.uk/publications/2022-mid-year-population-estimates-northern-ireland){target="_blank"}
+```markdown
+[NISRA - 2022 Mid Year Population Estimates for Northern Ireland (opens in a new window) <span class="new-tab-icon"></span>](https://www.nisra.gov.uk/publications/2022-mid-year-population-estimates-northern-ireland){target="_blank"}
 ```
   
-Where a link takes the user directly to a download or file the link text should have file type and size included as below.  
+If links take you directly to a download or file, then the link text should have
+the file type and size included below.  
 
 [2022 Mid-year population estimates statistical bulletin pdf 545KB](https://www.nisra.gov.uk/system/files/statistics/Statistical%20Bulletin%20-%202022%20Mid-year%20Population%20Estimates%20for%20Northern%20Ireland.pdf)  
 
-```{r, echo = TRUE, eval = FALSE}
+```markdown
 [2022 Mid-year population estimates statistical bulletin pdf 545KB](https://www.nisra.gov.uk/system/files/statistics/Statistical%20Bulletin%20-%202022%20Mid-year%20Population%20Estimates%20for%20Northern%20Ireland.pdf)
 ```

@@ -2,50 +2,73 @@
 title: "08 Notes for Readers Sub Report"
 output: html_document
 knit: (function(input, ...) {
-    rmarkdown::render(
-      input,
-      output_dir = "../demo/demo_outputs/",
-      output_file = paste0(
-        xfun::sans_ext(input), '_', format(Sys.time(), "%d-%m-%Y_%H%M") , '.html'
-      ),
-      envir = globalenv()
-    )
-  })
+  rmarkdown::render(
+    input,
+    output_dir = "../demo/demo_outputs/",
+    output_file = paste0(
+      xfun::sans_ext(input),
+      "_",
+      format(Sys.time(), "%d-%m-%Y_%H%M"),
+      ".html"
+    ),
+    envir = globalenv()
+  )
+})
 ---
-  
-  
 
-```{r, include=FALSE}
-# this chunk sets chunk options for all chunks in this file
+```{r notes_for_readers_settings, include=FALSE}
+# Set chunk options for all chunks in this file.
+
 knitr::opts_chunk$set(
-  message = FALSE, echo = FALSE
+  message = FALSE,
+  warning = FALSE,
+  echo = FALSE
 )
 
 library(here)
 
-source(here("code/demo/demo_data_prep.R"))
+source(
+  here(
+    "code",
+    "demo",
+    "demo_data_prep.R"
+  )
+)
 ```
 
-This section has been separated from the main section of the document to aid navigation. Normally a publication should contain a separate section of this nature and can be named ‘Notes for Readers', ‘Background Notes’ or ‘Supporting Information’. It should include:
+This part is separate from the main report so it is easier to find.
 
-  - definitions (or a link to definitions) of all relevant concepts and terms. Whether the definition is included in the text, the Notes section or a link provided depends on the importance of the reader knowing the correct definition
-  - key quality information (including any limitations or key caveats) and a link to the Background Quality Report (or the equivalent). Where appropriate, limitations or caveats should also be flagged in the text alongside the data, as not all users will read the Notes section
-  - links to the equivalent statistics in England, Scotland and Wales (and if appropriate RoI) or indicate that equivalent statistics are not available (with an explanation or guidance on comparison if appropriate) - assuming this information is not included elsewhere in the publication
+Most reports have a section like this. It might be called Notes for Readers,
+Background Notes, or Helpful Information.
 
-It may include (if relevant):
+This section should include:
 
-  - a series of methodology notes (or a link to the methodology used to produce the statistics). This may include details of the data sources used to produce the statistics.
-  - information on how the statistics are used, for example if they are used to measure key performance targets; and advice on the appropriate use of the statistics
-  - links to related statistics, including where appropriate guidance on the coherence and comparability of the statistics 
-  - links to social media accounts [X (Twitter)](https://x.com/NISRA) and [Facebook](https://www.facebook.com/nisra.gov.uk)
-  - information on supplementary statistical services
-  - date of the next release
-  - links to [previous publications](https://www.nisra.gov.uk/publications/2021-mid-year-population-estimates-northern-ireland)
-  - email addresses should all be lowercase jo.bloggs@nisra.gov.uk and it is good practice to include a named individual (some exemptions apply)
-  - links to downloads should have file type and size in the link text [2022 Mid-year population estimates statistical bulletin pdf 545KB](https://www.nisra.gov.uk/system/files/statistics/Statistical%20Bulletin%20-%202022%20Mid-year%20Population%20Estimates%20for%20Northern%20Ireland.pdf)
+- meanings of important words, or links that explain them
+- information about how good the data is and anything people should be careful
+about
+- a link to a report that explains the quality of the data
+- any important things people should know about the data, including its limits
+- links to similar statistics from England, Scotland, Wales and, if needed, the
+Republic of Ireland
+If there are no similar statistics, explain why.
 
-With regards to adding 'Contact Details', they may be included in this section. However the RAP skeleton has a contact details function called `f_contact` in the `html_formatting` R script within the functions folder. This function is called at the bottom of a report (Section 13) above the footer and is the recommended way to add contact details to a report as it ensures consistency for users. Information for specific contact details can be added and edited in the config file
+This section may also include (if relevant):
 
-### Requests for PDF
+- information about how the statistics were made
+- information about where the data came from
+- links to other related statistics
+- information about how people use the statistics and how they should be used
+- links to social media accounts [X (Twitter)](https://x.com/NISRA) and [Facebook](https://www.facebook.com/nisra.gov.uk)
+- information about extra statistical services
+- the date of the next publication
+- links to [previous publications](https://www.nisra.gov.uk/publications/2021-mid-year-population-estimates-northern-ireland)
 
-It is not encouraged to produced NISRA publications in PDF format however if users request a HTML publication in PDF format it can be created by printing to HTML to PDF using the browser print. Please note - any PDF files created in this way will not be accessible.
+
+### Requests for PDF Versions
+
+NISRA reports are usually published as web pages instead of PDF files.
+
+If someone asks for a PDF, one can be made by printing the web page as a PDF.
+However, these PDFs are not easy for everyone to use, so the web page is the
+preferred version. If a user requests a PDF version, one can be created by
+printing the HTML page to PDF using the browser's print function.

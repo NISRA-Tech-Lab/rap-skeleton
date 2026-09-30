@@ -2,217 +2,466 @@
 
 ## What is the RAP Skeleton?
 
-The RAP Skeleton is a reusable template for RAP projects. It uses the R coding language (written in line with the [tidyverse style guide](https://style.tidyverse.org/)) to create HTML statistical publications. The RAP Skeleton is stored as a repository on the Tech Lab GitHub page and can be accessed by downloading the repository as a ZIP file (Git knowledge is not required for this, see further instructions found below). The RAP Skeleton project contains two sections; the demo report and the skeleton template, further information on each is provided below. 
+The [RAP Skeleton](https://github.com/NISRA-Tech-Lab/rap-skeleton) is a reusable
+template for RAP projects. It uses the R programming language, following the
+[tidyverse style guide](https://style.tidyverse.org/), to create HTML
+statistical publications.
 
-For users updating to the RAP Skeleton V3.0.0, please refer to the last three sections of the ReadMe.
+The RAP Skeleton is maintained as a template repository on the
+[NISRA Tech Lab GitHub](https://github.com/NISRA-Tech-Lab) organisation. New
+projects can be created directly from this template and cloned to a local
+computer for development in RStudio. Instructions for setting up a new project
+are provided below.
+
+The RAP Skeleton contains both a skeleton template for users to adapt for their
+own publications and a completed demo report containing worked examples.
+
+Users updating an existing project to RAP Skeleton V4.0.0 should refer to the
+`Updating to RAP Skeleton V4` section of this README.
 
 <details open>
-  <summary><strong>What's New in v3.0.0?</strong></summary>
+  <summary><strong>What's New in v4.0.0?</strong></summary>
 
 #### 🧰 General review and update
-The RAP skeleton underwent review and any unused or out of date parts of the code have been removed. The demo report also underwent accessibility testing and any issues found have been remedied.
+The RAP Skeleton underwent review and any unused or out of date parts of the
+code have been removed. The demo report also underwent accessibility testing and
+any issues found have been remedied.
 
-#### 🧪 R 4.4.3 compatibility
-All packages have been updated so the RAP Skeleton is fully compatible with R version 4.4.3; Use renv::restore to ensure all packages are synchronized.
+#### 🧪 R 4.6.1 compatibility
+All packages have been updated so the RAP Skeleton is fully compatible with R
+version 4.6.1; Use renv::restore to ensure all packages are synchronized. In
+addition all packages have been added to TLCRAN.
 
-#### 🗂️ Functions folder update
-All the functions included in the RAP skeleton are now contained within individual R scripts and stored in the functions folder. This should improve user experience as the functions are easier to find and more clearly defined within the project. Each function also now has a brief description explaining what it does.
+#### 📝 New Quality Assessment (QA) report template 
+A new QA report template, `qa_report.Rmd`, has been added to the code folder.
+This provides a skeleton QA report that teams can populate with their own
+quality assurance checks, tables and information.
 
-#### 📄 New f_worksheet function
-A new, simplified function for writing out excel tables has been added to the skeleton. This new function fixes a few of the issues users were encountering with the original f_single_excel.R function such as missing data. The f_worksheet.R function allows multiple tables to be written to a single excel sheet and does not rely on externally set variables which is in line with good practice guidance. More information on how to use the f_worksheet.R function is provided in the *Creating Excel tables with the f_worksheet.R* function section below.
+A completed example, `demo_qa_report.Rmd`, is also included in the demo folder.
+This contains example QA tables, statistics and information to demonstrate how
+the template can be used to quality assure data and outputs.
 
-#### 🧩 ADR styling
-ADR colours and logos have been added as styling options. Set nics-theme as "adr" in config.R to configure.
+#### 🎨 Branding
+The branding of the RAP Skeleton has been updated to include the current NISRA
+branding standards, including changes to the header colours, borderline,
+chart/table/map titles, footer and other elements of the demo report. The RAP
+Skeleton is now aligned with the
+[nisra-branding GitHub repository](https://github.com/NISRA-Tech-Lab/nisra-branding)
+which contains the source code for branding and will be used for future branding
+updates.
 
-#### 📊 New chart options
-New charts have been added: filled line chart, population pyramid, flow chart.
+#### 🔎 New tinyknit package 
+The `tinyknit` package has been added to the list of packages included in the RAP
+Skeleton. It provides an alternative method for knitting R Markdown reports and
+can produce smaller HTML output files than the standard knitting process.
 
-#### 📝 Annotations
-The demo report includes a feature that lets users add annotations and save the annotated file. This feature can be toggled on or off in demo_report.R. At the top of the file, within the YAML section, set params: annotations: false to disable it.
+See the `tinyknit usage guide` section at the bottom of this README for
+instructions and examples on how to use the package.
 
-#### 🌐 Data Portal Prep Script
-An example script `code/demo/demo_data_portal_prep.R` has been added to the demo to demonstrate how the MYE data used in the demo report would be prepared for upload to the NISRA Data Portal.
+#### 📄 New f_responsive_annotations() function
+A new, simplified function has been added to improve the responsive resizing of
+annotations on Plotly charts. The function adjusts annotation text size based on
+the width of the chart, helping annotations remain readable when the chart is
+displayed at different widths.
 
-#### 🔎 Meta HTML files added
-This file `code/meta.html` has been added to the YAML of the report.Rmd file to improve search engine optimisation. This file should be updated with a description of the output and any key words which should be picked up if users are searching for the publication using a search engine.
+Examples of how f_responsive_annotations() can be applied to Plotly charts are
+included in Figure 1, Figure 5 and Figure 14 of the demo report.
+
+#### 🌐 Improvements to User Experience (UX) and Accessibility
+Specific elements of the RAP Skeleton, including the footer, cookie banner,
+tabsets and accordions, have been refined to improve the user experience and
+accessibility.
+
+The CSS file, which controls the styling of HTML elements, has also been updated
+and reorganised. Clear headings have been added throughout the file to make it
+easier for users to navigate, understand and modify the styling of their
+reports.
+
+#### 📊 Download buttons updated
+Download buttons have been updated into one dropdown button that aligns with
+NISRA's accessible colour palette. A third download option has also been added,
+allowing users to download maps and charts as PNG files.
+
+#### 📝 Improvements to content design and writing
+The RAP Skeleton demo report has been rewritten using clearer and more
+straightforward language. These changes follow accessible content design
+principles and aim to make the information easier for a wide range of users to
+read and understand.
+
+#### 🏗️ Improvements to code formatting and readability
+The existing code within the RAP Skeleton has undergone maintenance to improve
+consistency, readability and maintainability. The `styler` and `lintr` packages
+have been used to identify formatting issues and help align the code with the
+[tidyverse style guide](https://style.tidyverse.org/).
+
+#### 📑 Improvements to the f_worksheet() function
+The `f_worksheet()` function has been simplified and made more flexible so it
+can now handle both single-table and multi-table worksheets more consistently.
+The contents page logic, table titles, hyperlinks, NA styling and Excel
+formatting have also been improved to reduce duplication and make the output
+easier to maintain.
+
+The function has also been updated to use clearer style names and more robust
+row and column handling, making it easier to reuse across different publication
+workbooks.
+
+#### ➕ New chart additions
+A new `ggplotly` chart has been added as the second tab on Figure 4 of the demo
+report. The chart is created using `ggplot2` and converted to an interactive
+Plotly chart using `ggplotly()`. See the
+[ggplotly documentation](https://plotly.com/ggplot2/getting-started/)
+for more information.
 
 </details>
 
 <details>
-  <summary><strong>Downloading the RAP Skeleton</strong></summary>
+  <summary><strong>Setting up the RAP Skeleton</strong></summary>
+  
+It is recommended that new RAP Skeleton projects are created using the RAP
+Skeleton template on GitHub. This creates a repository for your publication that
+can then be cloned to your computer and opened in RStudio.
 
-This code should run on most recent versions of RStudio but will need R 4.4.3 to run package installations correctly. If you do not have this, R 4.4.3 is available from the IT Assist Store.
+Using this approach means that version control is available from the beginning
+of the project and provides a shared location for the code used to produce the
+publication.
 
-In order to work with the RAP Skeleton the project folder must first be downloaded onto your local computer. Follow these steps to complete this process:
+#### Before you start
 
--   Download the RAP Skeleton as a ZIP file by clicking on the ‘Source code (zip)’ link under the ‘Assets’ tab on the [latest releases page](https://github.com/NISRA-Tech-Lab/rap-skeleton/releases). The file will be downloaded to the ‘Downloads’ folder on your PC.
+Before creating a RAP Skeleton project:
 
--   Open your ‘Downloads’ folder using Windows Explorer and extract the RAP Skeleton contents by right-clicking on the ZIP file and selecting ‘Extract All’.
+  1.  Install **Git for Windows** from the IT Assist Store if it is not already
+  installed on your computer.
+  2.  Create a GitHub account using your work email address if you do not
+  already have one.
+  3.  Ensure that you have access to the appropriate GitHub organisation for
+  your branch or team.
+  4.  Ensure that the required version of R is installed. RAP Skeleton V4
+  requires **R 4.6.1** for package installation. This version of R is available
+  from the IT Assist Store.
 
--   The RAP Skeleton will be contained within a folder with a name `rap-skeleton-`, followed by some numeric version numbers eg. `rap-skeleton-3.0`. In this README this will be referred to as `rap-skeleton-x.x`. Choose an appropriate location to save this folder e.g. your desktop.
+#### Configure Git
+
+If this is the first time you have used Git on your computer, open a Terminal
+and configure your Git username and email address:
+
+```         
+git config --global http.sslVerify false
+git config --global user.name "YourUsername"
+git config --global user.email "firstname.lastname@nisra.gov.uk"
+```
+
+Replace the example username and email address with the details associated with
+your GitHub account.
+
+This configuration normally only needs to be completed once on each computer.
+
+#### Create a repository from the RAP Skeleton template
+
+  1.	Open the **RAP Skeleton** repository on GitHub.
+  2.	Select **Use this template** button near the top-right of the repository
+  page.
+  3.  Select **Create a new repository**.
+  4.	Select the appropriate GitHub organisation for your branch or team as the
+  repository owner.
+  5.	Enter an appropriate repository name for your publication, following any
+  naming conventions used by your team. For example: `01-doj-newpublication`.
+  6.	Select the appropriate repository visibility.
+  7.  Select **Create repository**.
+
+GitHub will create a new repository containing the RAP Skeleton files. Your new
+publication repository is independent of the original RAP Skeleton repository.
+The changes made to the RAP Skeleton in the future will not automatically be
+applied to your publication repository. 
+
+#### Clone the repository into RStudio
+
+Once the new repository has been created:
+
+  1.	On the GitHub page for your new repository, select the green Code button.
+  2.  Copy the repository URL.
+  3.  Open RStudio.
+  4.  Select **File > New Project > Version Control > Git**.
+  5.  Paste the copied URL into the **Repository URL** field.
+  6.  Choose the location on your computer where you want the project folder to
+  be created.
+  7.  Select **Create Project**.
+
+RStudio will clone the GitHub repository to your computer and open it as a
+project.
+
+You now have:
+
+  -   a repository on GitHub containing the shared version of your publication
+  code; and
+  -   a local copy of the repository on your computer where you can develop and
+  run the publication.
+
+Changes made locally are not automatically sent to GitHub. They must be
+committed and pushed when you are ready to share them. See
+**Working with Git and GitHub** later in this guide for further information.
+
+#### Next steps
+
+Once the repository has been cloned and opened in RStudio:
+
+  1.  Familiarise yourself with the RAP Skeleton folder structure.
+  2.  Set up the project's `renv` environment and restore the required packages.
+  3.  Run the demo report to check that the RAP Skeleton is working correctly.
+  4.  Begin adapting the template for your publication.
+
+The following sections of this guide explain each of these steps in more detail.
 
 </details>
 
 <details>
   <summary><strong>Understanding the RAP Skeleton folder structure</strong></summary>
 
-Once downloaded and extracted, you are now able to view the files and folders within the `rap-skeleton-x.x` folder.
+Once the repository has been cloned and opened in RStudio, you can view the
+files and folders contained within your RAP Skeleton project.
 
 Note:
 
--   `rap-skeleton.Rproj` (rap-skeleton-x.x/rap-skeleton.Rproj) is the main R project file for the RAP Skeleton. Always open this R project file first when working on any element of your report.
+-   `rap-skeleton.Rproj` ("your repository name"/rap-skeleton.Rproj) is the main
+R project file for the RAP Skeleton. Always open this file first when working on
+any element of your report.
 
--   `report.Rmd` (rap-skeleton-x.x/code/report.Rmd) is the RMarkdown file that will be knitted to produce your HTML report.
+-   `report.Rmd` (code/report.Rmd) is the main R Markdown file used to produce
+your HTML report.
 
--   `demo_report.Rmd` (rap-skeleton-x.x/code/demo/demo_report.Rmd) is the RMarkdown file that will be knitted to produce the demo HTML report.
+-   `demo_report.Rmd` (code/demo/demo_report.Rmd) is the R Markdown file used to
+produce the demo HTML report.
 
--   Everything relating to the demo report is stored inside the `demo` folder (`rap-skeleton-x.x/code/demo/`). The entire `demo` folder can be deleted if it is not required.
+-   Everything relating to the demo report is stored inside the `demo` folder
+(`code/demo/`). The entire `demo` folder can be deleted if it
+is no longer required.
 
-The following table lists the RAP Skeleton contents and their purpose:
+The following table lists the main RAP Skeleton files and folders and explains
+their purpose:
 
-| Skeleton/Demo | File                            | Purpose                                                                                                                      |
+| Skeleton/Demo | Folder/File                     | Purpose                                                                                                         |
 |------------------------|------------------------|------------------------|
-| Skeleton      | `code/report.Rmd`               | RMarkdown report                                                                                                             |
-| Skeleton      | `code/excel_tables.R`           | Produce spreadsheet output                                                                                                   |
-| Skeleton      | `code/data_prep.R`              | Data prep for report & spreadsheets                                                                                          |
-| Skeleton      | `code/config.R`                 | Configuration file primarily for skeleton template (is also read into `demo_config.R`)                                       |
-| Skeleton      | `code/meta.html`                | HTML script with meta tags that is called in the YAML of the report.Rmd file to improve serach engine optimisation           |
-| Skeleton      | `data/`                         | Store your raw data files here (if your code is not stored on GitHub). Otherwise, connect to external data eg. on a shared drive or SQL server, you can specify that in config.R |
-| Skeleton      | `outputs/`                      | HTML and Excel outputs will be saved here                                                                                    |
-| Skeleton      | `.gitignore`                    | A list of files and folders that you wish to be ignored by Git. These will not be uploaded to your Github repo if using one. |
-|               |                                 |                                                                                                                              |
-| Demo          | `code/demo/demo_report.Rmd`     | Demo RMarkdown report                                                                                                        |
-| Demo          | `code/demo/demo_excel_tables.R` | Original script to produce demo spreadsheet output                                                                           |
-| Demo          | `code/demo/demo_excel_tables_new.R` | New script to produce demo spreadsheet output which uses f_worksheet.R function                                          |
-| Demo          | `code/demo/demo_data_prep.R`    | Data prep for demo report & demo spreadsheets                                                                                |
-| Demo          | `code/demo/demo_data_portal_prep.R`| Data prep to prepare date for upload to the NISRA Data Portal                                                             |
-| Demo          | `code/demo/demo_config.R`       | Configuration for demo only                                                                                                  |
-| Demo          | `code/demo/demo_data/`          | Raw data for the demo is stored here                                                                                         |
-| Demo          | `code/demo/demo_outputs/`       | Demo HTML and Excel outputs will be saved here                                                                               |
+| Skeleton      | `code/report.Rmd`               | Main R Markdown template used to produce the HTML report                                                        |
+| Skeleton      | `code/excel_tables.R`           | Script used to produce the Excel output                                                                         |
+| Skeleton      | `code/data_prep.R`              | Data preparation for the report and Excel outputs                                                               |
+| Skeleton      | `code/qa_report.Rmd`            | Skeleton QA report that teams can populate with their own quality assurance checks, tables and information      |
+| Skeleton      | `code/config.R`                 | Main configuration file for the RAP Skeleton; also read into `demo_config.R`                                    |
+| Skeleton      | `code/meta.html`                | HTML containing metadata that is included through the YAML of `report.Rmd` to support search engine optimisation|
+| Skeleton      | `code/style.css`                | Stylesheet used to control the appearance of HTML elements within the reports                                   |
+| Skeleton      | `code/annotation.js`            | JavaScript used to add, edit and save annotations within the HTML report                                        |             
+| Skeleton      | `code/consent_head.html`        | Initialises Google Consent Mode v2 and Google Tag Manager before other analytics code                           |
+| Skeleton      | `code/cookie_banner.html`       | Manages the NISRA cookie consent banner, stores the user's preference and updates analytics consent             |
+| Skeleton      | `code/functions/`               | Contains reusable R functions used throughout the RAP Skeleton to create and format report and Excel outputs    |
+| Skeleton      | `data/`                         | Location for storing raw data files where appropriate. Data can alternatively be read from external sources such as a shared drive or SQL server |
+| Skeleton      | `outputs/`                      | Location where HTML and Excel outputs are saved. The folder is created automatically by the RAP Skeleton if it does not already exist            |
+| Skeleton      | `.gitignore`                    | Specifies files and folders that Git should ignore and therefore not track in the GitHub repository             |
+|               |                                 |                                                                                                                 |
+| Demo          | `code/demo/demo_report.Rmd`     | R Markdown file used to produce the demo HTML report                                                            |
+| Demo          | `code/demo/demo_excel_tables.R` | Original script used to produce the demo Excel output                                                           |
+| Demo          | `code/demo/demo_excel_tables_new.R` | Updated script used to produce the demo Excel output using the `f_worksheet()` function                     |
+| Demo          | `code/demo/demo_data_prep.R`    | Data preparation for the demo report, Excel outputs and QA report                                               |
+| Demo          | `code/demo/demo_data_portal_prep.R`| Data preparation for uploading data to the NISRA Data Portal                                                 |
+| Demo          | `code/demo/demo_config.R`       | Configuration settings specific to the demo                                                                     |
+| Demo          | `code/demo/demo_data/`          | Location of the raw data used by the demo                                                                       |
+| Demo          | `code/demo/demo_outputs/`       | Location where demo HTML and Excel outputs are saved                                                            |
+| Demo          | `code/demo/demo_qa_report.Rmd`  | Completed example QA report containing example quality assurance checks, tables and information                 |
 </details>
 
 <details>
   <summary><strong>Demo Report</strong></summary>
   
-A demo HTML project is included within the RAP Skeleton project. The purpose of the demo is to:
+A demo HTML report is included within the RAP Skeleton project. The demo can be
+used to:
 
--   View, explore and interact with a demo HTML report.
+-   View, explore and interact with an example HTML report.
 
--   Show the file structure and set-up needed to organise and produce an HTML report. Use the demo to learn more about the `report.Rmd` file as well as the associated `config.R`, `data_prep.R` and `excel_tables.R` files. Each of these files will be prefixed with `demo_` in the demo report (e.g. `demo_config.R`).
+-   Understand the file structure and set-up used to organise and produce an
+HTML report. The demo provides examples of the `report.Rmd`, `config.R`,
+`data_prep.R` and `excel_tables.R` files. These files are prefixed with `demo_`
+in the demo folder (for example, `demo_config.R`).
 
--   Get inspiration for your own HTML report by viewing examples of elements that can be included and explore the R code used to create them.
+-   Explore the separate `demo_qa_report.Rmd`, which provides a completed
+example of how the `qa_report.Rmd` template can be used to document quality
+assurance checks, tables and information.
 
--   Learn more about digital accessibility requirements and how they influence the process of coding an HTML report.
+-   Get inspiration for your own HTML report by viewing examples of different
+report elements and exploring the R code used to create them.
 
-To view the latest demo HTML report the user must first knit the `demo_report.Rmd` file. Instructions for this procedure will follow further down this document.
+-   Learn more about digital accessibility requirements and how they can be
+considered when developing an HTML report.
 
-You can view a pre-knitted demo report here: [demo_report.html](https://datavis.nisra.gov.uk/techlab/drpvze/RAP-demo-report.html)
+To view the latest demo HTML report locally, first knit the `demo_report.Rmd`
+file. Instructions for doing this are provided later in this README.
+
+Alternatively, you can view a pre-knitted version of the demo report here:
+[demo_report.html](https://datavis.nisra.gov.uk/techlab/drpvze/RAP-demo-report.html)
 
 </details>
 
 <details>
   <summary><strong>Skeleton template</strong></summary>
 
-This is the basis for a user to create their own HTML report. Users can get started by loading their data and adjusting the `config.R`, `data_prep.R` and `excel_tables.R` files before knitting the `report.Rmd` file.
+The RAP Skeleton template provides the starting point for users to create their
+own HTML report. Users can get started by loading their data and adapting the
+`config.R` and `data_prep.R` files before knitting the `report.Rmd` file. The
+`excel_tables.R` file can be adapted separately to produce accompanying Excel
+outputs.
 
-Users can choose to write all chapters of their report within the `report.Rmd` file or create multiple chapters using extra child `.Rmd` files. These child `.Rmd` files are then called into the `report.Rmd` file and knitted together as one HTML report.
+Users can write their entire report within the main `report.Rmd` file or divide
+it into separate chapters using child `.Rmd` files. Child `.Rmd` files are
+called from the main `report.Rmd` file and knitted together to produce a single
+HTML report.
 
-Note that although the RAP Skeleton template only provides the main `report.Rmd` file, the RAP Skeleton demo HTML is constructed using multiple child `.Rmd` files as different chapters. Users wanting to divide different chapters into multiple child `.Rmd` files should follow the instructions found later in this documentation.
+The RAP Skeleton template contains only the main `report.Rmd` file by default.
+However, the demo report shows how multiple child `.Rmd` files can be used to
+organise a report into separate chapters.
+
+For instructions on using this approach, see the
+`Implementing child .Rmd files as individual chapters` section later in this
+README.
 
 </details>
 
 <details>
   <summary><strong>Renv</strong></summary>
 
-#### Initialisation
+#### Initial setup
 
-`Renv` is used to lock the current version of the packages within a RAP Skeleton project so that any future users can directly recreate the results and outputs using the same renv specification. `Renv` only needs to be activated once at the start of each RAP Skeleton project and it will attempt to automatically activate when you open the project.
+`renv` is a package dependency management tool for R. It records the versions of
+R packages used by a project in a lockfile, allowing other users to install the
+same package versions and helping to make the project reproducible over time.
 
-Upon opening the `rap-skeleton.Rproj` file for the first time you should see a message in the console similar to:
+The RAP Skeleton is already configured to use `renv`. When you open the 
+`rap-skeleton.Rproj` file, `renv` should activate automatically.
+
+When opening the project for the first time, you may see a message in the
+console similar to:
 
 ```         
-# Bootstrapping renv 1.1.5 ---------------------------------------------------
+# Bootstrapping renv 1.2.3 ---------------------------------------------------
 - Downloading renv ... OK
 - Installing renv  ... OK
 
-- Project 'C:/.../34-rap-skeleton/rap-skeleton-dev' loaded. [renv 1.1.5]
+- Project 'C:/.../Desktop/rap-skeleton-dev' loaded. [renv 1.2.3]
 - One or more packages recorded in the lockfile are not installed.
 - Use `renv::status()` for more details.
 ```
 
-Next open the `renv_setup.R` script and follow the steps within titled `renv::restore()` and `renv::status()`. If successful, renv should now be activated and all required packages should be available.
+Next open the `renv_setup.R` script and follow the steps under `renv::restore()`
+and `renv::status()`. `renv::restore()` installs the package versions recorded
+in the project's lockfile, while `renv::status()` can be used to check that the
+project library and lockfile are consistent.
 
-When setting up renv within this project, you may see error lines printed to console similar to:
+Once this process has completed successfully, the packages required by the RAP
+Skeleton should be available within the project.
+
+When setting up `renv`, you may see messages in the console similar to:
 
 ```         
 renv was unable to query available packages from the following repositories: 
 - # file:////pr-clus-vfpdfp/DOF_NISRA_R_Packages/production/src/contrib --------
 ```
 
-These do not affect the setup of the project and can be ignored
+These messages do not affect the setup of the RAP Skeleton and can be ignored.
 
-#### Help & Troubleshooting
+#### Help and Troubleshooting
 
-If the above steps do not appear to work or error messages appear, read more about troubleshooting renv in our [R Documentation](https://datavis.nisra.gov.uk/techlab/drpvze/r.html#renv_troubleshooting)
+If the steps above do not work as expected or you receive error messages, see
+the `renv` troubleshooting guidance in our
+[R Documentation](https://datavis.nisra.gov.uk/techlab/drpvze/r.html#renv_troubleshooting)
 
-For further information on this package, visit the [Renv website.](https://rstudio.github.io/renv/index.html)
+For further information about `renv`, visit the
+[renv website.](https://rstudio.github.io/renv/index.html)
 
 #### Continuing development within Renv
 
-This version of the RAP Skeleton points to an internal Tech Lab repository of packages called the TLCRAN, which is called upon in the above setup. However if you need to develop further with your project, and add new packages, follow the instructions under the title `renv::install() and renv::snapshot()` in the `renv_setup.R` script.
+This version of the RAP Skeleton uses the internal Tech Lab package repository,
+TLCRAN, as part of the package setup.
+
+If you continue developing your project and need to add or update packages,
+follow the instructions under `renv::install()` and `renv::snapshot()` in the
+`renv_setup.R` script. These steps explain how to install packages and record
+the updated package versions in the project's lockfile.
 
 #### Git and renv
 
-Renv projects work best with git integration as they are built upon the idea that all users will be working from a local copy of the code base. If you are not using git, you cannot work from a shared copy of the code on a shared drive, for example, as only one local user can be configured at one time on a renv project.
+`renv` works well alongside Git because each user can work with their own local
+copy of the project while sharing the same `renv.lock` file. This allows each
+user to recreate the required package environment on their own computer.
 
-To allow renv to work without git, you will need individual local copies of the code for each user and one central shared copy that is updated as the project develops. Any changes to the central code will need to be manually copied to local users periodically.
+If Git is not being used, each user should still work from their own local copy
+of the project rather than running the same `renv` project directly from a
+shared drive. A central shared copy can be maintained separately, with changes
+copied to each user's local version as the project develops.
 
 </details>
 
 <details>
   <summary><strong>Using the RAP Skeleton</strong></summary>
 
-After downloading the RAP Skeleton project, understanding the folder structure and activating `Renv` users can either:
+After setting up the RAP Skeleton project, familiarising yourself with the
+folder structure and setting up `renv`, you can either:
 
--   Knit the demo HTML report.
+-   Knit and explore the demo HTML report; or
 
-or
+-   Start creating your own HTML report using the RAP Skeleton template.
 
--   Create an HTML report with the RAP Skeleton template.
+First-time users are encouraged to knit the demo report before creating their
+own report. This provides an opportunity to explore an example HTML report, see
+how different elements work and consider which features may be useful for your
+own publication.
 
-It is recommended that first-time users of the RAP Skeleton knit the demo report. This will allow the user to view and interact with an HTML report and give them an idea of what their own report could look like and what elements they can consider including.
+#### Knitting the Demo
 
-<summary><strong>Knitting the Demo</strong></summary>
+Knitting the `demo_report.Rmd` file will produce the demo HTML report. Follow
+these steps:
 
-Knitting the `demo_report.Rmd` file will produce the demo HTML report. Follow these steps to produce the demo HTML report:
+-   Open the `demo_report.Rmd` by selecting it from the **Files** tab in
+RStudio (`code/demo/demo_report.Rmd`).
 
--   Open the `demo_report.Rmd` file by selecting it under the `Files` tab in the bottom right quadrant of R Studio (`code/demo/demo_report.Rmd`).
+-   Select **Knit** at the top of the `demo_report.Rmd` window or use the
+keyboard shortcut `Ctrl+Shift+K`.
 
--   Press ‘knit’ at the top of the `demo_report.Rmd` window (or Ctrl+Shift+K).
+When knitting is complete, the demo HTML report should open in RStudio. A copy
+will also be saved in the `demo_outputs` folder (`code/demo/demo_outputs/`).
 
-After several seconds, the demo HTML report should appear within your R Studio screen. It will also be saved in the `demo_outputs` folder (`code/demo/demo_outputs/`).
+The same process can be used to knit the demo QA report, `demo_qa_report.Rmd`
+(`code/demo/demo_qa_report.Rmd`).
 
-  <summary><strong>Creating an HTML report with the RAP Skeleton template</strong></summary>
+#### Creating an HTML report with the RAP Skeleton template
 
-Before creating an HTML report with the RAP Skeleton template, users should familiarise themselves with the files and folders associated with RAP Skeleton. There is not a set workflow for using the RAP Skeleton, however, the following steps are an example workflow that could be suitable for many reports:
+Before creating your own report, familiarise yourself with the files and folders
+included in the RAP Skeleton. There is no single workflow that must be followed;
+however, the steps below provide an example that may be suitable for many
+reports.
 
--   Rename these files and folders to something appropriate E.g. the name of your publication:
+-   This step is optional, rename the following file to something appropriate
+for your publication:
 
-    -   `rap-skeleton-x.x` (main folder)
+    -   `rap-skeleton.Rproj` - the R project file.
 
-    -   `rap-skeleton.Rproj` (R project file)
+-   Store any raw data required by the project in an appropriate location. The
+`data` folder can be used for data that is suitable for storing locally within
+the project. Alternatively, data can be read from external sources such as a
+shared drive or SQL server. Sensitive or restricted data should not be committed
+to GitHub.
 
--   Insert raw data files into the `data` folder (if your code is not stored on GitHub). Otherwise, connect to external data eg. on a shared drive or SQL server, you can specify that in config.R
+-   Open the `.Rproj` file (previously named `rap-skeleton.Rproj`). This will
+open the project in RStudio.
 
--   Open the `.Rproj` file (previously named `rap-skeleton.Rproj`). This will open the project within R Studio.
+-   Open  `config.R` and update the configuration and publication metadata
+required for your report. This includes variables such as:
 
--   Open the `config.R` file to edit publication metadata. Set the following variables:
+    -   `nics_theme` - select the appropriate departmental theme. Available
+    options include "teo", "daera", "dfc", "de", "dfe", "dof", "dfi", "doh",
+    "doj", "bso" and "adr". The selected theme determines the departmental
+    branding applied to the report.
 
-    -   `nics_theme` - Select appropriate department. Can be any of "teo", "daera", "dfc", "de", "dfe", "dof", "dfi", "doh", "doj", "bso". Based on the selection made the appropriate department branding and logos will be applied.
+    -   `prerelease` (default = FALSE) - If set to "TRUE" the pre-release
+    warning messages will display.
 
-    -   `prerelease` (default = FALSE) - If set to "TRUE" the pre-release warning messages will display.
-
-    -   `bilingual` (default = TRUE) - Default setting of "TRUE" will cause NISRA logo to display both English and Irish. Set to "FALSE" if not required.
+    -   `bilingual` (default = TRUE) - Default setting of "TRUE" will cause
+    NISRA logo to display both English and Irish. Set to "FALSE" if not
+    required.
 
     -   `current_year`
 
@@ -234,427 +483,753 @@ Before creating an HTML report with the RAP Skeleton template, users should fami
 
     -   `header_email`
 
-    -   `Excel_Rounding` (default = ‘Yes’)
+-   Open `data_prep.R` to prepare the data required for your publication.
 
--   Open the `data_prep.R` file.
+    -   Read in your data. The RAP Skeleton provides examples for importing
+    common data sources.
 
-    -   Read in your data (view example code for reading in .csv, .xlsx, .sav files and SQL data.)
+    -   Process your data and create the data frames and other objects required
+    by the report.
 
-    -   Process your data and create data frames.
+-   Open `report.Rmd` and update the report title in the YAML.
 
--   Open the `report.Rmd` file and edit the following:
+-   Add the content of your report to `report.Rmd`. If required, divide the
+report into separate chapters using child `.Rmd` files.
 
-    -   `title` in the YAML
+-   Knit `report.Rmd` to create the HTML report.
 
--   Write the contents of your report within the `report.Rmd` file and any associated child `.Rmd` files that are called into the `report.Rmd` file.
+-   If your publication requires accompanying Excel tables, open
+`excel_tables.R` and add the tables required for your publication. The reusable
+Excel functions included in the `functions` folder can be used to help create
+and consistently format these outputs.
 
--   Knit the `report.Rmd` file to create the HTML report.
+-   Review the completed HTML and Excel outputs in the `outputs` folder. This
+folder will be created automatically if it does not already exist.
 
--   Open the `excel_tables.R` file if your report requires accompanying Excel tables.
-
-    -   Create and format Excel workbooks (further instructions below).
-
--   Review HTML and Excel outputs in the `outputs` folder.
-
-Refer to the Dissemination branch advice on [accessibility](https://nicsonline.sharepoint.com/sites/TM-DOF-NISRATEAM/SitePages/DISSEMINATION%20Accessibility.aspx?csf=1&web=1&share=ERUVgIGLxlZHrhT2Qx2TYNwBR9Wz9sVOdzU6s5szFWfKsA&e=pLQycg&CID=8717807a-fbf7-4382-addd-b996ed43e60c) and publishing via the [Datavis server](https://nicsonline.sharepoint.com/sites/TM-DOF-NISRATEAM/SitePages/DISSEMINATION%20Datavis.aspx?csf=1&web=1&share=EReyP93ozeFEozbNJWq3P_kBHxQDUBduy8sGFc335Sx3OA&e=QKW2re&CID=b3035e06-e924-4a4d-b53e-6d44cc99d466).
+Before publishing, refer to the Dissemination Branch guidance on
+[accessibility](https://nicsonline.sharepoint.com/sites/TM-DOF-NISRATEAM/SitePages/DISSEMINATION%20Accessibility.aspx?csf=1&web=1&share=ERUVgIGLxlZHrhT2Qx2TYNwBR9Wz9sVOdzU6s5szFWfKsA&e=pLQycg&CID=8717807a-fbf7-4382-addd-b996ed43e60c)
+and publishing through the
+[Datavis server](https://nicsonline.sharepoint.com/sites/TM-DOF-NISRATEAM/SitePages/DISSEMINATION%20Datavis.aspx?csf=1&web=1&share=EReyP93ozeFEozbNJWq3P_kBHxQDUBduy8sGFc335Sx3OA&e=QKW2re&CID=b3035e06-e924-4a4d-b53e-6d44cc99d466).
 
 </details>
 
 <details>
   <summary><strong>Implementing child .Rmd files as individual chapters</strong></summary>
 
-As stated previously, the whole report can be written within the ‘report.Rmd’ file or spread across multiple chapters by using child .Rmd files that are then called into the ‘report.Rmd’ file. If you wish to use child .Rmd files for creating chapters then follow these steps:
+The entire report can be written within `report.Rmd`, or it can be divided into
+separate chapters using child `.Rmd` files. Child files can help make larger
+reports easier to organise, edit and maintain. Separating Rmd files makes
+development easier across teams. This is because different sections of 
+the report can be worked on by multiple individuals and reduce the 
+likelihood of merge conflicts by working in different files.
 
--   Using Windows file explorer, copy one of the child .Rmd files (e.g. 02_introduction.Rmd) from the ‘demo’ folder into the same folder that contains your main ‘report.Rmd’ file.
+The demo report provides examples of this approach. To create a new chapter
+using a child .Rmd file:
 
--   Rename the file to something appropriate.
+-   Using File Explorer, copy one of the child `.Rmd` files from the `demo`
+folder, for example `02_introduction.Rmd`, into the folder containing your main
+`report.Rmd` file.
 
--   Open the child .Rmd file within your R project and edit the title in the YAML.
+-   Rename the copied file to something appropriate for your chapter.
 
--   Make any other adjustments to the YAML that may be needed e.g set the ‘output_dir’ to the required output destination.
+-   Open the child `.Rmd` file within your R project and edit the title in the
+YAML.
 
--   Edit the set-up chunk to ensure that the correct ‘config.R’, and ‘data_prep.R’ files are sourced along with any other requirements.
+-  If you intend to knit the child `.Rmd` file independently, update any YAML
+settings that still refer to the demo, such as `output_dir`.
 
--   Edit the contents of the chapter beneath the set-up chunk.
+-   Check the set-up chunk and ensure that the correct `config.R` and
+`data_prep.R` files are sourced, along with any other files required by the
+chapter.
 
--   Save the changes to your child .Rmd file and open the ‘report.Rmd’ file which will call in the child .Rmd file.
+-   Add the content, R code, tables and charts required for the chapter.
 
--   To read the child .Rmd file into the ‘report.Rmd’ file follow these steps:
+-   Save the child `.Rmd` file and open the main `report.Rmd` file.
 
-    -   Create an h2 level header as a chapter title.
+To include the child file within `report.Rmd`:
 
-    -   Create an R code chunk.
+-   Add an `h2` (`##`) heading for the chapter in the appropriate location.
 
-    -   Insert a description for this R code chunk e.g. introduction_sub_report.
+-   Add an R code chunk beneath the heading.
 
-    -   Call in the child .Rmd file e.g. child= ‘02_introduction.Rmd’
+-   Give the code chunk a meaningful name, for example
+`introduction_sub_report`.
 
-    -   Knit the `report.Rmd` and check output.
+-   Set the chunk's child option to the name of the child .Rmd file, for
+example: `child="02_introduction.Rmd"`
 
 Example:
 
 ![](data/images/child.png)
+
+-   Knit `report.Rmd` and check that the chapter appears correctly in the
+completed HTML report.
 
 </details>
 
 <details>
   <summary><strong>Creating Excel tables</strong></summary>
 
-The RAP Skeleton R project contains an R script called ‘excel_tables.R’ which can be used to create accompanying Excel workbooks for your HTML report. Once created, these Excel files are saved in the ‘outputs’ folder. Alongside this, we reccommend referring to the demo folder and the file `demo_excel_tables_new.R` as a worked example of how to utilise the `f_worksheet.R` function to create excel outputs.
+The RAP Skeleton contains an R script called `excel_tables.R`, which can be used
+to create an accompanying Excel workbook for your HTML report. By default, the
+completed workbook is saved in the `outputs` folder.
 
-Creating Excel files involves the following steps within the ‘excel_tables.R’ file:
+The recommended approach is to use the reusable `f_worksheet()` function to
+create and format worksheets. A worked example is provided in
+`code/demo/demo_excel_tables_new.R`.
 
--   Configure the workbook metadata, update these fields to match your publication, for example:
+To create an Excel workbook using `excel_tables.R`, follow the steps below.
 
-    - `title` – full publication title (appears in Excel properties).
-    - `subject` – a short subject line.
-    - `category` – broad category (e.g. “Population”, “Labour Market”, etc.).
-    - `creator` - branch/team name.
+-   Configure the workbook metadata so that it matches your publication. Update
+fields such as:
+   
+    - `creator` - branch or team responsible for the publication.
+    - `title` – full publication title, which appears in the Excel file
+    properties.
+    - `subject` – a short description of the publication.
+    - `category` – a broad publication category, for example "Population" or
+    "Labour Market".
 
--   Update the Introduction sheet text:
+-   Update the text displayed on the Introduction sheet:
 
-    - Line 1 – publication title.
-    - Line 2 – short description (what the tables contain).
-    - `pub_date_words_dmy` – defined in `config.R`; sets it to your publication date in words.
-    - Contact block – replace “Joe Bloggs…” with your real contact name, team, address, phone and email.
-    - ⚠️ Leave the lines `"PUBLICATION LINK"` and `"BQR LINK"` in place – these are placeholders used to position the hyperlinks.
+    - Update the publication title.
+    - Update the short description explaining what the workbook contains.
+    - `pub_date_words_dmy` is created in `config.R` and displays the publication
+    date in words.
+    - Replace the example contact details with the appropriate contact name,
+    team, address, telephone number and email address.
+    - Leave "PUBLICATION LINK" and "BQR LINK" in place. These are placeholders
+    used by the script to position the relevant hyperlinks.
 
--   Update publication and BQR links:
-    - `pub_link` to the URL of your **published report**.
-    - `names(pub_link)` to the text you want to appear for that link.
-    - `bqr_link` to the URL of your **Background Quality Report** (or equivalent).
-    - `names(bqr_link)` to the text you want to appear for that link.
-    - You must keep `class(... ) <- "hyperlink"` so Excel recognises these as hyperlinks.
+-   Update the publication and background quality report hyperlinks:
 
--   Contents sheet:
-    - Edit the first line to match your publication title.
-    - `cr <- 3` is a **row counter** used by `f_worksheet()` to add entries to the contents sheet automatically. In general you should leave cr as 3.
+    - Set `pub_link` to the URL of the published report.
+    - Set `names(pub_link)` to the text that should be displayed for the
+    publication link.
+    - Set `bqr_link` to the URL of the Background Quality Report, or equivalent
+    quality information.
+    - Set `names(bqr_link)` to the text that should be displayed for the quality
+    report link.
+    - ⚠️ Keep `class(pub_link) <- "hyperlink"` and
+    `class(bqr_link) <- "hyperlink"` so that Excel recognises them as
+    hyperlinks.
 
--   Use `f_worksheet()` to add sheets. You can copy one of the provided examples, uncomment it, and edit the placeholders or refer to `demo_excel_tables_new.R` for a worked example.
+-   Set up the Contents sheet:
 
--   For tables with multiple sub-tables (e.g. 3a and 3b), use the “Table 3 example” block and point data at each data frame.
+    - Update the publication title in the `writeData()` block that creates the
+    Contents sheet so that it matches your publication.
+    - Leave "Table of Contents" unchanged unless you want to use a different
+    heading.
+    - `cr <- 3` is the row counter used by `f_worksheet()` to add table names
+    and hyperlinks to the Contents sheet automatically. Leave this value
+    unchanged.
+    - When using `f_worksheet()`, table links are added to the Contents sheet
+    automatically as each worksheet is created.
 
--   Set the output file location and save your workbook to the desired location:
-    - Update the path and filename to wherever you want the Excel file to be saved.
+-   Add worksheets using `f_worksheet()`:
 
+    - The template contains commented examples showing how to create worksheets
+    containing either a single table or multiple sub-tables.
+    - Copy and adapt the relevant example, replacing the placeholder titles,
+    descriptions, notes and data frame names with those required for your
+    publication.
+    - `f_worksheet()` automatically creates the worksheet, applies consistent
+    formatting and adds hyperlinks to the Contents sheet.
+    - For worksheets containing multiple sub-tables, such as Table 3a and Table
+    3b, add each table as a separate item within the `tables` list.
+    
+-   Set the output filename:
 
--   It is recommended to view and run the `demo_excel_tables_new.R` (if using f_worksheet function) or `demo_excel_tables.R` (if using f_single_excel function) file for further information creating accompanying Excel tables.
+    - Update `xl_template_filename` to give the workbook an appropriate
+    filename.
+    - By default, the workbook is saved in the `outputs` folder. Update the path
+    only if the workbook needs to be saved elsewhere.
+    
+For a complete worked example using `f_worksheet()`, see 
+`code/demo/demo_excel_tables_new.R`.
+
+For more information on the `f_worksheet()` function, see the
+**"How to use the `f_worksheet()` function"** section of this README.
+
+The older `code/demo/demo_excel_tables.R` example demonstrates the alternative
+`f_single_excel()` approach and is retained for reference.
 
 </details>
 
 <details>
-  <summary><strong>Storing your R project in a Github repository</strong></summary>
+  <summary><strong>Working with Git and GitHub</strong></summary>
 
-It is recommended that you store the R project for your HTML report in a Github repository. This safeguards your code and allows you to revert to previous versions if required. It also allows other contributors to easily access and update the project code.
+If you created your project using the RAP Skeleton GitHub template, your local
+RStudio project is connected to the publication repository on GitHub.
 
-#### Git prerequisites
+Git tracks changes made to the files within the repository, while GitHub
+provides a shared location where those changes can be stored and reviewed by
+other members of your team.
 
-Before attempting to store your R project on Github you must first:
+#### Before starting work
 
--   Ensure your R project folder is named something appropriate (e.g. `01-doj-newpublication`) and is no longer called `rap-skeleton-x.x`.
+If other people are also working on the repository, it is good practice to pull
+the latest changes from GitHub before starting work.
 
--   Install 'Git for Windows' on your computer from the IT Assist Store (remembering to install this on all new staff machines and when changing to new machines).
+In RStudio, select **Pull** from the Git pane.
 
--   Open a Github account online using your work email address.
+Alternatively, run the following command in the RStudio Terminal:
 
--   Ensure You have run the following configuration codes in the terminal of R Studio, remembering to insert your Github user name and associated email address in the second and third lines:
+`git pull`
 
-```         
-git config --global http.sslVerify false
-git config --global user.name "YourUsername"
-git config --global user.email firstname.lastname@nisra.gov.uk
-```
+This retrieves changes that have been pushed to the current branch on GitHub and
+integrates them into your local copy.
 
-#### Create your repository on Github and upload your project
+#### Making and reviewing changes
 
-A Github repository must be created first before you can 'push' the contents of your R project up to the repository.
+Work on the project normally in RStudio. Git will identify files that have been
+added, modified or deleted.
 
-Once the 'Git prerequisites' are completed then follow these steps to create a repository and link your R project:
+You can view these changes in the Git pane in RStudio.
 
--   In Github.com, create a new repository
-    -   Name the repository the same name as your R project folder e.g. `01-doj-newpublication`
-    -   Set repo to private.
-    -   Do not `Add a README file`.
-    -   Select `Create repository`.
--   Copy the following code, making sure to edit the URL on the fifth line to include the URL of your Github repository:
+Before committing changes:
 
-```         
-git init          
-git add .         
-git commit -m "initial upload"          
-git branch -M main                 
-git remote add origin https://github.com/your-organisation/name-of-your-repo.git          
-git push -u origin main         
-```
+  1.  Save your files.
+  2.  Review the files that Git identifies as changed.
+  3.  Check that the project still runs as expected.
+  4.  Run any appropriate quality assurance checks.
+  5.  Run `styler` and `lintr` where appropriate to check the formatting of R
+  code.
 
--   Paste this code into the terminal in R studio when you have the R project open and press enter.
+Avoid committing files containing sensitive or restricted data, passwords,
+credentials or other information that should not be stored in GitHub.
 
--   A popup may appear and ask you to sign into Github with your browser. If you get an error try running: `git push -u origin main`
+#### Committing changes
 
--   Refresh your repo on github.com again and you should see all the contents of your R project has now been pushed up to the repo.
+A commit records a set of changes in the Git history of the project.
 
--   Close your R studio project and re-open again. You should now see a ‘Git’ tab on the top right quadrant of the screen.
+Using the RStudio Git pane:
 
-#### Connecting to an existing Github repository
+  1.  Select the files you want to include in the commit.
+  2.  Select **Commit**.
+  3.  Review the changes shown in the commit window.
+  4.  Enter a short, meaningful commit message describing the change.
+  5.  Select **Commit**.
 
-##### Cloning a repo
+Alternatively, changes can be committed using the RStudio Terminal:
 
-If your team has an existing repository you'd like to connect to you'll have to make sure you've followed the steps in the `Git prerequisites` section above. In addition you'll have to make sure that a member of your team with admin rights to the project has added you as a collaborator on the Github repository.
+`git add -A`
+`git commit -m "Update publication charts"`
 
-Then, in R Studio, Click File \> New Project \> Version Control \> Git and paste the desired repository's URL in. Save your local clone of the Git repository somewhere locally on your machine, either on your Desktop or Documents folder.
+Use commit messages that explain what has changed rather than vague descriptions
+such as `"changes"` or `"update"`.
 
-To revisit the Project after closing RStudio, double click on the .Rproj file contained in the Project folder.
+#### Pushing changes to GitHub
 
-NOTE: You cannot connect to the RAP skeleton in this way, this is only for projects within your team.
+A commit initially exists only in your local repository. To send your committed
+changes to GitHub, select **Push** from the Git pane in RStudio.
+
+Alternatively, run:
+
+`git push`
+
+Once the push is complete, the committed changes will be available in the
+corresponding branch of the GitHub repository.
+
+#### Using branches
+
+For substantial changes, it is recommended that you create a separate branch
+rather than working directly on `main`.
+
+Branches allow changes to be developed and tested separately from the main
+version of the publication.
+
+For example, a branch could be created for:
+
+  -   updating publication content;
+  -   adding or changing charts;
+  -   updating branding;
+  -   changing data processing;
+  -   upgrading to a new RAP Skeleton version; or
+  -   developing a new feature.
+
+Use a short, descriptive branch name, for example:
+
+`update-publication-content`
+
+or:
+
+`update-nisra-branding`
+
+Once the work on the branch is complete:
+
+  1.  Commit the changes.
+  2.  Push the branch to GitHub.
+  3.  Open a pull request on GitHub.
+  4.  Review and test the changes.
+  5.  Merge the pull request into `main` once the changes have been approved.
+
+After the branch has been merged, switch back to `main` and pull the latest
+version before beginning further work.
+
+#### Working collaboratively
+
+When several people work on the same publication repository:
+
+  -   pull the latest changes before starting work;
+  -   use separate branches for substantial pieces of work;
+  -   make regular, meaningful commits;
+  -   push your work to GitHub so that it is available to the rest of the team;
+  -   use pull requests to review changes before merging them into `main`; and
+  -   avoid having multiple people make substantial changes to the same files at
+  the same time where possible.
+
+If Git identifies conflicting changes to the same part of a file, these will
+need to be reviewed and resolved before the changes can be merged.
+
+#### Using Pull Requests
+
+When several people work on a project, pull requests can be an important tool
+for reviewing and implementing changes from different GitHub branches. Pull 
+requests help by highlighting which parts of the code have been added to and 
+modified. This makes it easier for reviewers to view the changes being made to
+the codebase.
+
+To create a pull request from a branch:
+
+  - Click `Pull request`.
+  - Then click the green button in the top right `New pull request`.
+  - In the branch dropdown select your branch from the list of branches.
+  - Then click the button `Create pull request`.
+  
+You can request specific contributors to review the changes. This helps to
+streamline code review and makes it easier to identify and resolve issues before
+changes are merged into `main`.
+
+#### Working on an existing publication repository
+
+If a publication repository already exists on GitHub, **do not create another**
+**repository from the RAP Skeleton template**.
+
+Instead, clone the existing publication repository.
+
+  1.  Open the existing repository on GitHub.
+  2.  Select the green **Code** button and copy the repository URL.
+  3.  Open RStudio.
+  4.  Select **File > New Project > Version Control > Git**.
+  5.  Paste the repository URL into the **Repository URL** field.
+  6.  Choose where the project should be stored locally.
+  7.  Select **Create Project**.
+
+RStudio will create a local copy of the existing repository and connect it to
+the same GitHub repository used by the rest of the team.
+
+After cloning an existing RAP Skeleton project, run:
+
+`renv::restore()`
+
+to install the package versions recorded in the project's `renv.lock` file.
+
+#### Keeping your project up to date
+
+GitHub template repositories are used to create independent repositories.
+Updates made to the main RAP Skeleton repository are therefore
+**not automatically applied** to publication repositories that were previously
+created from it.
+
+When a new version of the RAP Skeleton is released, follow the **Updating to**
+**RAP Skeleton V4** guidance in this README rather than creating a new
+publication repository.
 
 </details>
 
 <details>
   <summary><strong>Tidyverse style guide</strong></summary>
 
-Tidyverse is a style guide used to improve consistency and readability of R code. There are two R packages which support this style guide:
+The tidyverse style guide provides a set of conventions for writing consistent,
+readable and maintainable R code. The RAP Skeleton includes two packages that
+can help apply and check these conventions:
 
--   [styler](https://styler.r-lib.org/) allows you to interactively restyle selected text, files, or entire projects. It includes an RStudio add-in, the easiest way to re-style existing code.
+-   [styler](https://styler.r-lib.org/) can automatically reformat R code to
+follow tidyverse styling conventions. It can be applied to selected code,
+individual files or entire projects and includes useful RStudio add-ins.
 
--   [lintr](https://github.com/r-lib/lintr) performs automated checks to confirm that you conform to the style guide.
+-   [lintr](https://github.com/r-lib/lintr) performs automated checks on R code
+and identifies potential style, consistency and other code issues.
 
-Both packages have been added to the renv lockfile and library calls in the config.R script. They are now incorportated into the RAP skeleton and can be used as described below.
+Both packages are included in the RAP Skeleton's renv lockfile and are loaded
+through `config.R`.
 
--   Styler can be used to automatically reformat your file to Tidyverse format by clicking the addins dropdown below the toolbar in R studio and by selecting the option 'style active file'.
+#### Using styler
 
--   Not all formatting issues can be fixed by styler such as line length violations and lengthy variable names.
+`styler` can automatically reformat many elements of your R code. To format the
+file currently open in RStudio:
 
--   Before committing code to GitHub, paste the following command into your console in R studio to check for any formatting violations in the code before pushing any changes to the source repository.
+1.  Select **Addins** from the RStudio toolbar.
+2.  Select **Style active file**.
 
-```         
+Review the changes after running `styler` to make sure the code still appears as
+expected.
+
+Some issues identified by `lintr`, such as lines that exceed the configured
+maximum length, may require manual changes and will not necessarily be corrected
+by `styler`.
+
+#### Using lintr
+
+It is recommended that you run `lintr` before committing changes to GitHub. To
+check the R files within the project, run the following command in the RStudio
+Console:
+
+```
 lintr::lint_dir()
 ```
 
--   A list of warnings should appear with the file name and line location where there is a violation to the TidyVerse formatting.
+`lintr` will return any issues it identifies, including the relevant filename
+and line number. Use this information to review and correct the code where
+appropriate.
 
--   It is important to run lintr after using styler as not all of the code issues are automatically fixed by styler.
+Run `lintr` after using `styler`, as `styler` does not automatically resolve
+every issue that `lintr` may identify.
 
 </details>
 
 <details>
   <summary><strong>HTML Meta Tags for Search Engine Optimisation (SEO)</strong></summary>
 
-- Meta tags can be found in the meta.html file and are labels that help share data with search engines of what webpages are about. Ensure that the description and keywords in the meta.html file are tailored to the specific report that is being written e.g. hospital waiting lists, department of education.
+The `meta.html` file contains metadata that provides search engines with
+information about the content of the HTML report.
+
+Update the description and keywords in `meta.html` so that they accurately
+describe the subject of your publication, for example hospital waiting lists or
+education statistics. This can help search engines understand and categorise the
+content of the report.
 
 </details>
 
 <details>
   <summary><strong>Accessibility & Best Practices</strong></summary>
 
-Accessibility tips (such as screen reader-friendly alt text, colour contrast) are applied throughout.
+Accessibility should be considered throughout the development of an HTML report.
+The RAP Skeleton includes accessible features and examples, but users should
+also review their own content, charts, images and other additions.
 
-- Follow H1 \> H2 \> H3 structure without skipping levels
+- Follow a logical heading structure, for example **h1 > h2 > h3**, without
+skipping heading levels.
 
-- Use descriptive alt text for all images and infographics - even decorative images should be marked with empty alt text. Do not use redundant phrases like "image of..."
+- Provide appropriate `alt` text for images and infographics. Decorative images
+should use empty alt text (`alt=""`). Avoid redundant phrases such as
+`"Image of..."`.
 
-- Prefer PNG images to SVG or other formats
-  
-- Avoid using headings purely for styling
+- Use headings to identify sections and structure content rather than using
+heading styles purely for visual formatting.
 
-- Do not use bold text for headings; use heading styles instead. Bold text is for emphasis, and should be clearly marked up with the HTML tag <strong>strong</strong> or <em>em</em>
+- Do not use bold text as a substitute for headings. Use the appropriate heading
+level for headings and reserve bold or emphasised text for content that requires
+additional importance or emphasis.
 
-- Prefer colour palettes with high contrast and screen-reader compatibility
+- Use colour combinations with sufficient contrast between text, graphical
+elements and their backgrounds. Do not rely on colour alone to communicate
+information.
 
-- Ensure any links have descriptive text, indicating where the link will take the user when clicked. e.g: The [NISRA Accessibility Statement](https://datavis.nisra.gov.uk/dissemination/accessibility-statement-visualisations.html) is now included as a link in the footer of the RAP Skeleton.
+- Use descriptive link text that explains the purpose or destination of the
+link. For example, the
+[NISRA Accessibility Statement](https://datavis.nisra.gov.uk/dissemination/accessibility-statement-visualisations.html)
+is included in the footer of the RAP Skeleton.
+ 
+- Avoid using images of text where real HTML text can be used instead.
 
-- Do not use images of text; use real text and style as appropriate
+- Ensure that content follows a logical reading order. Where more complex
+layouts are used, check that the reading order remains meaningful when accessed
+using assistive technology.
 
-- Where a layout other than report format has been used, ensure reading order is always left-to-right
+- Use appropriate HTML landmarks to identify the main areas of the page, such as
+`<main>`, `<header>`, `<nav>` and `<footer>`, where applicable. See
+`demo_report.Rmd` for examples.
 
-- Landmark areas must be identified by using <div> tags. The document must have <main> at minimum but ideally have <header>, <nav> or <footer> too if applicable. See the `demo_report.Rmd` for examples.
-
-- An accessibility contact should be added to all reports. refer to the bottom of `demo_report.Rmd` for an example.
+- Include an accessibility contact or route for users to report accessibility
+issues. See the bottom of `demo_report.Rmd` for an example.
 
 #### Image requirements for accessibility
 
-All images in HTML outputs should have descriptive `alt` text to support accessibility.
+Images within HTML reports should be implemented so that their content and
+purpose are accessible to users of assistive technology.
 
--   If an image is decorative, alt text can be set to an empty string: `alt=""`.
--   <strong><em>Never</em></strong> include phrases like `"Image of"` in alt text. For example, use `alt="Joe Bloggs"` not `alt="Image of Joe Bloggs"`.
--   For other images, provide a short description of what the image shows.
+-   Informative images should have concise and meaningful `alt` text that
+communicates their purpose or important content.
+-   Decorative images should use empty alt text: `alt=""`. This allows screen
+readers to ignore images that do not add meaningful information.
+-   Avoid phrases such as `"Image of"` or `"Picture of"` in alt text, as screen
+readers already identify the element as an image. For example, use
+`alt="Joe Bloggs"` rather than `alt="Image of Joe Bloggs"`.
+
+Examples:
 
 For a decorative .svg image:
 
 ``` html
-<img src="..images/decorative.svg" alt="">
+<img src="../images/decorative.svg" alt="">
 ```
 
 For an informative .png image:
 
 ``` html
-<img src="..images/nisra-logo.png" alt="NISRA logo">
+<img src="../images/nisra-logo.png" alt="NISRA logo">
 ```
 
-Important note: There are issues with SVG images currently where screen readers cannot read the text on the images properly. It is important that all text is clear on these images and are properly tested for accessibility. If there are still issues with the screen reader reading text within an SVG image, it is recommended to use a PNG image format instead.
+Both PNG and SVG images can be used accessibly when implemented correctly.
+However, SVG files containing text or complex information should be carefully
+tested with assistive technology. If an SVG cannot be made sufficiently
+accessible, consider providing the information as HTML text or using an
+alternative image format with appropriate text alternatives.
 
 </details>
 
 <details>
-  <summary><strong>Updating to V3 from RAP Skeleton V2</strong></summary>
+  <summary><strong>Updating to RAP Skeleton V4</strong></summary>
 
-The file structure of RAP Skeleton V3 is almost identical to V2 and works in a similar fashion. It is recommended that any reports created using V2 are now updated to RAP Skeleton V3. You should copy your content out of your V2 report and put it into V3 rather than try to pull the additional features from V3 into V2. 
+The file structure of RAP Skeleton V4 is similar to previous versions and the
+overall workflow remains largely unchanged. It is recommended that reports
+created using previous versions are updated to V4.
 
-This guide explains how to update an existing project so it uses the latest version of the shared RAP Skeleton.
+Rather than manually adding individual V4 features to an older version of the
+RAP Skeleton, use V4 as the new base and move your project-specific code and
+content into it. This helps ensure that your project receives the latest
+template, branding, accessibility and code improvements.
+
+The steps below explain how to update an existing project while retaining its
+existing Git history where applicable.
+
 You will:
 
 - Download the updated RAP Skeleton
 
 - Move your project-specific code into the updated template.
 
-- Replace the contents of your existing Git project with the updated template excecpt the `.git` and `.Rproj.user` (if present) files.
+- Replace the contents of your existing Git project with the updated template
+while retaining the existing `.git` directory.
 
 - Restore packages and commit the updated code.
 
-### 1. Before You Start
+#### 1. Before You Start
 
-**1. If storing your code on GitHub Commit and push all current changes**
+  1.  If your project is stored on GitHub:
+    -   Open the existing project in RStudio.
+    -   Commit any outstanding changes.
+    -   Push the changes to GitHub.
+    -   It is recommended that you create a new branch for the update, for
+    example `rap-skeleton-v4-update`.
 
-  - Open your project in RStudio.
-  - Commit all outstanding changes.
-  - Push to your remote.
-  - (Recommended) Create a new branch, e.g. rap-skeleton-update-2025.
+  2.  Close RStudio before replacing or moving project files.
 
-**2. Close RStudio** before moving files.
+  3.  Identify your existing project folder.
+    -   If the project uses Git, this is the folder containing the hidden `.git`
+    directory and usually a `.Rproj` file.
+  
+  4.  **⚠️ If your project uses Git, make sure hidden items are visible in**
+  **File Explorer before continuing**.
+      -    In File Explorer, select **View > Show > Hidden items**. The exact
+      menu may vary depending on your version of Windows. Ensure this is set to 
+      "Show hidden folders, files, or drives". 
+      -    The `.git` folder is particularly important because it contains the
+      Git information and history associated with your existing project.
 
-**3. Identify your Git-connected project folder**
-
-  - This is the folder that contains the .git directory (and usually a .Rproj file).]
-
-**⚠️ In your file explorer ensure you have hidden items visible.**
-  - To check this, navigate to "File Explorer > Options > View > Hidden files and folders" and ensure this is set to "Show hidden folders, files, or drives". 
-
-### 2. Download the Updated RAP Skeleton
+#### 2. Download RAP Skeleton V4
 
   1. Go to the RAP Skeleton repository on GitHub.
-  2. Download the latest version as a **ZIP file** (via **Code** → **Download ZIP** or via the latest release).
-  3. Extract the ZIP to a separate location on your machine (e.g. `C:/Users/.../rap-skeleton-3.0/`).
+  2. Download the latest V4 release as a **ZIP file** (via the green dropdown
+  button labelled **Code** → **Download ZIP** or via the latest release).
+  3. Extract the ZIP to a separate location on your computer (e.g.
+  `C:/Users/.../rap-skeleton-4.0/`).
 
-This extracted folder is referred to as `rap-skeleton-3.0` in later steps.
+For the purposes of the instructions below, the extracted folder is referred to
+as `rap-skeleton-4.0`.
 
-### 3. Move Your Project-Specific Code into the Updated RAP Skeleton
+Keep this folder separate from your existing project while preparing the update.
 
-Inside `rap-skeleton-3.0`, edit and add back any files or scripts that belong to your project, including:
+#### 3. Add your project-specific content to RAP Skeleton V4
 
--   Edit the `config.R` file to set all required variables.
+Use the files in `rap-skeleton-4.0` as the new base for your project and
+transfer the project-specific content from your existing version.
 
--   If your report requires any additional packages then ensure they are added to the package list in the `config.R` file using the `library` function. Also follow these two additional steps in the R Studio console:
+This may include:
 
-    -   Run `renv::snapshot()` to update the renv lockfile with your additional packages.
-    -   Run `renv::restore()` to install any of these additional packages.
+-   Update the new V4 `config.R` with the configuration and publication metadata
+required for your project.
 
--   Copy any additional functions that you may have created into the `functions` folder.
+-   Add any additional packages required by your project. Install packages
+within the `renv` project as appropriate using `renv::install("pkg_name")` and
+use `renv::snapshot()` to record the required package versions in `renv.lock`.
 
--   Copy any images needed into the `images` folder.
+-   Copy any additional project-specific functions into the functions folder.
+Take care not to overwrite updated V4 functions with older versions unless the
+function contains changes that your publication specifically requires.
 
--   Copy all data loading and data prep code into the `data_prep.R` file. Note - data_prep no longer uses paste0() in setting up the config.R file path . It now uses the here() package to build the full path by passing "code/config.R" as a relative path. here() automatically resolves paths relative to the project root (where your .Rproj or root marker is).
+-   Copy any project-specific images into the appropriate `images` folder.
 
--   Copy across the content of the report into the `report.Rmd` file. If the previous report was created using child `.Rmd` files then copy these files into the correct project folder and ensure they are read in correctly in the new V3 `report.Rmd` file.
+-   Transfer your data loading, processing and preparation code into the new V4
+`data_prep.R`. V4 uses `here()` to construct project-relative file paths. For
+example:
 
-By the end, `rap-skeleton-3.0` should contain:
+```
+source(
+  here(
+    "code",
+    "config.R"
+  )
+)
+```
+This avoids relying on working-directory-specific paths and makes file
+references more consistent throughout the project.
 
-  - All updated template files, **plus**
-  - Your project-specific files layered on top.
+-   Transfer the content of your existing report into the new V4 `report.Rmd`.
 
-### 4. If storing your code on GitHub Replace Your Existing Git Project with the RAP Skeleton
+-   If your existing report uses child `.Rmd` files, copy these into the
+appropriate project folder and check that they are called correctly from the new
+V4 `report.Rmd`.
 
-Let your existing Git project folder be called `YOUR_PROJECT`.
+-   Transfer any other project-specific scripts, data or supporting files that
+are still required.
 
-1. Ensure RStudio is closed.
-2. Navigate to the `YOUR_PROJECT` folder.
-3. **Delete everything except the following:**
+When this process is complete, `rap-skeleton-4.0` should contain the updated V4
+template together with the content and code specific to your publication.
 
-  - `.git`
-  - `.Rproj.user` (if present)
+#### 4. If storing your code on GitHub Replace Your Existing Git Project with the RAP Skeleton
 
-**⚠️ Make sure you are deleting files inside the correct folder.
-The folder must contain** `.git.`
+If your project is stored on GitHub, retain the existing project folder so that
+its `.git` directory and Git history are preserved.
 
-4. Open the `rap-skeleton-3.0` folder.
-5. **Copy all files and folders from `YOUR_PROJECT` into `rap-skeleton-3.0`**.
+For these instructions, the existing Git-connected project folder is referred to
+as `YOUR_PROJECT`.
 
-  - Include the new `.Rproj file`, updated `renv.lock`, scripts, folders, and your project-specific additions.
-  - Rename the copied `.Rproj file` file to match the name of `YOUR_PROJECT`.
+  1. Ensure that RStudio is closed.
+  2. Open the `YOUR_PROJECT` folder in File Explorer.
+  3. Delete the old RAP Skeleton files and folders that are being replaced, but
+  **do not delete the `.git` folder**.
+  You can also retain `.Rproj.user` if required, although this contains local
+  RStudio project state rather than project source code.
+  4. Open the prepared `rap-skeleton-4.0` folder from Step 3.
+  5. Copy the updated files and folders **from `rap-skeleton-4.0` into**
+  **`YOUR_PROJECT`**.
+  6.  Rename the new `.Rproj` file within `YOUR_PROJECT` if required so that it
+  uses an appropriate name for your project.
 
-Your Git repository now contains the updated template with your project integrated.
+Your `YOUR_PROJECT` folder should now contain the V4 RAP Skeleton and your
+project-specific content while retaining the existing `.git` directory and Git
+history.
 
-### 5. Open the Project and Restore Packages
+#### 5. Open the project and restore packages
 
-1. Open the project by double-clicking the new `.Rproj` file inside `YOUR_PROJECT`.
-2. Ensure you are using the appropriate updated **R version**. (R version 4.4.3)
-3. Run the following in the console:
+  1. Open the project using the `.Rproj` file within `YOUR_PROJECT`.
+  2. Ensure that you are using the required version of R for RAP Skeleton V4.
+  **(R version 4.6.1)**
+  3. Restore the package versions recorded in the V4 `renv.lock` file:
+    
+      - `renv::restore()`
+    
+  4.  If your project requires additional packages that are not included in the
+  V4 lockfile, install these packages and then run:
+  
+      - `renv::snapshot()`
 
-    - `renv::restore()`
+  5. Test the updated project thoroughly. This should include:
+      - sourcing the main scripts;
+      - running the required data preparation;
+      - knitting the HTML report;
+      - producing any accompanying Excel outputs;
+      - checking that required packages load correctly; and
+      - reviewing the completed outputs for any unexpected changes.
 
-4. Test the project to ensure everything runs correctly:
-  - Source key scripts
-  - Run your workflows
-  - Confirm packages installed correctly
+#### 6. Commit and push the V4 update
 
-### 6. If storing your code on GitHub Commit and Push the Updated RAP Skeleton
+  1. If your project is stored on GitHub, review the changes carefully before
+  committing them.
+  2. You can use the Git pane in RStudio or the Terminal.
+  3. To stage all changes:
 
-1. Open the **Git pane** in RStudio (or use command line).
-2. Review the added/modified files.
-3. Stage everything:
-
-    - Run this command in your Terminal in RStudio `git add -A`.
+      - Run this command in your Terminal in RStudio `git add -A`.
       **Or**
-    - Manually stage changes in your Git pane
+      - Manually stage changes in your Git pane
 
-4. Commit with a clear message, e.g.:
+  4. Commit the changes with a clear message, for example:
 
-    -  Run this command in your Terminal in RStudio `git commit -m "Update project to latest R template (new R version, updated renv.lock, template improvements)"`
+      -  Run this command in your Terminal in RStudio
+      `git commit -m "Update project to RAP Skeleton V4"`
        **Or**
-    - Manually commit your changes through the button in RStudio.
+      - Manually commit your changes through the button in RStudio and add an
+      appropriate message.
 
-5. Push to your remote:
-
-    - Run this command in your Terminal in RStudio `git push`
+  5. Push the changes to GitHub:
+  
+      - Run this command in your Terminal in RStudio `git push`
       **Or**
-    - Manually push your changes through the button in RStudio.
+      - Manually push your changes through the button in RStudio.
 
-6. If using a branch, open a pull/merge request.
+  6. If the update was completed on a separate branch, open a pull request and
+  review the changes before merging them into the main branch.
 
-Once all the above steps have been completed you will have the updated RAP skeleton incorporated in your exisiting project and it should run as normal.
+Once these steps are complete, your existing project will use RAP Skeleton V4
+while retaining its existing Git history and project-specific content.
 
 </details>
 
 <details>
   <summary><strong>Updating from the Accessibility Template Exemplar</strong></summary>
 
-The previously released Accessibility Template Exemplar has now been superseded by the RAP Skeleton. It is recommended that any reports using the the Accessibility Exemplar as a template are now updated to the RAP Skeleton. Follow the above instructions (Create an HTML report with the RAP Skeleton template) but also take note of these additional points:
+The previously released Accessibility Template Exemplar has been superseded by
+the RAP Skeleton. It is recommended that reports created using the Accessibility
+Template Exemplar are updated to RAP Skeleton V4.
 
--   Edit the `config.R` file to set all required variables.
+Follow the guidance in the **Updating to RAP Skeleton V4** section above to move
+your existing project into the latest version of the RAP Skeleton. When
+transferring content from the Accessibility Template Exemplar, also consider the
+following:
 
--   If your report requires any additional packages then ensure they are added to the package list in the `config.R` file using the `library` function. Also follow these two additional steps in the R Studio console:
+-   Update the new `config.R` file with the configuration and publication
+metadata required for your report.
 
-    -   Run `renv::snapshot()` to update the renv lockfile with your additional packages.
-    -   Run `renv::restore()` to install any of these additional packages.
+-   If your existing project uses additional R packages that are not included in
+RAP Skeleton V4, install these packages within the new `renv` environment and
+use `renv::snapshot()` to record them in the project's `renv.lock` file.
 
--   Copy any additional functions that you may have created into the `functions` folder.
+-   Copy any additional functions created specifically for your publication into
+the `functions` folder. Do not overwrite updated RAP Skeleton functions with
+older versions from the Accessibility Template Exemplar unless your project
+requires specific custom changes.
 
--   Note that the `header` and `footer` sections in the RAP Skeleton are now created using functions. This content is set via the `config.R` file – there is no need to copy the header HTML code from the Accessibility Template Exemplar into the RAP Skeleton.
+-   The header and footer in the RAP Skeleton are created using reusable
+functions, with publication information and branding controlled through
+`config.R`. Do not copy the old header and footer HTML from the Accessibility
+Template Exemplar.
 
--   The HTML code at the bottom of the Accessibility Template Exemplar creates download buttons, borders, page banners, the pre-release paragraph and the `tabOrder` function. The RAP Skeleton has these elements already built-in, therefore, this HTML code does not need to be copied into the RAP Skeleton.
+-   The Accessibility Template Exemplar included HTML code for elements such as
+download buttons, page banners, the pre-release message and other report
+features. These features are already incorporated into the RAP Skeleton and the
+old HTML code should not be copied across.
 
--   Copy all data loading and data prep code into the `data_prep.R` file. Bear in mind this no longer has to be written in chunks as in the Accessibility Template Exemplar.
+-   Transfer your data loading, processing and preparation code into the new
+`data_prep.R`. Unlike the Accessibility Template Exemplar, data preparation does
+not need to be contained within R Markdown code chunks.
 
--   Copy across the content of the report into the `report.Rmd` file or modularise the report by implementing chapters with child .Rmd files.
+-   Transfer the publication content into the new `report.Rmd`. For larger
+reports, content can also be organised into separate chapters using child
+`.Rmd` files.
 
-If you would like to store your project in GitHub, please refer to the **Storing your R project in a Github repository** above.
+-   Review the completed HTML report after migration to ensure that the content,
+styling, accessibility features and interactive elements continue to work as
+expected.
+
+If your existing project is stored on GitHub, follow the Git-specific steps in
+the **Updating to RAP Skeleton V4** section to retain the project's existing Git
+history while completing the update.
 
 </details>
 
 <details>
-  <summary><strong>How to use new f_worksheet.R Function</strong></summary>
+  <summary><strong>How to use the `f_worksheet()` function</strong></summary>
 
-The new **`f_worksheet()`** function streamlines the creation of Excel outputs by automating much of the formatting and setup work that was previously coded manually. An example of how the new `f_worksheet.R` function can be used is shown in  `code/demo/demo_excel_tables_new.R`.
+The `f_worksheet()` function simplifies the creation of Excel outputs by
+automating much of the worksheet formatting, table placement and Contents sheet
+setup that previously had to be coded manually.
 
-This guide explains the key differences, what the new workflow looks like, and how to update your existing scripts.
+A complete worked example is available in `code/demo/demo_excel_tables_new.R`.
+
+This guide explains the main changes and how to use the new approach.
 
 ---
 
@@ -662,33 +1237,41 @@ This guide explains the key differences, what the new workflow looks like, and h
 
 | Feature | Old Workflow | New Workflow (`f_worksheet()`) |
 |----------|---------------|--------------------------------|
-| **Workbook creation** | Manually create and populate each worksheet | Workbook still created manually once, but worksheets are now built using a single function call |
-| **Formatting** | Fonts, column widths, row heights, and heading styles manually defined | All formatting handled internally by `f_worksheet()` |
-| **Contents page** | Hand-coded hyperlinks to each table sheet | Automatically updated when `f_worksheet()` is used |
-| **Multiple tables per sheet** | Manually written with `writeDataTable()` for each table | Pass a list of tables (each with data, title, and notes) to `f_worksheet()` |
-| **Notes handling** | Manually written and formatted | Automatically added within the same worksheet or at the bottom of multi-table sheets |
-| **Reusability** | Long, repetitive code | Short, modular, reusable calls |
+| **Workbook creation** | Workbook and worksheets created manually | Workbook is created once and individual table worksheets are created by `f_worksheet()` |
+| **Formatting** | Styles, row heights and column widths applied manually to each worksheet | Standard worksheet and table formatting is applied automatically|
+| **Contents page** | Table names and hyperlinks added manually | Table entries and hyperlinks are added automatically when each `f_worksheet()` call is run |
+| **Multiple tables per sheet** | Each table positioned and formatted manually | Multiple tables can be supplied within the `tables` list |
+| **Notes** | Notes manually positioned and formatted | Notes supplied with each table are inserted automatically before the relevant table |
+| **Missing values** | Styling handled manually | Missing values are identified and styled automatically |
+| **Reusability** | Repeated `writeData()`, `writeDataTable()` and `addStyle()` code | Each worksheet can be created using a shorter, reusable function call |
 
 ---
 
-#### Step-by-Step Migration
+#### Step-by-Step Guide
 
-##### 1. Load and Prepare Data
+##### 1. Load and prepare the data
 
-This part stays the same — your data preparation script still gets sourced first.
+The data preparation process remains the same. Source the required data
+preparation script before creating the workbook.
+
+For example:
 
 ```r
 library(here)
-source(here("code/demo/demo_data_prep.R"))
-```
-##### 2. Create the Workbook
 
-Old:
-```r
-new_workbook <- createWorkbook(creator = "Tech Lab", title = "Demonstration tables")
+source(
+  here(
+    "code",
+    "demo",
+    "demo_data_prep.R"
+  )
+)
 ```
+##### 2. Create the workbook
 
-New:
+Create the workbook once and provide the metadata appropriate to your
+publication:
+
 ```r
 wb <- createWorkbook(
   creator = "NISRA Tech Lab",
@@ -700,114 +1283,338 @@ wb <- createWorkbook(
 Then apply base formatting (unchanged):
 
 ``` r
-modifyBaseFont(wb, fontSize = 12, fontName = "Arial")
+modifyBaseFont(
+  wb,
+  fontSize = 12,
+  fontName = "Arial"
+)
 ```
 
-##### 3. Add the Introduction Sheet
+##### 3. Create the Introduction sheet
 
-Replace your old “Cover sheet” code block with the new, simpler “Introduction” section:
+The Introduction sheet is created separately from `f_worksheet()` and should
+contain the information required for your publication, including the publication
+title, description, publication date, quality information and contact details.
+
+The template includes `"PUBLICATION LINK"` and `"BQR LINK"` placeholders. Leave
+these in the `intro_text` vector because they are used to identify the rows
+where the hyperlinks should be written.
+
+For example:
 
 ```r
-addWorksheet(wb, sheetName = "Introduction")
-
 intro_text <- c(
   "Mid-year population statistics for Northern Ireland 2022",
   "The following tables contain population and demography statistics for Northern Ireland...",
   "Linked report (and infographics):",
   "PUBLICATION LINK",
+  "Published:",
   pub_date_words_dmy,
   "Quality Information:",
   "BQR LINK",
   "Contact Information:",
   "Joe Bloggs\nTechnology and Support Lab, NISRA\nColby House\nStranmillis Court\nBelfast, BT9 5RR\n\nTelephone: 028 1234 5678\nE-mail: techlab@nisra.gov.uk"
 )
-
-writeData(wb, "Introduction", x = intro_text)
 ```
-✅ Tip: Hyperlinks, heading styles, and layout are now handled automatically — just replace placeholder text like "PUBLICATION LINK" and "BQR LINK" with your URLs and display text.
 
-##### 4. Add the Contents Page
+The publication and quality report hyperlinks are then created separately using
+`pub_link` and `bqr_link`.
 
-No need to manually define vectors of table names or hyperlinks anymore.
-Now you just create a “Contents” worksheet and let `f_worksheet()` update it as you go.
+##### 4. Create the Contents sheet
+
+Create the Contents worksheet before adding the individual table worksheets:
 
 ```r
-addWorksheet(wb, sheetName = "Contents")
+addWorksheet(
+  wb,
+  sheetName = "Contents"
+  )
 
-writeData(wb, "Contents",
-          x = c(
-            "Mid-year population statistics for Northern Ireland 2022",
-            "Table of Contents"
-          ))
+writeData(
+  wb,
+  "Contents",
+  x = c(
+    "Mid-year population statistics for Northern Ireland 2022",
+    "Table of Contents"
+  )
+)
 ```
-The counter `cr` (row tracker) is maintained automatically inside `f_worksheet()`.
+The row counter:
 
-##### 5. Create Data Tables with `f_worksheet()`
+`cr <- 3`
 
-Each worksheet is now added with a single function call.
+must also be set once before the first call to `f_worksheet()`.
+
+Leave this value unchanged. `f_worksheet()` updates the counter automatically as
+table entries and hyperlinks are added to the Contents sheet.
+
+##### 5. Create worksheets using `f_worksheet()`
+
+Each worksheet can now be created with a single call to `f_worksheet()`.
 
 ###### Example: One table per worksheet
 ```r
 f_worksheet(
   wb,
   sheet_name = "Table_1",
-  contents   = "Table 1: Northern Ireland mid-year population estimates by age group and sex, 2022",
-  title      = "Table 1: Northern Ireland mid-year population estimates by age group and sex, 2022",
-  outlining  = "outlining mid-year population estimates by age group and sex",
+  contents = paste0(
+    "Table 1: Northern Ireland mid-year population estimates ",
+    "by age group and sex, 2022"
+  ),
+  title = paste0(
+    "Table 1: Northern Ireland mid-year population estimates ",
+    "by age group and sex, 2022"
+  ),
+  outlining = paste0(
+    "outlining mid-year population estimates by age group ",
+    "and sex"
+  ),
   tables = list(
     list(
-      data  = df_t1_ss,
-      title = "Table 1: Northern Ireland mid-year population estimates by age group and sex, 2022",
-      note  = "Notes: The estimates are produced using a variety of data sources and statistical models"
+      data = df_t1_ss,
+      title = paste0(
+        "Table 1: Northern Ireland mid-year population estimates ",
+        "by age group and sex, 2022"
+      ),
+      note = paste0(
+        "Notes: The estimates are produced using a variety of ",
+        "data sources and statistical models"
+      )
     )
   )
 )
 ```
 
-###### Example: Multiple tables on one sheet
+For a worksheet containing one table, `f_worksheet()` adds the worksheet
+information, table, notes, formatting and Contents sheet hyperlink
+automatically.
 
-If a sheet contains multiple tables, simply include multiple list items:
+###### Example: multiple tables on one worksheet
+
+If a worksheet contains more than one table, add each table as a separate item
+within the tables list:
 
 ```r
 f_worksheet(
   wb,
   sheet_name = "Table_3",
-  contents   = "Table 3: Population of under 25s and over 65s by LGD 2022",
-  title      = "Table 3: Population of under 25s and over 65s by LGD 2022",
-  outlining  = "outlining mid-year estimates of population aged under 25s and over 65 by LGD",
+  contents = "Table 3: Population of under 25s and over 65s by LGD 2022",
+  title = "Table 3: Population of under 25s and over 65s by LGD 2022",
+  outlining = paste0(
+    "outlining mid-year estimates of population aged under 25s ",
+    "and over 65 by LGD"
+  ),
   tables = list(
     list(
-      data  = df_t3a_ss,
-      title = "Table 3a: Population of young people by LGD in NI 2022",
-      note  = c(
+      data = df_t3a_ss,
+      title = paste0(
+        "Table 3a: Population of young people by LGD in ",
+        "Northern Ireland 2022"
+      ),
+      note = c(
         "Notes:",
-        "The estimates are produced using a variety of data sources and statistical models",
+        paste0(
+          "The estimates are produced using a variety of data ",
+          "sources and statistical models"
+        ),
         "Population aged under 25 on survey date",
-        "Youthrate is percentage of under 25s rounded to 1 decimal place"
+        paste0(
+          "Youthrate is percentage of under 25s rounded to ",
+          "1 decimal place"
+        )
       )
     ),
     list(
-      data  = df_t3b_ss,
+      data = df_t3b_ss,
       title = "Table 3b: Population of elderly people by LGD in NI",
-      note  = "Notes: The estimates are produced using a variety of data sources and statistical models"
+      note = paste0(
+        "Notes: The estimates are produced using a variety of ",
+        "data sources and statistical models"
+      )
     )
   )
 )
 ```
-##### 6. Save the Workbook
 
-Saving works exactly as before:
+When multiple tables are supplied, `f_worksheet()` automatically:
 
+-   adds the worksheet title and description;
+-   adds each sub-table title;
+-   inserts notes before the relevant table;
+-   applies consistent table formatting;
+-   spaces the tables vertically;
+-   adds the worksheet and sub-table links to the Contents sheet; and
+-   formats missing values consistently.
+
+##### 6. Save the workbook
+
+Set an appropriate output filename and save the workbook:
 ```r
-xl_filename <- paste0(here(), "/code/demo/demo_outputs/RAP_demo_tables_new.xlsx")
-saveWorkbook(wb, xl_filename, overwrite = TRUE)
-```
-##### Key Benefits of `f_worksheet()`
+xl_filename <- here(
+  "outputs",
+  "RAP_template_tables.xlsx"
+)
 
-✅ Automatic Contents Updates: Hyperlinks and table listings are dynamically added.  
-✅ Consistent Formatting: Styles (`pt`, `pt2`, `tw`, etc.) are applied internally.  
-✅ Simpler Maintenance: Adding a new table is now one short function call.  
-✅ Fewer Hardcoded References: No manual cell positions or style calls needed.  
-✅ Supports Multi-Table Sheets: Handles spacing, headings, and notes automatically.  
+saveWorkbook(
+  wb,
+  xl_filename,
+  overwrite = TRUE
+)
+```
+##### Key benefits of `f_worksheet()`
+
+-   **Automatic Contents sheet updates** – table names and hyperlinks are added
+as worksheets are created.
+-   **Consistent formatting** – worksheet titles, table headers, numeric cells,
+row heights and column widths are formatted consistently.
+-   **Simpler maintenance** – new worksheets can be added using short, reusable
+function calls rather than repeated formatting code.
+-   **Fewer hard-coded cell references** – worksheet positioning and Contents
+links are calculated automatically.
+-   **Support for single and multiple tables** – the same function can be used
+for both layouts.
+-   **Improved handling of notes and missing values** – notes and NA cells are
+handled within the function.
+
+For a complete example, see `code/demo/demo_excel_tables_new.R`. 
+
+</details>
+
+<details> 
+
+  <summary><strong>How to use the `f_responsive_annotations()` function</strong></summary>
+  
+The `f_responsive_annotations()` function improves the readability of
+annotations and axis labels on responsive Plotly charts.
+
+The function checks the width of the chart and automatically adjusts the font
+size of annotations and axis labels. This helps prevent text from becoming too
+large or cluttered when a chart is displayed at a smaller size, for example on
+a smaller screen or when the browser window is resized.
+
+#### Using the function
+  
+After defining the annotations and layout for your Plotly chart, pipe the chart
+into `f_responsive_annotations()`.
+
+``` 
+annotations = list(
+      year1_lab,
+      year2_lab,
+      note_1,
+      yaxistitle,
+      note_2
+    )
+  ) |>
+  # To add the broken axis symbol pipe the function "fn_break_axis" with
+  # "linecolor" matching the colour given above. This function is a NISRA
+  # created function that can be found in the functions folder.
+  fn_break_axis(
+    linecolor = "#000000",
+    ref_line = vline(2009)
+  ) |>
+  # Adjust annotation and axis text sizes when the chart is resized
+  f_responsive_annotations()
+
+```
+The function uses different font sizes depending on the width of the chart and
+runs again when the browser window is resized.
+
+#### Testing the function
+
+To check that the function is working:
+
+-   Knit the report and open the HTML output in a web browser.
+-   Resize the browser window so that the Plotly chart becomes narrower or
+wider.
+-   Check that the annotation and axis label text adjusts as the chart width
+changes.
+-   Check that annotations remain readable and do not become unnecessarily
+cluttered at smaller chart sizes.
+
+Examples of `f_responsive_annotations()` can be found in Figures 1, 5 and 14 in
+the `05_charts.Rmd` file of the demo report.
+
+</details>
+
+<details>
+
+<summary><strong>tinyknit usage guide</strong></summary>
+
+`tinyknit` provides an alternative way to knit R Markdown reports and can
+produce smaller HTML output files than a standard self-contained render. This
+can make completed reports easier to store, share and publish.
+
+#### Setup 
+
+The `tinyknit` package is included in the RAP Skeleton. If you need to install
+it manually, it can be installed from the NISRA Tech Lab GitHub repository
+using:
+
+`renv::install("NISRA-Tech-Lab/tinyknit")`
+
+If the package is added to an existing project, also add `library(tinyknit)` to
+`config.R` and run:
+
+`renv::snapshot()`
+
+to record the package in the project's `renv.lock` file.
+
+#### Using tinyknit
+
+To knit a report using `tinyknit`:
+
+  1.  Open the required `.Rmd` file in RStudio.
+  2.  Select **Addins** from the RStudio toolbar.
+  3.  Select the `tinyknit` option.
+
+`tinyknit` will then:
+
+  1.  Create a temporary `_tiny.Rmd` version of the report.
+  2.  Render the temporary file to HTML.
+  3.  Process the report dependencies to reduce the final HTML file size.
+  4.  Save the completed output in a `<parent-folder>_outputs/` folder.
+  5.  Open the completed report in your web browser.
+
+The final HTML output will be:
+
+  -   timestamped;
+  -   smaller than a standard self-contained HTML output; and
+  -   suitable for sharing or publishing.
+
+For further information, see the
+[tinyknit documentation](https://github.com/NISRA-Tech-Lab/tinyknit)
+
+</details>
+
+<details>
+   
+<summary><strong>Quality Assessment (QA) Report</strong></summary>
+  
+### What is the QA Report?
+
+The RAP Skeleton includes a `qa_report.Rmd` template that can be used to
+document quality assurance checks carried out on the data used within a
+publication.
+
+The template can be adapted to include the checks, tables, statistics and
+supporting information appropriate to your publication.
+
+A completed example is provided in `code/demo/demo_qa_report.Rmd` to demonstrate
+how a QA report can be structured and the types of checks that can be included.
+
+The demo QA report includes four main sections:
+
+- **Overall Figures** - checks key figures used within the publication.
+- **Compare Trends** - compares figures and trends over a specified time period
+to help identify unexpected changes.
+- **Count by Variables** - provides record counts broken down by selected
+variables to help identify unexpected or missing values.
+- **Suppression** - identifies where suppression is required or has been applied
+to figures within publication tables.
+
+These checks are provided as examples. Users should adapt the QA report and
+include any additional quality assurance checks required for their own data and
+publication.
 
 </details>

@@ -8,29 +8,53 @@
 # 3. ref_line - optional argument, list definition of reference line
 # #############################################################################
 
-fn_break_axis <- function(p, linecolor, ref_line = list()) {
-  layout(p,
+fn_break_axis <- function(
+  p,
+  linecolor,
+  ref_line = list()
+) {
+  layout(
+    p,
     shapes = list(
       # First shape is a white line to break the axis
       list(
         type = "line",
-        xref = "paper", x0 = 0, x1 = 0,
-        yref = "paper", y0 = 0.032, y1 = 0.052,
-        line = list(color = "#ffffff", width = 4)
+        xref = "paper",
+        x0 = 0,
+        x1 = 0,
+        yref = "paper",
+        y0 = 0.032,
+        y1 = 0.052,
+        line = list(
+          color = "#ffffff",
+          width = 4
+        )
       ),
       # Second shape is the first tick
       list(
         type = "line",
-        xref = "paper", x0 = -0.01, x1 = 0.01,
-        yref = "paper", y0 = 0.04, y1 = 0.07,
-        line = list(color = linecolor)
+        xref = "paper",
+        x0 = -0.01,
+        x1 = 0.01,
+        yref = "paper",
+        y0 = 0.04,
+        y1 = 0.07,
+        line = list(
+          color = linecolor
+        )
       ),
       # Third shape is the second tick
       list(
         type = "line",
-        xref = "paper", x0 = -0.01, x1 = 0.01,
-        yref = "paper", y0 = 0.02, y1 = 0.05,
-        line = list(color = linecolor)
+        xref = "paper",
+        x0 = -0.01,
+        x1 = 0.01,
+        yref = "paper",
+        y0 = 0.02,
+        y1 = 0.05,
+        line = list(
+          color = linecolor
+        )
       ),
       ref_line
     )

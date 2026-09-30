@@ -9,36 +9,51 @@ output:
     code_download: no
     css: "style.css"
     includes:
-      in_header: "meta.html"
+      in_header:
+        - "meta.html"
+        - "consent_head.html"
+      after_body:
+        - "cookie_banner.html"
 knit: (function(input, ...) {
     rmarkdown::render(
       input,
-       output_dir = "../outputs/",
-        output_file = paste0(
-        xfun::sans_ext(input), '_', format(Sys.time(), "%d-%m-%Y_%H%M") , '.html'
+      output_dir = "../outputs/",
+      output_file = paste0(
+        xfun::sans_ext(input),
+        "_",
+        format(
+          Sys.time(),
+          "%d-%m-%Y_%H%M"
+        ),
+        ".html"
       ),
       envir = globalenv()
     )
   })
 params:
-  annotations:
-    true
+  annotations: true
 ---
 
-<div id = "cookie-banner"></div>
-<script src = "cookies_script.js"></script>
+<div id="cookie-banner"></div>
 
 ```{r settings, include=FALSE}
 # this chunk sets chunk options for all chunks in this file
 knitr::opts_chunk$set(
-  message = FALSE, echo = FALSE, warning = FALSE
+  message = FALSE,
+  echo = FALSE,
+  warning = FALSE
 )
 ```
 
 ```{r setup, warnings = FALSE}
 library(here)
 
-source(here("code/data_prep.R"))
+source(
+  here(
+    "code",
+    "data_prep.R"
+  )
+)
 ```
 
 <!-- message to rotate screen when width is too low -->
@@ -59,16 +74,23 @@ source(here("code/data_prep.R"))
 `r f_borderline()`  <!-- calling the borderline code -->
  
 <!-- Single Rmd -vs- 'sub-reports' -->
-<!-- Depending on your requirements, you can edit this document - add text, charts, links etc. directly into report.Rmd and knit -->
-<!-- For larger projects with multiple large sections, or when you need many contributors to edit it simultaneously, a 'sub-report' approach is available -->
-<!-- With 'sub-reports', you can dynamically reference other .Rmd content into this file, similar to a cell reference in Excel -->
-<!-- The demo code (code/demo/demo_report.Rmd) makes use of this (Note: you can have a hybrid e.g. Key points is hard-coded and sub-reports for other sections  -->
+<!-- Depending on your requirements, you can edit this document - add text,
+charts, links etc. directly into report.Rmd and knit -->
+<!-- For larger projects with multiple large sections, or when you need many
+contributors to edit it simultaneously, a 'sub-report' approach is
+available -->
+<!-- With 'sub-reports', you can dynamically reference other .Rmd content into
+this file, similar to a cell reference in Excel -->
+<!-- The demo code (code/demo/demo_report.Rmd) makes use of this (Note: you
+can have a hybrid e.g. Key points is hard-coded and sub-reports for other
+sections  -->
 
 <!-- Example: code/demo/demo_report.Rmd: -->
-<!-- ```{r introduction_sub_report, child='02_introduction.Rmd' }               -->
-<!-- ```                                                                        -->
-<!-- 'introduction_sub_report' is the name of the section                       -->
-<!-- child='02_introduction.Rmd' is a reference to the file you want to include -->
+<!-- ```{r introduction_sub_report, child='02_introduction.Rmd' }       -->
+<!-- ```                                                                -->
+<!-- 'introduction_sub_report' is the name of the section               -->
+<!-- child='02_introduction.Rmd' is a reference to the file you want
+to include  -->
 
 
 ## 1. Section header (h2)
@@ -85,7 +107,8 @@ Subsection text.
 
 ### Accessibility contact (h3)
 
-Please contact Dissemination Branch for assistance with accessibility requirements or alternative formats. Contact details are:
+Please contact Dissemination Branch for assistance with accessibility
+requirements or alternative formats. Contact details are:
 
 **Email:** info@nisra.gov.uk
 
@@ -123,58 +146,84 @@ f_footer()
 
 ```{js}
 
-// Accessibility function to remove map shapes from tab order, add tabs to table of contents and add empty alt text to map legend 
+
+// Accessibility function to remove map shapes from tab order, add tabs to table
+// of contents and add empty alt text to map legend
 
 function tabOrder() {
 
   // Removes tabs from individual map shapes and appends alt texts
 
-  var shapes = document.getElementsByClassName('leaflet-marker-icon leaflet-zoom-animated leaflet-interactive');
+  var shapes = document.getElementsByClassName(
+    'leaflet-marker-icon leaflet-zoom-animated leaflet-interactive'
+  );
 
-  for (var i=0; i<shapes.length; i++) {
+  for (var i = 0; i < shapes.length; i++) {
     shapes[i].tabIndex = -1;
     shapes[i].alt = map_alt[i];
   }
-  
+
   // Make side menu tabbable
-  
-  let headings = document.getElementsByClassName('tocify-item list-group-item');
+
+  let headings = document.getElementsByClassName(
+    'tocify-item list-group-item'
+  );
+
   let sections = document.getElementsByClassName('section');
-  
-  for (let i = 0; i < headings.length; i ++) {
-    headings[i].innerHTML = "<a href='#" + sections[i].id + "'>" + headings[i].innerHTML +  "</a>";
+
+  for (let i = 0; i < headings.length; i++) {
+    headings[i].innerHTML =
+      "<a href='#" +
+      sections[i].id +
+      "'>" +
+      headings[i].innerHTML +
+      "</a>";
   }
-  
+
   // Remove white space at bottom
+
   const space_observer = new MutationObserver(() => {
     let space = document.getElementsByClassName("tocify-extend-page");
-    for (let i = 0; i < space.length; i ++) {
+
+    for (let i = 0; i < space.length; i++) {
       space[i].remove();
     }
   });
 
-  space_observer.observe(document.getElementsByClassName("main-container")[0], { childList: true, subtree: true });
-  
+  space_observer.observe(
+    document.getElementsByClassName("main-container")[0],
+    {
+      childList: true,
+      subtree: true
+    }
+  );
 
-// Hide entire legend from screen readers
+  // Hide entire legend from screen readers
+
   var legendContainer = document.querySelector('.info.legend');
+
   if (legendContainer) {
     legendContainer.setAttribute('aria-hidden', 'true');
   }
 
- // Add empty alt text to each legend image
+  // Add empty alt text to each legend image
+
   var legendImages = document.querySelectorAll('.info.legend img');
+
   for (var j = 0; j < legendImages.length; j++) {
     legendImages[j].setAttribute('alt', '');
-    legendImages[j].setAttribute('aria-hidden', 'true'); // Extra assurance
+    legendImages[j].setAttribute(
+      'aria-hidden',
+      'true'
+    ); // Extra assurance
   }
 }
 
 // Instruct web browser to run above function when loaded
 window.onload = tabOrder;
 
-```
 
+```
 
 <!-- close data-nics-theme div-->
 </div>

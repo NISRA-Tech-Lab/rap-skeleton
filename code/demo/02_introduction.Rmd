@@ -2,44 +2,85 @@
 title: "02 Introduction Sub Report"
 output: html_document
 knit: (function(input, ...) {
-    rmarkdown::render(
-      input,
-       output_dir = "../demo/demo_outputs/",
-        output_file = paste0(
-        xfun::sans_ext(input), '_', format(Sys.time(), "%d-%m-%Y_%H%M") , '.html'
-      ),
-      envir = globalenv()
-    )
-  })
+  rmarkdown::render(
+    input,
+    output_dir = "../demo/demo_outputs/",
+    output_file = paste0(
+      xfun::sans_ext(input),
+      "_",
+      format(Sys.time(), "%d-%m-%Y_%H%M"),
+      ".html"
+    ),
+    envir = globalenv()
+  )
+})
 ---
   
-  
-  
-```{r, include=FALSE}
-# this chunk sets chunk options for all chunks in this file
+```{r introduction_settings, include=FALSE}
+# Set chunk options for all chunks in this file.
+
 knitr::opts_chunk$set(
-  message = FALSE, echo = FALSE
+  warning = FALSE,
+  message = FALSE,
+  echo = FALSE
 )
 
 library(here)
 
-source(here("code/demo/demo_data_prep.R"))
+source(
+  here(
+    "code",
+    "demo",
+    "demo_data_prep.R"
+  )
+)
 ```
 
-This is a section with some basic paragraphs of text like you would use for an introduction or commentary. The data used in Demo Report are from the [NISRA - 2022 Mid Year Population Estimates for Northern Ireland](https://www.nisra.gov.uk/publications/2022-mid-year-population-estimates-northern-ireland). It includes LGD2014, single year of age and sex mid-year estimates for years `r earliest_year` to `r latest_year`. We are using it to outline some accessibility features. If a report uses a number of different data sources, they should be provided along with their respective figures or tables. For example:
+This section gives some simple information about the report. The information
+comes from [NISRA's 2022 Population Estimates for Northern Ireland](https://www.nisra.gov.uk/publications/2022-mid-year-population-estimates-northern-ireland).
+The data shows how many people live in Northern Ireland, their ages, and whether
+they are male or female. The information covers the years from `r earliest_year`
+to `r latest_year`.
 
-> Source: [NISRA - 2022 Mid Year Population Estimates for Northern Ireland](https://www.nisra.gov.uk/publications/2022-mid-year-population-estimates-northern-ireland)
+You can also format source information like this:
 
-The source can be specified in the 'fig.cap' option of R Markdown blocks to be included underneath figures.
+> Source: [NISRA 2022 Mid Year Population Estimates for Northern Ireland](https://www.nisra.gov.uk/publications/2022-mid-year-population-estimates-northern-ireland)
 
-### Header tags (h3)
+Sources can be shown below charts and tables. Add the source using the `fig.cap`
+option in an R Markdown code block. The source will then appear underneath the
+figure.
 
-A key element is using header tags to structure your document. Screen readers use these to scan and navigate documents so it's important that headings are tagged correctly. The colour used in these headings is #1460aa rather than NISRA blue to meet accessibility standards. 
+### Publication structure
+#### Good practice
 
-* the title of the document is tagged as h1, don't use elsewhere
-* don't use heading styles to format text that isn't a heading (for example to emphasise a point) - use <strong>bold</strong> or <em>italic</em> styles
-* conversely, don't use bold styles for headings - use proper heading styles
-* don't use bold, colour or text size to create visual headings without tagging at the appropriate level
-* don't skip any heading levels, follow order h1, h2, h3, h4
+Recommended structure
 
-More detailed guidance on writing for web is available in the Drupal user manual published by Dissemination Branch. You can find the [Drupal user manual and other accessibility guidance on MS Teams.](https://nicsonline.sharepoint.com/:w:/r/sites/TM-DOF-NISRATEAM/_layouts/15/doc2.aspx?sourcedoc=%7BDE6D923D-1265-4204-BFF2-6EEBD49A4011%7D&file=DRUPAL%20NISRA%20user%20manual%20V3.docx&action=default&mobileredirect=true&wdOrigin=TEAMS-MAGLEV.p2p_ns.rwc&wdExp=TEAMS-TREATMENT&wdhostclicktime=1759227462705&web=1)
+1. Key points.
+1. Main analysis in numbered sections.
+1. Methodology and supporting information (or consider extracting repetitive
+background content into separate outputs).
+1. Contact details.
+
+#### Accessibility
+Key accessibility features built-in
+
+- The language element is set to English, in the YAML section of the code.
+- There is a named accessibility contact at the end of the document.
+- The code contains landmark regions to make it easier for screen reader users
+to navigate.
+- Headings, lists, tables and so on are marked up for assistive technologies.
+
+Headings help organise a report and make it easier to read and scan. They are
+also important for people who use screen readers. Screen readers help people who
+have difficulty seeing by reading the text out loud.
+
+HTML headings
+
+* Use the main title only once (h1).
+* Use heading 2 (h2) for all section titles.
+* Do not use **bold** or *italic* text instead of a heading.
+* Do not make headings by only changing the colour or size of the text.
+* Use headings in order, and do not skip heading levels (e.g. h1, h2, h3, h4).
+
+You can find more help about writing accessible reports in the
+[Drupal user manual and other accessibility guidance on MS Teams.](https://nicsonline.sharepoint.com/:w:/r/sites/TM-DOF-NISRATEAM/_layouts/15/doc2.aspx?sourcedoc=%7BDE6D923D-1265-4204-BFF2-6EEBD49A4011%7D&file=DRUPAL%20NISRA%20user%20manual%20V3.docx&action=default&mobileredirect=true&wdOrigin=TEAMS-MAGLEV.p2p_ns.rwc&wdExp=TEAMS-TREATMENT&wdhostclicktime=1759227462705&web=1)

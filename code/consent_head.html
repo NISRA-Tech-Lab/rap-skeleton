@@ -1,0 +1,166 @@
+<script>
+(function () {
+  "use strict";
+
+  var GTM_CONTAINER_ID = "GTM-KF6WGSG";
+  var CONSENT_STORAGE_KEY = "nisra_consent_v2";
+  var CONSENT_VERSION = 1;
+  var CONSENT_MAX_AGE_DAYS = 365;
+
+  window.dataLayer = window.dataLayer || [];
+
+  window.gtag = window.gtag || function () {
+    window.dataLayer.push(arguments);
+  };
+
+  window.gtag(
+    "consent",
+    "default",
+    {
+      analytics_storage: "denied",
+      ad_storage: "denied",
+      ad_user_data: "denied",
+      ad_personalization: "denied",
+      functionality_storage: "granted",
+      security_storage: "granted"
+    }
+  );
+
+  function deniedConsent() {
+    return {
+      analytics_storage: "denied",
+      ad_storage: "denied",
+      ad_user_data: "denied",
+      ad_personalization: "denied",
+      functionality_storage: "granted",
+      security_storage: "granted"
+    };
+  }
+
+  function acceptedConsent() {
+    return {
+      analytics_storage: "granted",
+      ad_storage: "denied",
+      ad_user_data: "denied",
+      ad_personalization: "denied",
+      functionality_storage: "granted",
+      security_storage: "granted"
+    };
+  }
+
+  function updateConsent(consentState) {
+    window.gtag(
+      "consent",
+      "update",
+      consentState
+    );
+  }
+
+  function removeSavedChoice() {
+    try {
+      localStorage.removeItem(
+        CONSENT_STORAGE_KEY
+      );
+    } catch (error) {
+      // Leave denied consent in place if storage is unavailable.
+    }
+  }
+
+  function getSavedChoice() {
+    try {
+      var stored = localStorage.getItem(
+        CONSENT_STORAGE_KEY
+      );
+
+      if (!stored) {
+        return null;
+      }
+
+      var record = JSON.parse(stored);
+      var timestamp = Date.parse(
+        record.timestamp
+      );
+
+      var maximumAge =
+        CONSENT_MAX_AGE_DAYS *
+        24 *
+        60 *
+        60 *
+        1000;
+
+      var age =
+        Date.now() - timestamp;
+
+      var validChoice =
+        record.choice === "accepted" ||
+        record.choice === "rejected";
+
+      var validVersion =
+        record.version === CONSENT_VERSION;
+
+      var validTimestamp =
+        Number.isFinite(timestamp) &&
+        age >= 0 &&
+        age <= maximumAge;
+
+      if (
+        !validChoice ||
+        !validVersion ||
+        !validTimestamp
+      ) {
+        removeSavedChoice();
+        return null;
+      }
+
+      return record.choice;
+    } catch (error) {
+      removeSavedChoice();
+      return null;
+    }
+  }
+
+  var savedChoice = getSavedChoice();
+
+  if (savedChoice === "accepted") {
+    updateConsent(
+      acceptedConsent()
+    );
+  } else if (savedChoice === "rejected") {
+    updateConsent(
+      deniedConsent()
+    );
+  }
+
+  if (!window.__nisraGtmLoaded) {
+    window.__nisraGtmLoaded = true;
+
+    window.dataLayer.push({
+      "gtm.start": new Date().getTime(),
+      event: "gtm.js"
+    });
+
+    var firstScript =
+      document.getElementsByTagName(
+        "script"
+      )[0];
+
+    var gtmScript =
+      document.createElement(
+        "script"
+      );
+
+    gtmScript.async = true;
+
+    gtmScript.src =
+      "https://www.googletagmanager.com/gtm.js?id=" +
+      encodeURIComponent(
+        GTM_CONTAINER_ID
+      );
+
+    firstScript.parentNode.insertBefore(
+      gtmScript,
+      firstScript
+    );
+  }
+})();
+</script>

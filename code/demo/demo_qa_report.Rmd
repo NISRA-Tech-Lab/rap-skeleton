@@ -1,0 +1,232 @@
+---
+title: "NISRA Technology and Support Lab RAP Skeleton Demo Quality Assurance (QA) Report"
+lang: "en"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 4
+    code_download: no
+    css: "../style.css"
+    includes:
+      in_header:
+        - "../consent_head.html"
+      after_body:
+        - "../cookie_banner.html"
+knit: (function(input, ...) {
+    rmarkdown::render(
+      input,
+      output_dir = "../demo/demo_outputs/",
+      output_file = paste0(
+        xfun::sans_ext(input),
+        "_",
+        format(
+          Sys.time(),
+          "%d-%m-%Y_%H%M"
+        ),
+        ".html"
+      ),
+      envir = globalenv()
+    )
+  })
+params:
+  annotations: true
+---
+
+<div id="cookie-banner"></div>
+
+```{r settings, include=FALSE}
+# this chunk sets chunk options for all chunks in this file
+knitr::opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  echo = FALSE
+)
+```
+
+```{r setup, warnings = FALSE}
+library(here)
+
+source(
+  here(
+    "code",
+    "demo",
+    "demo_data_prep.R"
+  )
+)
+```
+
+<div data-nics-theme="`r nics_theme`">
+
+<!-- open main div -->
+
+<main id="main">
+
+## Overall Figures
+
+**This Quality Assurance (QA) report uses the mid-year population estimates**
+**data used in the `demo_report.Rmd` as an exemplar and provides guidance for**
+**what to put in each section of the QA report**.
+
+Use the "Overall Figures" section of the QA report to point out the key figures
+throughout the report. This should include the total number of records. If
+needed, also show how the numbers are split by time period, such as year,
+quarter, or month. See the examples below:
+
+- Total number of records in the dataset is
+`r format(total_records_myes, big.mark=",")`.
+- Total population count in `r earliest_year` across all councils is
+`r format(population_est_2001, big.mark=",")`.
+- Total population count in `r latest_year` across all councils is
+`r format(population_est_2022, big.mark=",")`.
+- Population difference between `r latest_year` and `r earliest_year` across all
+councils is
+`r format(abs(population_est_2022 - population_est_2001), big.mark=",")`.
+
+## Compare Trends
+
+This section of the QA report should show the main trends in the data. This may
+include population figures from the current year and previous year. Highlight
+the key numbers and explain how they have changed over time. Use h3 (heading
+level 3) to label each table. Examples of population changes for males and
+females are shown below:
+
+### Male population breakdown by LGDs
+
+Table showing the change in the population of males in the top 3 LGDs for the
+current and previous year. Use  h3 for labelling the heading level of the tables.
+
+``` {r, out.width="100%"}
+kable(
+  prev_curr_lgd_breakdown_male,
+  align = ("lrrrr")
+)
+```
+
+### Female population breakdown by LGDs
+
+Table showing the change in the population of females in the top 3 LGDs for the
+current and previous year.
+
+``` {r, out.width="100%"}
+kable(prev_curr_lgd_breakdown_female,
+  align = ("lrrrr")
+)
+```
+
+## Counts by variables 
+
+This section of the QA report is for reporting on the counts of key variables
+in the data. The report uses mid-year population estimates and the population
+breakdowns for some of the variables present in the data.
+
+### Male and Female population
+
+Table showing the variable count of the population of males and females in
+`r latest_year`.
+
+``` {r, out.width="100%"}
+kable(
+  df_latest_year_gender_cleaned,
+  align = ("lrrr")
+)
+```
+
+### Population breakdown for NI population by LGDs in `r latest_year`
+
+Table showing the population count per LGD for all persons of the NI population
+in `r latest_year`.
+
+``` {r, out.width="100%"}
+kable(
+  df_mye_latest_ldg_cleaned,
+  align = ("lrrr")
+)
+```
+
+### Population breakdown for NI population by LGD in `r earliest_year`
+
+Table showing the population count breakdown by LGD for all persons of the NI
+population in `r earliest_year`
+
+``` {r, out.width="100%"}
+kable(
+  df_mye_earliest_ldg,
+  align = ("lrrr")
+)
+```
+
+### Population differences for NI population by LGD in `r latest_year - 1` and `r latest_year`
+
+Table showing the population breakdown by LGD for all persons of the NI
+population. This table also flags any unusual percentage changes (above or below
+0.5%) between the population in consecutive years to identify outliers in the
+data.
+
+``` {r, out.width="100%"}
+kable(
+  df_mye_curr_prev_population,
+  align = ("lrrrr")
+)
+```
+
+### Population breakdown for NI population by age in `r latest_year`
+
+Table showing the age breakdown for all persons of the NI population in
+`r latest_year`.
+
+``` {r, out.width="100%"}
+kable(
+  df_latest_year_age_group_clean,
+  align = ("lrrr")
+)
+```
+
+### Population breakdown for NI population by age in `r earliest_year`
+
+Table showing the age breakdown for all persons of the NI population in
+`r earliest_year`.
+
+``` {r, out.width="100%"}
+kable(
+  df_mye_earliest_year_agegroup,
+  align = ("lrrr")
+)
+```
+
+## Suppression
+
+Suppression is used to protect confidentiality by masking small values that
+could potentially identify individuals. This section reports the outcome of
+checks applied to publication tables following suppression.
+
+List each table in the report using a h3 heading. Check whether suppression has
+been applied and record the result under the table heading. Also include the
+name of the variable used to create the table. Use the example below as a guide:
+
+### Table 1a: population of young people by LGD
+
+`df_mye_latest_year_youthrate` (the name of the dataframe) has no NAs.
+
+### Table 1b: population of elderly people by LGD
+
+`df_mye_latest_year_elderlyrate` has the suppression function applied.
+
+Number of suppressed cells: 3.
+
+### Table 2
+
+`df_mye_year_gender_t` has no NAs or suppression applied.
+
+<!-- close main div -->
+
+</main>
+
+```{r render-footer, results='asis', echo=FALSE}
+f_footer()
+```
+
+`r if (params$annotations) '<script id="annotation-script" src="annotation.js"></script>'`
+
+<!-- close data-nics-theme div -->
+</div>
