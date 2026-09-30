@@ -1,573 +1,553 @@
-/* Departmental colour
+/* =============================================================================
+   NISRA REPORT STYLES
+   ============================================================================= */
 
-Department of Finance (Default):
 
- 1 # banner background                      #00205B aka "nisra_navy" JSOK
- 2 # banner background bottom border        #3878c5 aka "nisra_blue" JSOS
- 3 # a:link                                 #2574a9 
- 4 # h1, h2, h3                             #1460aa
- 5 # 3-bar line break - colours #1          # [same as 1]
- 6 # 3-bar line break - colours #2          # [same as 2]
- 7 # 3-bar line break - colours #3          #CEDC20 aka "nisra_green" JSOK
+/* =============================================================================
+   Departmental colour reference
+   =============================================================================
 
----------------------------------------------------------------------
+   Department of Finance (default)
+   --------------------------------
+   Banner background:               #00205b (NISRA navy)
+   Banner bottom border:            #3878c5 (NISRA blue)
+   Links:                           #2574a9
+   h1, h2, h3:                      #1460aa
+   Three-bar colour 1:              same as banner background
+   Three-bar colour 2:              same as banner highlight
+   Three-bar colour 3:              #cedc20 (NISRA green)
 
- Department of Education:
- 
- 1 # banner background                      #
- 2 # banner background bottom border        #ca2c93 aka "dePink" JSOK
- 3 # a:link                                 #
- 4 # h1, h2, h3                             #
- 5 # 3-bar line break - colours #1          #
- 6 # 3-bar line break - colours #2          # [same as 2]
- 7 # 3-bar line break - colours #3          #
+   Department of Education
+   -----------------------
+   Banner bottom border:            #ca2c93
+   Other:                           #142062
 
-Other: #142062 aka deBlue JSOK
+   Department of Agriculture, Environment and Rural Affairs
+   ---------------------------------------------------------
+   Banner bottom border:            #009a44
 
----------------------------------------------------------------------
+   Department of Justice
+   ---------------------
+   Banner bottom border:            #893b67
 
- Department of Agriculture, Environment and Rural Affairs:
+   Department for Infrastructure
+   -----------------------------
+   Banner background:               #061f5c
+   Banner bottom border:            #ffb81c
+   h1, h2, h3:                      #6c748a
+   Three-bar colour 1:              #061f5c
+   Three-bar colour 2:              #ffb81c
+   Three-bar colour 3:              #6c748a
+   Other:                           #ffb718
 
- 1 # banner background                      #
- 2 # banner background bottom border        #009a44 (official, can use with black text) JSOK
- 3 # a:link                                 #
- 4 # h1, h2, h3                             #
- 5 # 3-bar line break - colours #1          #
- 6 # 3-bar line break - colours #2          #
- 7 # 3-bar line break - colours #3          #
- 
----------------------------------------------------------------------
+   Department of Health
+   --------------------
+   Banner background:               #12436d
+   Banner bottom border:            #008eaa
 
- Department of Justice:
+   Additional ONS colours:
+   Red:                             #801650
+   Orange:                          #f46a25
+   Purple:                          #360036
+   Green:                           #28a197
 
- 1 # banner background                      #
- 2 # banner background bottom border        #893b67 (Official) JSOK
- 3 # a:link                                 #
- 4 # h1, h2, h3                             #
- 5 # 3-bar line break - colours #1          #
- 6 # 3-bar line break - colours #2          #
- 7 # 3-bar line break - colours #3          #
- 
-  ---------------------------------------------------------------------
+   Department for the Economy
+   --------------------------
+   Banner bottom border:            #0072ce
 
-Department of Infrastructure:
+   Department for Communities
+   --------------------------
+   Banner bottom border:            #7d55c7
+   Three-bar colour 1:              #00205b
+   Three-bar colour 2:              #7b549e
 
- 1 # banner background                      #061f5c aka "dfiBlue"
- 2 # banner background bottom border        #ffb81c (Official) JSOK
- 3 # a:link                                 # [same as DoF]
- 4 # h1, h2, h3                             #6c748a aka "dfiGrey"
- 5 # 3-bar line break - colours #1          #061f5c aka "dfiBlue"
- 6 # 3-bar line break - colours #2          # [same as 2]
- 7 # 3-bar line break - colours #3          # [same as 4]
- 
- Other: #ffb718 aka "dfiYellow"
- 
- ---------------------------------------------------------------------
- 
- Department for Health:
- 
- 1 # banner background                      #12436d aka "ons_blue"
- 2 # banner background bottom border        #008eaa (Official) JSOK
- 3 # a:link                                 # [same as DoF]
- 4 # h1, h2, h3                             #
- 5 # 3-bar line break - colours #1          #
- 6 # 3-bar line break - colours #2          #
- 7 # 3-bar line break - colours #3          #
- 
- Misc:
- ons_red = "#801650"
- ons_orange = "#f46a25"
- ons_purple = "#360036"
- ons_green = "#28a197"
- https://datavis.nisra.gov.uk/health/ni-cancer-waiting-times-jul-sep-22.html
+   The Executive Office
+   --------------------
+   Banner background:               #08215a / #002469
+   Banner bottom border:            #7bafd4
+   Three-bar colour 3:              #deebf7
 
----------------------------------------------------------------------
-
- Department for the Economy:
-
- 1 # banner background                      #
- 2 # banner background bottom border        #0072CE (Official) JSOK
- 3 # a:link                                 #
- 4 # h1, h2, h3                             #
- 5 # 3-bar line break - colours #1          #
- 6 # 3-bar line break - colours #2          #
- 7 # 3-bar line break - colours #3          #
- 
-  ---------------------------------------------------------------------
- 
- Department for Communities:
- 
- 1 # banner background                      #
- 2 # banner background bottom border        #7d55c7 (Official) JSOK
- 3 # a:link                                 #
- 4 # h1, h2, h3                             #
- 5 # 3-bar line break - colours #1          #00205B
- 6 # 3-bar line break - colours #2          #7B549E
- 7 # 3-bar line break - colours #3          #
- 
- Misc:
- #7B549E
-
----------------------------------------------------------------------
-
- The Executive Office:
-
- 1 # banner background                      #08215a or #002469
- 2 # banner background bottom border        #7bafd4 (Official) JSOK
- 3 # a:link                                 #
- 4 # h1, h2, h3                             #
- 5 # 3-bar line break - colours #1          #
- 6 # 3-bar line break - colours #2          #
- 7 # 3-bar line break - colours #3          #deebf7
- 
- Misc:
- #7eb0d3 
- 
- ---------------------------------------------------------------------
- 
-  Business Services Organisation:
-
- 1 # banner background                      #
- 2 # banner background bottom border        #
- 3 # a:link                                 #
- 4 # h1, h2, h3                             #
- 5 # 3-bar line break - colours #1          #
- 6 # 3-bar line break - colours #2          #
- 7 # 3-bar line break - colours #3          #
- 
- Misc:
- #7eb0d3 
- 
- ---------------------------------------------------------------------
-        
-  ADR:
-        
-  1 # banner background                      #00205B
-  2 # banner background bottom border        #6bbbae
-  3 # a:link                                 #9900cc
-  4 # h1, h2, h3                             #178573
-  5 # 3-bar line break - colours #1          #188C78
-  6 # 3-bar line break - colours #2          #0B3142
-  7 # 3-bar line break - colours #3          #999999
-         
- ---------------------------------------------------------------------
- 
- ---------------------------------------------------------------------
-
- Template:
-
- 1 # banner background                      #
- 2 # banner background bottom border        #
- 3 # a:link                                 #
- 4 # h1, h2, h3                             #
- 5 # 3-bar line break - colours #1          #
- 6 # 3-bar line break - colours #2          #
- 7 # 3-bar line break - colours #3          #
- 
-  ---------------------------------------------------------------------
- 
+   ADR
+   ---
+   Banner background:               #00205b
+   Banner bottom border:            #6bbbae
+   Links:                           #9900cc
+   h1, h2, h3:                      #178573
+   Three-bar colour 1:              #188c78
+   Three-bar colour 2:              #0b3142
+   Three-bar colour 3:              #999999
 */
 
-/*
 
- done font - currently #000000;
- done h2, h3 - #1460aa
- done h2 - 30px
- done h3 - 24px
- done h4 - 18px, black bold 
- done h5 - 16px, black and bold
- 
+/* =============================================================================
+   Global variables and colour palette
 
-*/
+   :root variables provide the defaults. A data-nics-theme attribute can
+   override the relevant values for individual departmental themes.
+   ============================================================================= */
 
-/* :root vars are global. If a data-nics-theme below is specified below, that will take precdence */
 :root {
+  /* Links */
   --nics-links: #2574a9;
   --nics-links-hover: #9900cc;
-  
-  --nics-banner-bg: #00205B; /* JSOK */
-  --nics-banner-highlight: #3878c5; /* JSOK */
-  
+
+  /* NISRA branding */
+  --nics-banner-bg: #00205b;
+  --nics-banner-highlight: #3878c5;
+  --nics-banner-green: #68a41e;
+
   --nics-headings-h1-h2-h3: #1460aa;
-  
+  --nics-navy: #00205b;
+  --nisra-blue: #3878c5;
+  --nisra-green: #cedc20;
+
+  /* Additional palette */
+  --purple: #732777;
+  --lilac: #ce70d2;
+  --dark-olive: #434700;
+  --rosy-brown: #a88f8f;
+  --dark-slate: #3b3b3b;
+  --hot-pink: #e64791;
+  --deep-burgundy: #400b23;
+
+  /* Three-bar decorative element */
   --nics-three-bar-colour-1: var(--nics-banner-bg);
   --nics-three-bar-colour-2: var(--nics-banner-highlight);
-  --nics-three-bar-colour-3: var(--nics-banner-bg);
-  
-  --nics-download-button-1: var(--nics-banner-bg);
-  --nics-download-button-2: var(--nics-banner-highlight);
+  --nics-three-bar-colour-3: var(--nisra-green);
 
+  /* Chart colours */
   --nics-chart-dark: var(--nics-banner-bg);
   --nics-chart-light: var(--nics-banner-highlight);
 }
 
-[data-nics-theme=teo] {
-  --nics-banner-highlight: #7bafd4;
-  --nics-three-bar-colour-2: var(--nics-banner-highlight);
+
+/* =============================================================================
+   Departmental themes
+   =============================================================================
+   */
+
+/* NOTE: Colour 1 is the background colour of the banner and centre of
+borderline, colour 2 is the top of banner and left of borderline and colour 3 is
+the bottom of the banner and right of borderline */
+
+[data-nics-theme="teo"] {
+  --nics-banner-borderline-colour-1: var(--nics-navy);
+  --nics-banner-borderline-colour-2: #7bafd4;
+  --nics-banner-borderline-colour-3: #deebf7;
 }
 
-[data-nics-theme=daera] {
-  --nics-banner-highlight: #009a44;
-  --nics-three-bar-colour-2: var(--nics-banner-highlight);
+[data-nics-theme="daera"] {
+  --nics-banner-borderline-colour-1: var(--nics-navy);
+  --nics-banner-borderline-colour-2: #009a44;
+  --nics-banner-borderline-colour-3: #009a44;
 }
 
-[data-nics-theme=dfc] {
-  --nics-banner-highlight: #7d55c7;
-  --nics-three-bar-colour-2: var(--nics-banner-highlight);
+[data-nics-theme="dfc"] {
+  --nics-banner-borderline-colour-1: var(--nics-navy);
+  --nics-banner-borderline-colour-2: #7d55c7;
+  --nics-banner-borderline-colour-3: #7b549e;
+  
 }
 
-[data-nics-theme=de] {
-  --nics-banner-highlight: #ca2c93;
-  --nics-three-bar-colour-2: var(--nics-banner-highlight);
+[data-nics-theme="de"] {
+  --nics-banner-borderline-colour-1: var(--nics-navy);
+  --nics-banner-borderline-colour-2: #ca2c93;
+  --nics-banner-borderline-colour-3: #ca2c93;
 }
 
-[data-nics-theme=dfe] {
-  --nics-banner-highlight: #0072CE;
-  --nics-three-bar-colour-2: var(--nics-banner-highlight);
+[data-nics-theme="dfe"] {
+  --nics-banner-borderline-colour-1: var(--nics-navy);
+  --nics-banner-borderline-colour-2: #0072ce;
+  --nics-banner-borderline-colour-3: #0072ce;
 }
 
-[data-nics-theme=dof] {
-  --nics-three-bar-colour-3: #cedc20;
+[data-nics-theme="dof"] {
+  --nics-banner-borderline-colour-1: var(--nics-navy);
+  --nics-banner-borderline-colour-2: var(--nisra-blue);
+  --nics-banner-borderline-colour-3: var(--nics-banner-green);
 }
 
-[data-nics-theme=dfi] {
-  --nics-banner-highlight: #ffb81c;
-  --nics-three-bar-colour-2: var(--nics-banner-highlight);
+[data-nics-theme="dfi"] {
+  --nics-banner-borderline-colour-1: var(--nics-navy);
+  --nics-banner-borderline-colour-2: #ffb81c;
+  --nics-banner-borderline-colour-3: #6c748a;
+  
 }
 
-[data-nics-theme=doh] {
-  --nics-banner-highlight: #008eaa;
-  --nics-three-bar-colour-2: var(--nics-banner-highlight);
+[data-nics-theme="doh"] {
+  --nics-banner-borderline-colour-1: var(--nics-navy);
+  --nics-banner-borderline-colour-2: #008eaa;
+  --nics-banner-borderline-colour-3: #008eaa;
 }
 
-[data-nics-theme=doj] {
-  --nics-banner-highlight: #893b67;
-  --nics-three-bar-colour-2: var(--nics-banner-highlight);
+[data-nics-theme="doj"] {
+  --nics-banner-borderline-colour-1: var(--nics-navy);
+  --nics-banner-borderline-colour-2: #893b67;
+  --nics-banner-borderline-colour-3: #893b67;
 }
 
-[data-nics-theme=adr] {
-  --nics-banner-highlight: #6BBBAE; 
-  --nics-headings-h1-h2-h3: #178573; 
-  --nics-three-bar-colour-1: #188C78;
-  --nics-three-bar-colour-2: #0B3142;
-  --nics-three-bar-colour-3: #999999
+[data-nics-theme="adr"] {
+  --nics-headings-h1-h2-h3: #178573;
+  --nics-banner-borderline-colour-1: var(--nics-navy);
+  --nics-banner-borderline-colour-2: #6bbbae;
+  --nics-banner-borderline-colour-3: #999999;
 }
 
-/* [data-nics-theme=bso] {
-} */
+/* BSO theme placeholder:
+[data-nics-theme="bso"] {
+}
+*/
+
+
+/* =============================================================================
+   Base typography
+   ============================================================================= */
 
 body {
-  background-color: #FFFFFF;
-  color: #000000;
-}
-
-body {
-  font-family: 'Roboto', Arial, sans-serif;
-  line-height: 1.5;           /* better readability than 1.0 */
+  background-color: #ffffff;
+  color: #222222;
+  font-family: "Roboto", Arial, sans-serif;
+  font-size: 18px;
   font-weight: 400;
+  line-height: 1.5;
 }
 
-p, li, td, th {
+p,
+li,
+td,
+th {
   font-size: 16px;
-  /* color: #000000; */
 }
 
-h1, h2, h3 {
- color: var(--nics-headings-h1-h2-h3);
+
+/* =============================================================================
+   Headings
+   ============================================================================= */
+
+h1,
+h2 {
+  color: var(--nics-headings-h1-h2-h3);
+}
+
+h1 {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.285;
 }
 
 h2 {
-  font-size: 30px;
-  page-break-before: always;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.333;
 }
 
 h3 {
-  margin-top: 30px;
-  font-size: 24px;
-}
-
-h4, h5 {
-    font-weight: bold;
-    color: #000000;
+  color: #222222;
+  font-size: 21px;
+  font-weight: 400;
+  line-height: 1.143;
 }
 
 h4 {
+  color: #4d4d4d;
   font-size: 18px;
+  font-weight: 400;
+  line-height: 1.333;
 }
 
 h5 {
+  color: #4d4d4d;
   font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
 }
 
-footerheading {
-      margin-top: 30px;
-      font-weight: bold;
-      color: #ffffff;
-      font-size: 24px;
-  		margin: 0.5em;
+@media (min-width: 992px) {
+  h1 {
+    font-size: 30px;
+    line-height: 1.3;
+  }
+
+  h2 {
+    font-size: 25px;
+    line-height: 1.32;
+  }
+
+  h3 {
+    font-size: 24px;
+    line-height: 1.25;
+  }
+
+  h4 {
+    font-size: 21px;
+    line-height: 1.286;
+  }
+
+  h5 {
+    font-size: 18px;
+    line-height: 1.333;
+  }
 }
+
+.footerheading {
+  margin: 0.5em;
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+
+/* =============================================================================
+   Links and keyboard focus
+   ============================================================================= */
 
 a {
   color: var(--nics-links);
   text-decoration: underline;
+  text-decoration-thickness: 1px;
 }
 
 a:hover {
-  color: var(--nics-links-hover);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 2px;
 }
 
-a:focus,
-button:focus {
-  outline: 2px solid red;
+/* Visible focus ring for keyboard users */
+*:focus-visible {
+  outline: 3px solid #d4351c !important;
+  outline-offset: 2.5px;
+  box-shadow: none !important;
 }
 
-  caption {
-	  font-size: 120%;
-	  color: #000000;
+
+/* =============================================================================
+   Tables and document metadata
+   ============================================================================= */
+
+caption {
+  color: #000000;
+  font-size: 120%;
 }
 
-/* Has the title element from YAML only appear in the metadata */
+/* Hide the YAML title in the rendered page while retaining it in metadata */
 .title {
   display: none;
 }
 
-.middle p {
-  color: #ffffff;
-  font-size: 30px;
-  text-transform: capitalize;
-  margin-top: 20px;
-  margin-bottom: 10px;
-}
+
+/* =============================================================================
+   Header and banner
+   ============================================================================= */
 
 .middle {
   width: 56%;
+  padding-right: 10px;
+  padding-left: 10px;
+  background-color: var(--nics-banner-bg);
   text-align: center;
   vertical-align: middle;
-  padding-left: 10px;
-  padding-right: 10px;
-  background-color: var(--nics-banner-bg);
+}
+
+.middle p {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: #ffffff;
+  font-size: 30px;
+  text-transform: capitalize;
 }
 
 .middleaccoffstats {
   width: 56%;
+  padding-top: 20px;
+  padding-right: 10px;
+  padding-left: 10px;
+  background-color: var(--nics-banner-bg);
   text-align: center;
   vertical-align: middle;
-  padding-left: 10px;
-  padding-right: 10px;
-  background-color: var(--nics-banner-bg);
-  padding-top: 20px;
-}
-
-/* Sets dimensions for logos in title area */
-.left, .right {
-  width: 30%;
-  padding-top: 25px;
-  background-color: var(--nics-banner-bg);
 }
 
 .row {
-  margin: 0px;
-} 
+  margin: 0;
+}
 
 .div-row {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between; /* Or center/start as needed */
-  align-items: center; /* ✅ Prevents vertical stretching */
+  align-items: center;
+  justify-content: space-between;
   gap: 1rem;
   margin-bottom: 25px;
 }
 
-/* Indents First NISRA logo from left */
-.left {
-  padding-left: 25px;
-
-}
-
-/* Indents NISRA logo from right */
-.right {
-  padding-right: 25px;
-}
-
-/* Sets dimensions for decorative elements */
+/* Individual segments of the three-colour decorative bar */
 .border {
   width: 33.33%;
   height: 9px;
   margin-bottom: 25px;
 }
 
-/* Sets dimensions for subtitle */
 .findings {
+  width: 100%;
+  padding-bottom: 10px;
   background-color: var(--nics-banner-bg);
-  font-size:18px;
   color: #ffffff;
+  font-size: 18px;
   text-align: center;
   vertical-align: text-top;
-  width: 100%;
-  padding-bottom:10px;
 }
 
-/* Clear floats after the columns */
-.row:after {
-  content: "";
+/* Clear floated columns */
+.row::after {
   display: table;
   clear: both;
+  content: "";
 }
 
 .row-indent {
-  width: 0px;
+  width: 0;
 }
 
 
-/* .csv-button {
-  height: 35px;
-  width: 75px;
-  background-color: #00205B;
-  text-align: center;
-  padding-top: 5px;
-} */
-
-.csv-button2 {
-  height: 35px;
-  width: 200px;
-  background-color: var(--nics-download-button-1);
-  text-align: center;
-  padding-top: 5px;
-}
-
-/* .csv-button a:link,
-.csv-button a:visited,
-.csv-button a:active,
-.csv-button a:hover {
-  color: #ffffff;
-  font-size: 18px;
-} */
-
-.csv-button2 a:link,
-.csv-button2 a:visited,
-.csv-button2 a:active,
-.csv-button2 a:hover {
-  color: #ffffff;
-  font-size: 18px;
-}
-
-/* .xl-button {
-  height: 35px;
-  width: 200px;
-  background-color: #3878c5;
-  text-align: center;
-  padding-top: 5px;
-} */
-
-.xl-button2 {
-  height: 35px;
-  width: 200px;
-  background-color: var(--nics-download-button-2);
-  text-align: center;
-  padding-top: 5px;
-}
-
-/* .xl-button a:link {
-  color: #ffffff;
-  font-size: 18px;
-} */
-
-.xl-button2 a:link,
-.xl-button2 a:visited,
-.xl-button2 a:active,
-.xl-button2 a:hover {
-  color: #ffffff;
-  font-size: 18px;
-}
+/* =============================================================================
+   Navigation tabs
+   ============================================================================= */
 
 .nav-pills {
-  background: white !important;
+  border-bottom: 1px solid #d0d0d0;
+  margin-bottom: 0;
 }
 
+/* Normal tabs */
 .nav-pills > li > a {
-  background: white !important;
-  color: nisra_blue !important;
-  border: 1px solid #ddd;
+  margin-right: 2px;
+  border: 1px solid transparent;
+  border-radius: 8px 8px 0 0;
+  color: #2574a9;
+  background: transparent;
+  font-weight: bold;
 }
 
+/* Active tab */
 .nav-pills > li.active > a,
-.nav-pills > li.active > a:focus,
-.nav-pills > li.active > a:hover {
-  background: #f8f9fa !important;
-  color: #000 !important;
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus {
+  background: #ffffff;
+  border: 1px solid #d0d0d0;
+  border-bottom-color: #ffffff !important;
+  position: relative;
+  top: 1px;
+  z-index: 2;
 }
 
+/* Content area */
+.tab-content {
+  padding: 20px;
+  border-left: 1px solid #d0d0d0;
+  border-right: 1px solid #d0d0d0;
+  border-bottom: 1px solid #d0d0d0;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  background: #ffffff;
+}
+``
 
+/* =============================================================================
+   Definition and status boxes
+   ============================================================================= */
 
-/* Boxes for definitions */
 .defboxes {
-  background:#ebf2ff; border:3px; border-style:solid; border-color: #00205b; padding: 1em;
-} 
-
-
-/* Boxes for statuses */
-.statusbox {
-  background:#FFBCD9; border:3px; border-style:solid; border-color: #ff0000; padding: 1em;
-} 
-
+  padding: 1em;
+  border: 3px solid var(--nics-navy);
+  background-color: #ebf2ff;
+}
 
 .statusbox_red {
-  background:#FFBCD9; border:3px; border-style:solid; border-color: #ff0000; padding: 1em;
-} 
+  padding: 1em;
+  border: 3px solid #ff0000;
+  background-color: #ffbcd9;
+}
 
 .statusbox_green {
-  background:#00FF00; border:3px; border-style:solid; border-color: #00b300; padding: 1em;
-} 
+  padding: 1em;
+  border: 3px solid #00b300;
+  background-color: #00ff00;
+}
 
 .statusbox_amber {
-  background:#FFBF00; border:3px; border-style:solid; border-color: #ff7c00; padding: 1em;
-} 
-
+  padding: 1em;
+  border: 3px solid #ff7c00;
+  background-color: #ffbf00;
+}
 
 .statusbox_blue {
-  background:#00FFFF; border:3px; border-style:solid; border-color: #0000FF; padding: 1em;
-} 
+  padding: 1em;
+  border: 3px solid #0000ff;
+  background-color: #00ffff;
+}
 
 .statusbox_purple {
-  background:#DDA0DD; border:3px; border-style:solid; border-color: #800080; padding: 1em;
-} 
+  padding: 1em;
+  border: 3px solid #800080;
+  background-color: #dda0dd;
+}
 
 .statusbox_grey {
-  background:#DADADA; border:3px; border-style:solid; border-color: #808080; padding: 1em;
-} 
+  padding: 1em;
+  border: 3px solid #808080;
+  background-color: #dadada;
+}
 
 
-/* Reset styles for toc */
+/* =============================================================================
+   Table of contents
+   ============================================================================= */
+
 .tocify-item.list-group-item a {
-  text-decoration: none;
   color: #000000;
+  text-decoration: none;
 }
 
 .tocify-item.list-group-item.active a {
-  text-decoration: none;
   color: #ffffff;
+  text-decoration: none;
 }
 
-li .tocify-item.list-group-item {
+li.tocify-item.list-group-item {
   font-size: 16px;
 }
 
-/* Unindent and then re-indent toc items */
-li.tocify-item.list-group-item.active, li.tocify-item.list-group-item {
-  text-indent: 0;
+/* Reset and reapply indentation to TOC items */
+li.tocify-item.list-group-item.active,
+li.tocify-item.list-group-item {
   padding-left: 1em;
+  text-indent: 0;
 }
 
 ul.tocify-subheader.list-group {
   padding-left: 2em;
 }
 
-/* Fixes hyperlink print issue */
+
+/* =============================================================================
+   Print styles
+   ============================================================================= */
+
+/* Prevent printed URLs being appended to hyperlinks */
 @media print {
-  a[href]:after {
+  a[href]::after {
     content: none !important;
   }
 }
+
+/* Avoid page breaks inside Plotly charts */
+.plot-container.plotly {
+  page-break-inside: avoid;
+}
+
+
+/* =============================================================================
+   Prerelease content
+   ============================================================================= */
 
 .prerelease-stripes {
   background: repeating-linear-gradient(
@@ -577,142 +557,117 @@ ul.tocify-subheader.list-group {
     #000000 10px,
     #000000 20px
   );
-  
 }
 
 .prerelease {
-  border: 5px solid black;
-  background-color: #ffff00;
-  padding: 10px;
   margin-bottom: 20px;
-}
-
-/* Unindent and then re-indent toc items */
-/* .tocify-item.list-group-item.active, .tocify-item.list-group-item {
-  text-indent: -0.33em;
-  padding-left: 1em;
-}
-
-.tocify-subheader.list-group .tocify-item.list-group-item.active{
-  text-indent: 1em;
-}
-
-.tocify-subheader.list-group .tocify-item.list-group-item{
-  text-indent: 1em;
-} */
-
-/* Avoid page breaks inside plots */
-.plot-container.plotly {
-  page-break-inside: avoid;
+  padding: 10px;
+  border: 5px solid #000000;
+  background-color: #ffff00;
 }
 
 
-	footer {
-		padding-bottom: 5px;
-		font-size: 18px;
-	}
-	footer a.link {
-		-webkit-box-sizing: border-box;
-		box-sizing: border-box;
-		text-decoration: none;
-		display: inline-block;
-	}
-	footer a.link:hover {
-		text-decoration: underline;
-	}
-	footer a.link:active {
-		outline: 3px solid transparent;
-		background-color: #fd0;
-		-webkit-box-shadow: 0 -2px #fd0, 0 4px #222;
-		box-shadow: 0 -2px #fd0, 0 4px #222;
-		color: #222;
-		text-decoration: none;
-	}
- 	footer ul {
-		padding: 0;
-		margin: 1em;
-	}
-	footer li {
-		margin-right: 18px;
-		display: block;
-	}
-/* 	.logo-img {
-		margin-bottom: 2px;
-		width: 120px;
-	} */
-/* 	.ogl-img {
-		margin: 0 0.5rem 0.2rem 0;
-		width: 59px;
-		height: 24px;
-		vertical-align: middle;
-	} */
-/* 	.license {
-		vert8ical-align: top;
-	} */
-/* 	a img:hover {
-		cursor: pointer;
-	} */
-	.column {
-  		float: left;
-  		padding: 40px;
-  		margin: 1.1em;
-	}
-	.left {
-		max-width: 40%;
-	}
-	.right {
-		max-width: 60%;
-	}
-	.row:after {
-		content: "";
-		display: table;
-		clear: both;
-	}
-	.flex-list {
-		position: relative;
-		margin: 1em;
-		overflow: hidden;
+/* =============================================================================
+   General footer elements
+   ============================================================================= */
 
-	}
-	.flex-list ul {
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		justify-content: space-between;
-		margin-left: -1px;
-	}
-	.flex-list li {
-		flex-grow: 1;
-		flex-basis: auto;
-		margin: .25em 0;
-		padding: 0 1em;
-		text-align: center;
-		border-left: 1px solid #ccc;
-		background-color: #00205b;
-		font-size: 14px;
-	}
+footer {
+  padding-bottom: 5px;
+  font-size: 18px;
+}
+
+footer a.link {
+  display: inline-block;
+  box-sizing: border-box;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+}
+
+footer a.link:hover {
+  text-decoration-thickness: 3px;
+  text-underline-offset: 2px;
+}
+
+footer a.link:active {
+  outline: 3px solid transparent;
+  background-color: #ffdd00;
+  box-shadow: 0 -2px #ffdd00, 0 4px #222222;
+  color: #222222;
+  text-decoration: none;
+}
+
+footer ul {
+  margin: 1em;
+  padding: 0;
+}
+
+footer li {
+  display: block;
+  margin-right: 18px;
+}
+
+.column {
+  float: left;
+  margin: 1.1em;
+  padding: 40px;
+}
+
+
+/* =============================================================================
+   Flexible link lists
+   ============================================================================= */
+
+.flex-list {
+  position: relative;
+  margin: 1em;
+  overflow: hidden;
+}
+
+.flex-list ul {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-left: -1px;
+}
+
+.flex-list li {
+  flex-basis: auto;
+  flex-grow: 1;
+  margin: 0.25em 0;
+  padding: 0 1em;
+  border-left: 1px solid #cccccc;
+  background-color: var(--nics-navy);
+  font-size: 14px;
+  text-align: center;
+}
+
+
+/* =============================================================================
+   Cookie banner
+   ============================================================================= */
 
 #cookie-banner {
-	top: 0;
-	left: 0;
-	width: 100%;
-	background-color: rgba(26,25,68,0.95);
-	color:#FFF;
-	padding: 10px;
-	text-align: left;
-	border-bottom: 5px solid #3878c5;
-	z-index: 100;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 100%;
+  padding: 10px;
+  border-bottom: 5px solid var(--nisra-blue);
+  background-color: rgba(26, 25, 68, 0.95);
+  color: #ffffff;
+  text-align: left;
 }
 
 .cookies-infobar {
-background-color: rgba(26,25,68,0.95);
-color: #fff;
-width: 100%;
-left: 0;
-right: 0;
-top: 0;
-padding: 10px;
-text-align: left;
+  top: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  background-color: rgba(26, 25, 68, 0.95);
+  color: #ffffff;
+  text-align: left;
 }
 
 .cookies-infobar.cookies-infobar_accepted {
@@ -727,145 +682,206 @@ text-align: left;
   color: inherit;
 }
 
-.cookies-infobar_btn {
-  display: inline-block;
-  padding: 5px 10px;
-  background: #0f8243;
-  text-decoration: none;
-  color: #fff;
-  text-transform: none;
-  font-size: 1.2em;
-}
-
-a.cookies-infobar_btn, a.cookies-infobar_btn_reject, a.cookiesbarlink {
-	color: #fff !important;
-}
-
+.cookies-infobar_btn,
 .cookies-infobar_btn_reject {
   display: inline-block;
   padding: 5px 10px;
-  background: #6d6e72;
-  text-decoration: none;
-  border-radius: 3px;
-  color: #fff;
-  text-transform: none;
+  color: #ffffff;
   font-size: 1.2em;
+  text-decoration: none;
+  text-transform: none;
 }
 
-.nav-pills>li>a {
-     font-weight: bold;
-     background-color: #E9E9E9;
+.cookies-infobar_btn {
+  background-color: #0f8243;
 }
 
-.code-folding-btn:after {
-  content: ' Code';
+.cookies-infobar_btn_reject {
+  border-radius: 3px;
+  background-color: #6d6e72;
 }
+
+a.cookies-infobar_btn,
+a.cookies-infobar_btn_reject {
+  color: #ffffff !important;
+}
+
+.cookiesbarlink {
+  color: #2990ff !important;
+  text-decoration: underline;
+}
+
+
+/* =============================================================================
+   Code folding
+   ============================================================================= */
+
+.code-folding-btn::after {
+  content: " Code";
+}
+
+
+/* =============================================================================
+   Grid and spacing utilities
+   ============================================================================= */
 
 .grid {
-	display: grid;
-	width: 100%;
-	grid-gap: 10px;
-	grid-template-columns: repeat( auto-fit, minmax(220px, 1fr) );
-	justify-content: stretch;
-	page-break-inside: avoid;
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+  justify-content: stretch;
+  page-break-inside: avoid;
 }
 
 .mtb {
-	margin-top: 10px;
-	margin-bottom: 20px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+
+/* =============================================================================
+   Annotation controls
+   ============================================================================= */
+
+#add-annotation-button,
+#save-annotations-button {
+  position: fixed;
+  right: 10px;
+  z-index: 9999;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  color: var(--nics-navy);
+  cursor: pointer;
 }
 
 #add-annotation-button {
-	position: fixed;
-	bottom: 55px;
-	right: 10px;
-	padding: 10px;
-	background-color: #68a41e;
-	color: #00205b;
-	border: none;
-	border-radius: 4px;
-	cursor: pointer;
-	z-index: 9999;
+  bottom: 55px;
+  background-color: var(--nics-banner-green);
 }
+
 #save-annotations-button {
-	position: fixed;
-	bottom: 10px;
-	right: 10px;
-	padding: 10px;
-	background-color: #3878c5;
-	color: #00205b;
-	border: none;
-	border-radius: 4px;
-	cursor: pointer;
-	z-index: 9999;
+  bottom: 10px;
+  background-color: var(--nisra-blue);
 }
 
 .ybaannotation {
-	position: absolute;
-	background-color: #CEDC20;
-	border: 2px solid #000;
-	border-radius: 5px;
-	padding: 10px;
-	z-index: 9999;
-	cursor: move;
+  position: absolute;
+  z-index: 9999;
+  padding: 10px;
+  border: 2px solid #000000;
+  border-radius: 5px;
+  background-color: var(--nisra-green);
+  cursor: move;
 }
+
 .ybaannotation input {
-	width: 100%;
+  width: 100%;
+}
+
+
+/* =============================================================================
+   Box layouts
+   ============================================================================= */
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: start;
+  justify-content: center;
+  gap: 10px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  height: 120px;
+  padding: 10px;
+  border-radius: 15px;
+  background-color: var(--nisra-blue);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.value {
+  margin-top: 5px;
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .navy-box {
   display: flex;
-  background-color: #E7EAF1;
-  border-radius: 25px;
-  border: 2px solid #00205b;
-  font-weight: normal !important;
-  border-radius: 25px;
-  text-align: center;
-  padding: 10px;
   align-items: center;
   justify-content: center;
-  height: 100%;        /* Fill available row height */
   box-sizing: border-box;
+  height: 100%;
+  padding: 10px;
+  border: 2px solid var(--nics-navy);
+  border-radius: 25px;
+  background-color: #e7eaf1;
+  font-weight: normal !important;
+  text-align: center;
 }
 
+
+/* =============================================================================
+   Circular navigation elements
+   ============================================================================= */
 
 .green-circle,
 .blue-circle {
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  background-color: #D0E7A6; /* or your blue */
-  border: 2px solid #68a41e;
-  border-radius: 50%;
-  text-align: center;
-
+  width: 120px;
+  min-width: 100px;
+  max-width: 15vw;
   aspect-ratio: 1 / 1;
-  width: 120px;      /* ✅ Fix width */
-  max-width: 15vw;   /* ✅ Responsive cap (optional) */
-  min-width: 100px;  /* ✅ Prevent shrinking too small */
-  flex-shrink: 0;    /* ✅ Don’t compress under pressure */
+  border: 2px solid var(--nics-banner-green);
+  border-radius: 50%;
+  background-color: #d0e7a6;
+  text-align: center;
 }
 
 .green-circle a,
 .blue-circle a {
-  color: #000080;/* optional */
+  color: #000080;
 }
 
 .green-circle a:hover,
 .blue-circle a:hover {
-  color: #800080;/* optional */
+  color: #800080;
 }
 
 .blue-circle {
-  background-color: #C7DDF0;
-  border: 2px solid #3878c5;
+  border-color: var(--nisra-blue);
+  background-color: #c7ddf0;
 }
 
 .arrow {
-    clip-path: polygon(0% 30%, 60% 30%, 60% 0%, 100% 50%, 60% 100%, 60% 70%, 0% 70%);
-    background-color: #888;
-    height: 3em;
-    width: 75px;
+  width: 75px;
+  height: 3em;
+  background-color: #888888;
+  clip-path: polygon(
+    0% 30%,
+    60% 30%,
+    60% 0%,
+    100% 50%,
+    60% 100%,
+    60% 70%,
+    0% 70%
+  );
 }
 
 .align-middle {
@@ -873,145 +889,205 @@ a.cookies-infobar_btn, a.cookies-infobar_btn_reject, a.cookiesbarlink {
   align-items: center;
 }
 
-/* Accordion styles */ 
-.accordion { 
-  margin-bottom: 2em; 
-} 
 
-.accordion-toggle { 
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%; 
-  text-align: left; 
-  background: #e7eaf1; 
-  color: #3878c5; 
-  border: none; 
-  outline: none; 
-  padding: 1em; 
-  font-size: 1.3em;
-  font-weight: bold;
-  cursor: pointer; 
-  border-bottom: 1px solid #ccc; 
-  transition: background 0.2s; 
-} 
+/* =============================================================================
+   Accordions
+   ============================================================================= */
 
-.accordion-toggle:hover {
-  background: #dfe3ec;
+.accordion {
+  margin-bottom: 2em;
+  overflow: visible;
+  border-radius: 8px;
+  box-shadow: none;
 }
 
 .accordion-toggle {
-  color: navy;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1em;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+  color: var(--nics-navy);
+  font-size: 1.3em;
+  font-weight: bold;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
-.accordion-panel { 
-  padding: 1em; 
-  background: #f9f9fa;
-  border-bottom: 1px solid #ccc; 
-} 
+.accordion-toggle:hover {
+  background-color: var(--nics-navy);
+  color: #ffffff;
+}
+
+button.accordion-toggle[aria-expanded="true"]:focus {
+  background-color: var(--nics-navy);
+  color: #ffffff;
+}
+
+.accordion-panel {
+  max-height: 0;
+  margin-top: 12px;
+  padding: 1em;
+  overflow: hidden;
+  border-bottom: 1px solid #cccccc;
+  border-radius: 6px;
+  background-color: #ffffff;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  transform: translateY(-10px);
+  transition:
+    max-height 0.4s ease,
+    opacity 0.4s ease,
+    transform 0.4s ease;
+}
 
 .accordion-arrow {
-  font-size: 1.1em;
+  font-size: 28px;
   transition: transform 0.3s ease;
 }
 
 .accordion-toggle[aria-expanded="true"] .accordion-arrow {
-  transform: rotate(90deg);
+  transform: rotate(180deg);
 }
 
 
+/* =============================================================================
+   Accessibility utilities
+   ============================================================================= */
+
+/* Visually hidden content that remains available to screen readers */
 .sr-only {
   position: absolute !important;
   width: 1px;
   height: 1px;
-  padding: 0;
   margin: -1px;
+  padding: 0;
   overflow: hidden;
+  border: 0;
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
-  border: 0;
 }
 
 
-/* ===========================
-   Footer
-   =========================== */
-/* Footer wrapper */
-/* Footer wrapper */
+/* =============================================================================
+   New-tab icon
+   ============================================================================= */
+
+.new-tab-icon::after {
+  display: inline-block;
+  width: 14px;
+  height: 11px;
+  margin-left: 5px;
+  background-color: currentColor;
+  content: "";
+  vertical-align: text-top;
+
+  -webkit-mask:
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="11" viewBox="0 0 14 11"><g fill="none" stroke="%23000" stroke-width="1"><path d="M0 3h2V0h12v8h-2v3H0zm13-2H3v6h10zM2 4H1v4h1zm-1 6h10V8H1z"/></g></svg>')
+    no-repeat center / contain;
+
+  mask:
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="11" viewBox="0 0 14 11"><g fill="none" stroke="%23000" stroke-width="1"><path d="M0 3h2V0h12v8h-2v3H0zm13-2H3v6h10zM2 4H1v4h1zm-1 6h10V8H1z"/></g></svg>')
+    no-repeat center / contain;
+}
+
+
+/* =============================================================================
+   NISRA footer
+   ============================================================================= */
+
 .nisra-footer {
-  background-color: #002147;
-  color: #fff;
-  border-top: 4px solid #3878c5;
-  padding: 2rem 0;
   margin-top: auto;
-  font-family: Arial, sans-serif;
+  padding: 2rem 0;
+  border-top: 4px solid var(--nisra-blue);
+  background-color: #002147;
+  color: #ffffff;
+  font-family: "Roboto", Arial, sans-serif;
 }
 
-/* Headings */
+/* Footer headings */
 .footer-col h5 {
   margin-bottom: 1rem;
-  font-size: 22px;   /* largest */
+  color: #ffffff;
+  font-size: 22px;
   font-weight: bold;
-  color: #fff;
   white-space: nowrap;
 }
 
-/* Column links (medium size) */
+/* Main footer links */
 .footer-list a {
-  font-size: 14px;  /* medium */
-  color: #fff;
+  color: #ffffff;
+  font-size: 14px;
   text-decoration: underline;
+  text-decoration-thickness: 1px;
   text-underline-offset: 3px;
 }
 
-/* Bottom legal links */
-.footer-links {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;     /* ✅ allows wrapping on small screens */
-  gap: 0.75rem;
-  font-size: 12px;   /* smaller than column links */
-  margin: 0;
-  padding: 0;
+.footer-list a:hover {
+  text-decoration-thickness: 3px;
 }
 
-.footer-links li {
-  white-space: nowrap; /* each item stays intact */
-}
-
-.footer-links a {
-  color: #fff;
-  font-size: 12px;
-  text-decoration: underline;
-}
-
-/* Layout */
+/* Footer layout */
 .footer-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
 }
+
 .footer-row {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   gap: 2rem;
   margin-bottom: 1.5rem;
-  flex-wrap: wrap;
 }
+
 .footer-col {
   flex: 1;
   min-width: 200px;
 }
 
-/* Reset lists */
+/* Reset footer lists */
 .nisra-footer ul {
-  list-style: none;
-  padding: 0;
   margin: 0;
+  padding: 0;
+  list-style: none;
 }
+
 .footer-list li {
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 0.5rem;
+}
+
+/* Bottom legal links */
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+}
+
+.footer-links li {
+  white-space: nowrap;
+}
+
+.footer-links a {
+  color: #ffffff;
+  font-size: 12px;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.footer-links a:hover {
+  text-decoration-thickness: 3px;
 }
 
 /* Social icons */
@@ -1021,15 +1097,133 @@ a.cookies-infobar_btn, a.cookies-infobar_btn_reject, a.cookiesbarlink {
 }
 
 .nisra-footer .footer-social img {
-  width: 32px;
-  height: 32px;   /* force a square for consistency */
-  object-fit: contain;
   display: inline-block;
-  transition: box-shadow 0.2s ease, border 0.2s ease;
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  transition:
+    box-shadow 0.2s ease,
+    border 0.2s ease;
 }
 
 .nisra-footer .footer-social img:hover {
-  border: 2px solid #fff;
-  box-shadow: 0 0 4px rgba(255,255,255,0.6);
+  border: 2px solid #ffffff;
   border-radius: 4px;
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.6);
+}
+
+
+/* =============================================================================
+   Plotly
+   ============================================================================= */
+
+.modebar-btn {
+  padding: 3px;
+  background-color: var(--nics-navy);
+  color: #ffffff;
+}
+
+.info.legend {
+  border: 1px solid #454a58 !important;
+  background-color: #ffffff;
+}
+
+.info.legend svg circle,
+.info.legend svg path {
+  stroke: #454a58 !important;
+  stroke-width: 1px !important;
+}
+
+/* =============================================================================
+   Table download dropdown
+   ============================================================================= */
+
+.table-download-container {
+  position: relative;
+  display: inline-block;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.download-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.download-dropdown > summary {
+  list-style: none;
+}
+
+/* Hide the default details marker in WebKit browsers */
+.download-dropdown > summary::-webkit-details-marker {
+  display: none;
+}
+
+.download-dropdown-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 1px solid #333333;
+  border-radius: 4px;
+  background-color: var(--purple);
+  color: #ffffff;
+  font-family: "Roboto", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
+  user-select: none;
+}
+
+.download-dropdown-button:hover,
+.download-dropdown-button:focus {
+  background-color: #6c757d;
+  color: #ffffff;
+}
+
+/* Dropdown arrow */
+.download-dropdown-button::after {
+  width: 0;
+  height: 0;
+  margin-left: 4px;
+  border-top: 6px solid currentColor;
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+  content: "";
+  transition: transform 0.15s ease-in-out;
+}
+
+.download-dropdown[open] .download-dropdown-button::after {
+  transform: rotate(180deg);
+}
+
+/* Dropdown menu */
+.download-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  z-index: 1000;
+  min-width: 230px;
+  padding: 4px 0;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 10px rgb(0 0 0 / 15%);
+}
+
+.download-dropdown-item a {
+  display: block;
+  padding: 10px 14px;
+  color: #000000;
+  font-family: "Roboto", Arial, sans-serif;
+  font-size: 15px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.download-dropdown-item a:hover,
+.download-dropdown-item a:focus {
+  background-color: #eeeeee;
+  text-decoration: underline;
 }

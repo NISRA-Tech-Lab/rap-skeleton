@@ -8,7 +8,6 @@
 f_header <- function() {
   require(htmltools)
   div(
-    # class = "header",
     if (prerelease == TRUE) {
       div(
         class = "prerelease-stripes", ".",
@@ -52,7 +51,7 @@ f_header <- function() {
         p(strong("Publication date: "), pub_date_words_dmy)
       ),
       div(
-        style= "Width: 60%; padding-left:10px; font-size: 120%",
+        style = "Width: 60%; padding-left:10px; font-size: 120%",
         p(strong("Last updated: "), last_updated_formatted)
       )
     )

@@ -2,62 +2,116 @@
 title: "06 Map Sub Report"
 output: html_document
 knit: (function(input, ...) {
-    rmarkdown::render(
-      input,
-       output_dir = "../demo/demo_outputs/",
-      output_file = paste0(
-        xfun::sans_ext(input), '_', format(Sys.time(), "%d-%m-%Y_%H%M") , '.html'
-      ),
-      envir = globalenv()
-    )
-  })
+  rmarkdown::render(
+    input,
+    output_dir = "../demo/demo_outputs/",
+    output_file = paste0(
+      xfun::sans_ext(input),
+      "_",
+      format(Sys.time(), "%d-%m-%Y_%H%M"),
+      ".html"
+    ),
+    envir = globalenv()
+  )
+})
 ---
-  
-  
 
-```{r, include=FALSE}
-# this chunk sets chunk options for all chunks in this file
+```{r maps_settings, include=FALSE}
+# Set chunk options for all chunks in this file.
+
 knitr::opts_chunk$set(
-  warning = FALSE, message = FALSE, echo = FALSE
+  warning = FALSE,
+  message = FALSE,
+  echo = FALSE
 )
 
 library(here)
 
-source(here("code/demo/demo_data_prep.R"))
+source(
+  here(
+    "code",
+    "demo",
+    "demo_data_prep.R"
+  )
+)
 ```
 
-This section includes a static map and an interactive map. If you create a map in another package and import as an image, ensure it meets accessibility requirements for an infographic.
+This section includes a static map and an interactive map. If you create a map
+in another package and import as an image, ensure it meets accessibility
+requirements for an infographic.
 
-### Static map (h3)
+### Static map 
 
-This section includes a map generated in R. General principles to consider are:
+This section includes a map generated in R.
 
-* ensure contrast between text labels and background colour is at least 4.5:1
-* ensure contrast between adjacent colours is at least 3:1, if they don't use borders that do
-* verify using online tools like [WebAIM contrast checker](https://webaim.org/resources/contrastchecker/)
-* ensure colour is not the only way of conveying meaning
-* use clear and descriptive labels
+#### Accessible maps
 
-Here the data labels are displayed on the map, alt text is included and the shapefile has been simplified to reduce the file size.
+*	Make sure different colours are easy to tell apart.
+* More colours can make the map harder to read.
+* Make sure the contrast between text labels and the background colour is at
+least 4.5:1.
+* Try to make sure colours next to each other have a colour contrast of at least
+3:1.
+* If shape colours do not have enough contrast, use borders that do.
+* Check colours using tools such as the
+[WebAIM contrast checker](https://webaim.org/resources/contrastchecker/)
+* Do not rely on colour alone to communicate information (e.g. legends).
+* Use clear and descriptive labels. Do not rely on hover interactions alone to
+communicate important information.
 
-We have used three colours. More than three colours increases the difficulty of creating sufficient contrast.
+#### Features of this static map
 
-Ensure the data underlying the maps is accessible to users who cannot perceive images. In this case, the data is in a table in a previous section. You could also make it available as a download.
+* Labels are shown on the map.
+* Alt text has been added for screen reader users.
+* The shapefile has been made smaller so it loads more quickly.
+* Only three colours are used.
+* There is no map background so the shapes are more distinct.
+* Data is available to download for users who cannot see the map.
 
-Include descriptive text before or after the map.
+
+Add a short description before or after the map to explain what it shows.
 
 #### Map 1: Proportion of people aged under 25 in Northern Ireland by LGD
 
 ```{r map_static, echo = TRUE, warnings = FALSE, message = FALSE, fig.alt="Map of Northern Ireland shaded by percentage of under 25s living in each Local Government District. More detail on the trends are included in the text directly above or below the map", out.width="100%"}
+df_map_data$xmod <- c(
+  0.8,
+  0,
+  0,
+  0.5,
+  0,
+  1.1,
+  0.5,
+  0.5,
+  0,
+  1,
+  -1
+)
 
-df_map_data$xmod <- c(0.8, 0, 0, 0.5, 0, 1.1, 0.5, 0.5, 0, 1, -1)
-df_map_data$ymod <- c(-0.5, 0, 0.2, 0.3, 0, 0, 1.4, -0.55, 0.3, 0, -1)
+df_map_data$ymod <- c(
+  -0.5,
+  0,
+  0.2,
+  0.3,
+  0,
+  0,
+  1.4,
+  -0.55,
+  0.3,
+  0,
+  -1
+)
 
-map1_static_map <- tm_shape(df_map_data,
+# Plotting map:
+tmap_mode("plot") # Set to "view" for interactive map or "plot" for static
+
+map1_static_map <- tm_shape(
+  df_map_data,
   # Default is km
   unit = "imperial"
 ) +
-  tm_polygons( # Colours the map sections based on these values
+  tm_polygons(
+    # Colours the map sections based on these values
     col = "lgd_young_perc",
     # Legend title
     title = "Percentage of under 25s",
@@ -73,8 +127,8 @@ map1_static_map <- tm_shape(df_map_data,
     legend.show = FALSE,
     border.col = "black"
   ) +
-
-  tm_text( # add labels to polygons, change text colour to black and move
+  tm_text(
+    # add labels to polygons, change text colour to black and move
     # labels to fit within shapes
     "map_label",
     size = 0.8,
@@ -83,71 +137,163 @@ map1_static_map <- tm_shape(df_map_data,
     xmod = "xmod",
     ymod = "ymod"
   ) +
-  tm_add_legend("fill",
-    fill = RColorBrewer::brewer.pal(3, "Blues"),
-    border.col = "#454A58",
-    labels = c("26.6  to 29.5", "29.6 to 31.5", "31.6 to 33.5"),
+  tm_add_legend(
+    type = "polygons",
+    fill = RColorBrewer::brewer.pal(
+      3,
+      "Blues"
+    ),
+    col = "#454A58",
+    labels = c(
+      "26.6 to 29.5",
+      "29.6 to 31.5",
+      "31.6 to 33.5"
+    ),
     title = "Percentage of under 25s"
   ) +
-  tm_add_legend( # add manual legend as a key
+  tm_add_legend(
+    # add manual legend as a key
     "symbol",
     fill = "#00205b",
     title = "Key",
     labels = c(
       "AN = Antrim and Newtownabbey",
-      "AND = Ards and North Dow",
+      "AND = Ards and North Down",
       "B = Belfast"
     )
   ) +
-  tm_format( # setting format to worldwide creates a wider rectangle shape that
+  tm_format(
+    # setting format to worldwide creates a wider rectangle shape that
     # fits width of page
     "World_wide"
   ) +
-  tm_layout(legend.position = c("left", "top"))
-
-# Plotting map:
-tmap_mode("plot") # Set to "view" for interactive map or "plot" for static
+  tm_layout(
+    legend.position = c(
+      "left",
+      "top"
+    )
+  )
 
 map1_static_map
+
+tmap_save(
+  tm = map1_static_map,
+  filename = here(
+    "code",
+    "demo",
+    "demo_outputs",
+    "figdata",
+    "map1_static.png"
+  ),
+  width = 8,
+  height = 6,
+  units = "in"
+)
+
+map_download_data <- df_map_data |>
+  sf::st_drop_geometry() |>
+  select(
+    lgd2014name,
+    lgd_young_perc
+  )
+
+f_make_tables(
+  data = map_download_data,
+  title = "Map 1",
+  data_style = ns_comma,
+  data_dir = here(
+    "code",
+    "demo",
+    "demo_outputs",
+    "figdata"
+  ),
+  ggplot = TRUE
+)
 ```
 
-### Interactive maps (h3)
+### Interactive maps
 
 This section shows the same map produced as an interactive plot.
-The figures are displayed on the map, council names show on hover and the council name and figures display on click.
-The shapefile has been simplified to reduce file size and not slow page load speed.
 
-Ensure the data underlying the maps is accessible to users who cannot perceive images. In this case, the data is in a table in a previous section. You could also make it available as a download.
+#### Features of interactive map
 
-The default rendering tabs through the LGDs but the focus area is not visible for keyboard users. This is an accessibility fail. Additional code has been added to remove the map from the tab order and to add alt text to the LGDs for screen reader users. See sections of code in the final code chunk (download buttons) which creates alt text and in the script section at the very end of the code to create an array of alt texts for the map and remove tabs from the LGDs.  
+* The values are displayed on the map so that the user is not relying on a
+legend.
+* The background map is greyscale and the detail is limited to help the shapes
+stand out.
+* Council names and figures display on click.
+* There was insufficient space to show council names on the map.
+* The shapefile has been simplified to reduce file size and not slow page load
+speed.
+* Data is available to download for users who cannot see the map.
+* The default rendering of the map tabbed through each LGD shape, but without
+any highlighting or visible indication of this so it failed accessibility
+testing.
+* Code has been added to remove the map shapes from the tab order to address
+this accessibility failure (see end of demo_report.Rmd)
+
 
 Include descriptive text before or after the map.
 
-#### Map 2: Interactive shapefile map with hover text
+#### Map 2: Interactive LGD map with additional information
+
+The map shows the percentage of people aged under 25 in each Northern Ireland
+Local Government District. Values are also displayed directly on the map and are
+available in downloadable CSV and Excel formats below.
 
 ```{r map_interactive_1, echo = TRUE, warnings = FALSE, message = FALSE, fig.alt="Map of Northern Ireland shaded by percentage of under 25s living in each Local Government District. More detail on the trends are included in the text directly above or below the map", out.width="100%"}
-# Reduce the size of the shapefile using the simplify command in rmaptools.
+df_map_data$xmod <- c(
+  0,
+  -1.5,
+  0,
+  -1.1,
+  0,
+  0,
+  0,
+  -1,
+  0,
+  0,
+  -1
+)
 
+df_map_data$ymod <- c(
+  0,
+  1,
+  0,
+  0,
+  0,
+  0,
+  1,
+  0,
+  0,
+  0,
+  -1
+)
 
-#### interactive map ####
-
-# df_map_data$xmod <- c(3, 1, 0, 1.5, 0, 1.5, 0, 0, 0, 1, 1)
-# df_map_data$ymod <- c(0, 3, 0, 0, 0, 0, 1, 0, 0, 0, -3)
-
-df_map_data$xmod <- c(0, -1.5, 0, -1.1, 0, 0, 0, -1, 0, 0, -1)
-df_map_data$ymod <- c(0, 1, 0, 0, 0, 0, 1, 0, 0, 0, -1)
+tmap_mode(
+  # Set to "view" for interactive map or "plot" for static
+  "view"
+)
 
 map2_interactive_map <- tm_shape(
-  df_map_data %>%
-    select(lgd2014name, lgd_young_perc, map_label_value_only, ymod, xmod),
+  df_map_data |>
+    select(
+      lgd2014name,
+      lgd_young_perc,
+      map_label_value_only,
+      ymod,
+      xmod
+    ),
   name = "Show data",
   # Default is km
   unit = "imperial"
 ) +
-  tm_basemap( # Adds background map.
+  tm_basemap(
+    # Adds background map.
     "Esri.WorldGrayCanvas"
   ) +
-  tm_polygons( # Colours the map sections based on these values
+  tm_polygons(
+    # Colours the map sections based on these values
     col = "lgd_young_perc",
     # Number of different colours to use
     n = 3,
@@ -159,18 +305,37 @@ map2_interactive_map <- tm_shape(
     alpha = 0.5,
     border.alpha = 1,
     legend.show = FALSE,
-    popup.vars = c("Percentage of under 25s: " = "lgd_young_perc")
+    popup.vars = c(
+      "Council" = "lgd2014name",
+      "Percentage under 25" = "lgd_young_perc"
+    )
   ) +
-  tm_add_legend("fill",
-    fill = RColorBrewer::brewer.pal(3, "Blues"),
-    border.col = "#454A58",
-    labels = c("26.6  to 29.5", "29.6 to 31.5", "31.6 to 33.5"),
+  tm_add_legend(
+    type = "polygons",
+    fill = RColorBrewer::brewer.pal(
+      3,
+      "Blues"
+    ),
+    col = "#454A58",
+    lwd = 1,
+    labels = c(
+      "26.6 to 29.5",
+      "29.6 to 31.5",
+      "31.6 to 33.5"
+    ),
     title = "Percentage of under 25s"
   ) +
-  tm_view( # Re-positioning legend
-    view.legend.position = c("left", "top"),
+  tm_view(
+    # Re-positioning legend
+    view.legend.position = c(
+      "left",
+      "top"
+    ),
     # Re-positioning layer controls
-    control.position = c("left", "bottom"),
+    control.position = c(
+      "left",
+      "bottom"
+    ),
     leaflet.options = c(
       zoomControl = FALSE,
       # Removes zoom and drag options
@@ -187,7 +352,8 @@ map2_interactive_map <- tm_shape(
       attributionControl = FALSE
     )
   ) +
-  tm_text( # Label polygons, increase font size, set colour to black (better
+  tm_text(
+    # Label polygons, increase font size, set colour to black (better
     # contrast) and adjust positioning so they are contained as much as
     # possible within the polygons
     "map_label_value_only",
@@ -197,92 +363,162 @@ map2_interactive_map <- tm_shape(
     xmod = "xmod",
     ymod = "ymod"
   ) +
-  tm_scale_bar(width = 250) +
-  tmap_mode( # Set to "view" for interactive map or "plot" for static
-    "view"
+  tm_scalebar(
+    width = 250
   )
 
 map2_interactive_map
+
+map_download_data <- df_map_data |>
+  sf::st_drop_geometry() |>
+  select(
+    lgd2014name,
+    lgd_young_perc
+  )
+
+f_make_tables(
+  data = map_download_data,
+  title = "Map 2 Data",
+  data_style = ns_comma,
+  data_dir = here(
+    "code",
+    "demo",
+    "demo_outputs",
+    "figdata"
+  )
+)
 
 # please also refer to the "alt text for maps" chunk in the source code of this
 # section for additional configurations
 ```
 
-#### Map 3: Interactive point map with zoom and hover text  {#map3 .tabset .tabset-pills}
+#### Interactive point map with zoom and hover text
 
-Map 3 shows another example of an interactive map that plots specific points instead of using a shapefile. This map uses a data-set containing information on the location of benefits offices (JBO) and the number of available vacancies.
+Map 3 shows an interactive map with points marked on it instead of areas. The
+map uses data about Jobs and Benefits Offices (JBOs) and the number of job
+vacancies at each office.
 
-The location points are displayed on the map and JBO names as well as available vacancies show on hover or click. This interactive map also includes zoom functionality and a view reset button. Points on the map can be resized according to the data or also grouped together. 
+#### Features
 
-The data underlying the map is available to view and download in a tab for users who cannot perceive images. 
+* Users can hover over or select a point to see the office name and the number
+of vacancies.
+* Users can zoom in and out and reset the view.
+* The points can be made larger or smaller based on the data, or grouped
+together when many points are close to each other.
+* The data is available to download or view as a table on the next tab.
 
-##### Map (interactive) output
+The interactive map is not fully accessible to keyboard users. The underlying
+data are provided in the adjacent data tab and as downloadable files, although
+these alternatives do not communicate the spatial relationships shown by the
+map.
+
+#### Map 3: Vacancies at Jobs and Benefits Offices
+
+##### <span class="sr-only">Map 3 tabs</span> {.tabset}
+
+###### Map (interactive) output
 
 ```{r map_interactive_2, echo = TRUE, warnings = FALSE, message = FALSE, fig.alt="Map of Northern Ireland with points showing the location of benefits offices (JBO) and the number of available vacancies. More detail on the trends are included in the text directly above or below the map", out.width="100%"}
-
 #### interactive map ####
 
-map3_interactive_map <- leaflet(options = leafletOptions(
-  minZoom = 8,
-  maxZoom = 12
-)) %>%
-  setView(lng = -6.5, lat = 54.6, zoom = 8.15, ) %>%
-  addProviderTiles("Esri.WorldGrayCanvas")
-
+map3_interactive_map <- leaflet(
+  options = leafletOptions(
+    minZoom = 8,
+    maxZoom = 12
+  )
+) |>
+  setView(
+    lng = -6.5,
+    lat = 54.6,
+    zoom = 8.15
+  ) |>
+  addProviderTiles(
+    "Esri.WorldGrayCanvas"
+  )
 
 map3_interactive_map <- addCircleMarkers(
-  map = map3_interactive_map, data = df_jbo, lng = ~Longitude, lat = ~Latitude,
+  map = map3_interactive_map,
+  data = df_jbo,
+  lng = ~Longitude,
+  lat = ~Latitude,
   color = "blue",
   radius = 10,
-  label = lapply(paste0(
-    df_jbo$JBO, ": ", df_jbo$Vacancies,
-    " vacancies"
-  ), HTML),
-  labelOptions = labelOptions(style = list("font-size" = "14px"))
-) %>%
-  addEasyButton(easyButton(
-    icon = "fa-globe",
-    title = "Reset Zoom",
-    onClick = JS("function(btn, map){ map.setView([54.6,lng = -6.5],8.15); }")
-  ))
-
+  label = lapply(
+    paste0(
+      df_jbo$JBO,
+      ": ",
+      df_jbo$Vacancies,
+      " vacancies"
+    ),
+    HTML
+  ),
+  labelOptions = labelOptions(
+    style = list(
+      "font-size" = "14px"
+    )
+  )
+) |>
+  addEasyButton(
+    easyButton(
+      icon = "fa-globe",
+      title = "Reset Zoom",
+      onClick = JS("function(btn, map) { map.setView([54.6, -6.5], 8.15); }")
+    )
+  )
 
 map3_interactive_map
-
-df_jbo <- df_jbo[1:2]
 ```
 
+```{r map3_dl_buttons}
+map3_download_data <- df_jbo |>
+  select(
+    JBO,
+    Vacancies
+  )
 
-```{r}
 f_make_tables(
-  data = df_jbo,
+  data = map3_download_data,
   title = "Map 3 Data",
   data_style = ns_comma,
-  data_dir = here("code/demo/demo_outputs/figdata")
+  data_dir = here(
+    "code",
+    "demo",
+    "demo_outputs",
+    "figdata"
+  )
 )
 ```
 
-##### Map (interactive) data
+###### Map (interactive) data
 
 ```{r map_interactive_2b, echo = TRUE}
-kable(df_jbo)
-```
-
-```{r}
-f_make_tables(
-  data = df_jbo,
-  title = "Map 3 Data",
-  data_style = ns_comma,
-  data_dir = here("code/demo/demo_outputs/figdata")
+kable(
+  map3_download_data,
+  col.names = c(
+    "Jobs and Benefits Office",
+    "Vacancies"
+  )
 )
 ```
 
 ```{r alt_text_for_maps, echo = FALSE}
 # Alt text values for tabRemove() function in the interactive map
 map_alt <- paste0(
-  df_map_data$lgd2014name, " ",
+  df_map_data$lgd2014name,
+  " ",
   df_map_data$map_label_value_only
 )
-map_alt <- paste(map_alt, collapse = '", "')
-map_alt <- paste0('["', map_alt, '"]')
+
+map_alt <- paste(
+  map_alt,
+  collapse = '", "'
+)
+
+map_alt <- paste0(
+  '["',
+  map_alt,
+  '"]'
+)
 ```  
+
+##### <span class="sr-only">End tabs</span>

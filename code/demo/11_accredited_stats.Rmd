@@ -2,30 +2,45 @@
 title: "11 Accredited Stats Sub Report"
 output: html_document
 knit: (function(input, ...) {
-    rmarkdown::render(
-      input,
-     output_dir = "../demo/demo_outputs/",
-      output_file = paste0(
-        xfun::sans_ext(input), '_', format(Sys.time(), "%d-%m-%Y_%H%M") , '.html'
-      ),
-      envir = globalenv()
-    )
-  })
+  rmarkdown::render(
+    input,
+    output_dir = "../demo/demo_outputs/",
+    output_file = paste0(
+      xfun::sans_ext(input),
+      "_",
+      format(Sys.time(), "%d-%m-%Y_%H%M"),
+      ".html"
+    ),
+    envir = globalenv()
+  )
+})
 ---
-  
-  
 
-```{r, include=FALSE}
-# this chunk sets chunk options for all chunks in this file
+```{r accredited_stats_settings, include=FALSE}
+# Set chunk options for all chunks in this file.
+
 knitr::opts_chunk$set(
-  message = FALSE, echo = FALSE
+  message = FALSE,
+  warning = FALSE,
+  echo = FALSE
 )
 
 library(here)
 
-source(here("code/demo/demo_data_prep.R"))
+source(
+  here(
+    "code",
+    "demo",
+    "demo_data_prep.R"
+  )
+)
 ```
 
-Outputs should include a chapter detailing regulatory information regarding the Statistic type of the report. Example text for each of <strong>Accredited Official Statistics</strong>, <strong>Official Statistics</strong> and <strong>Official Statistics in Development</strong> can be found on the [NISRA Teams Code Of Practice page](https://teams.microsoft.com/l/entity/0ae35b36-0fd7-422e-805b-d53af1579093/_djb2_msteams_prefix_3425878674?context=%7b%22channelId%22:%2219:ea56668332244ef386a76907371f539c%40thread.tacv2%22%7d&tenantId=e7a13aea-9437-4db7-a22b-cfaa4ce33b6e).
+Outputs should include a chapter detailing regulatory information regarding the
+Statistic type of the report. Example text for each of <strong>Accredited
+Official Statistics</strong>, <strong>Official Statistics</strong> and
+<strong>Official Statistics in Development</strong> can be found on the
+[NISRA Teams Code Of Practice page](https://teams.microsoft.com/l/entity/0ae35b36-0fd7-422e-805b-d53af1579093/_djb2_msteams_prefix_3425878674?context=%7b%22channelId%22:%2219:ea56668332244ef386a76907371f539c%40thread.tacv2%22%7d&tenantId=e7a13aea-9437-4db7-a22b-cfaa4ce33b6e).
 
-It is recommended to use these templates and update them with your respective information accordingly.
+It is recommended to use these templates and update them with your respective
+information accordingly.

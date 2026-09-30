@@ -2,44 +2,67 @@
 title: "03 Infographics Sub Report"
 output: html_document
 knit: (function(input, ...) {
-    rmarkdown::render(
-      input,
-      output_dir = "../demo/demo_outputs/",
-      output_file = paste0(
-        xfun::sans_ext(input), '_', format(Sys.time(), "%d-%m-%Y_%H%M") , '.html'
-      ),
-      envir = globalenv()
-    )
-  })
+  rmarkdown::render(
+    input,
+    output_dir = "../demo/demo_outputs/",
+    output_file = paste0(
+      xfun::sans_ext(input),
+      "_",
+      format(Sys.time(), "%d-%m-%Y_%H%M"),
+      ".html"
+    ),
+    envir = globalenv()
+  )
+})
 ---
-  
-  
-  
-```{r, include=FALSE}
-# this chunk sets chunk options for all chunks in this file
+
+```{r infographics_settings, include=FALSE}
+# Set chunk options for all chunks in this file.
+
 knitr::opts_chunk$set(
-  message = FALSE, echo = FALSE
+  message = FALSE,
+  warning = FALSE,
+  echo = FALSE
 )
 
 library(here)
 
-source(here("code/demo/demo_data_prep.R"))
+source(
+  here(
+    "code",
+    "demo",
+    "demo_data_prep.R"
+  )
+)
 ```
-An image should not replace a clear text description so ensure any information presented in an infographic is presented elsewhere. Add descriptive alt text for anyone using a screen reader - even images with no substantive content should have empty alt text added to indicate that they are decorative. 
 
-Do not use images that only contain text - images can contain explanatory text but should never exclusively be of text. Use real text and style appropriately instead.
 
-The reading order of an infographic should always be left-to-right.
+### Type the title of infographic here
 
-For more specific guidance about accessible infographics refer to Dissemination Branch document 'Creating an accessible infographic'. For more general guidance you can also refer to [Government Statistical Service (GSS) guidance on infographics](https://gss.civilservice.gov.uk/policy-store/infographics/) but note that as of the 20th of August 2021 it does not include accessibility requirements.
-
-Important note: If SVG images are used for images these should be marked up properly. It is important that all text is clear on these images and are properly tested for accessibility. If there are still issues with the screen reader reading text within an SVG image, it is recommended to use a PNG image format instead.
-
-### Type the title of infographic here (h3)
-
+Example infographic with 4 key statistics presented in a logical order from left
+to right.
 ```{r, echo = TRUE, warnings = FALSE, fig.alt = "Population increase from 2018 to 2043 due to relative contributions of natural change and net migration.", out.width="100%"}
 # file is in image folder
 knitr::include_graphics("../demo/demo_data/images/PopInfographic.png")
 ```
 
 Source: 2019 Mid-year population estimates
+
+#### Accessible infographics
+
+* Explain the key message from the infographic in the report text.
+* Add alt text so that screen reader users can understand the image. 
+* If an image is only for decoration, use empty alt text.
+* Do not put important text information in images, make sure it appears as text
+in the report. 
+* Use accessible colours and make sure text has good contrast against the
+background.
+
+
+For more help, see the Dissemination Branch guide [Creating an accessible infographic](https://nicsonline.sharepoint.com/:u:/s/TM-DOF-NISRATEAM/IQAVFYCBi8ZWR64U9kMdk2DcAUfVs_bFTnc1OrObMxVnyrA?e=dU9Uyb).
+You can also use the [Government Analysis Function guide to infographics](https://gss.civilservice.gov.uk/policy-store/infographics/). 
+
+**Important**: If you use SVG images with text, check if screen readers can read
+the text. You can test this using Microsoft Narrator. If it does announce the
+words in the image, ensure it makes sense to users. If not, you can use a PNG
+and add alt text.

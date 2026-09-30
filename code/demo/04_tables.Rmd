@@ -2,49 +2,70 @@
 title: "04 Tables Sub Report"
 output: html_document
 knit: (function(input, ...) {
-    rmarkdown::render(
-      input,
-      output_dir = "../demo/demo_outputs/",
-      output_file = paste0(
-        xfun::sans_ext(input), '_', format(Sys.time(), "%d-%m-%Y_%H%M") , '.html'
-      ),
-      envir = globalenv()
-    )
-  })
+  rmarkdown::render(
+    input,
+    output_dir = "../demo/demo_outputs/",
+    output_file = paste0(
+      xfun::sans_ext(input),
+      "_",
+      format(Sys.time(), "%d-%m-%Y_%H%M"),
+      ".html"
+    ),
+    envir = globalenv()
+  )
+})
 ---
 
+```{r tables_settings, include=FALSE}
+# Set chunk options for all chunks in this file.
 
-  
-```{r, include=FALSE}
-# this chunk sets chunk options for all chunks in this file
 knitr::opts_chunk$set(
-  message = FALSE, echo = FALSE
+  message = FALSE,
+  warning = FALSE,
+  echo = FALSE
 )
 
 library(here)
 
-source(here("code/demo/demo_data_prep.R"))
+source(
+  here(
+    "code",
+    "demo",
+    "demo_data_prep.R"
+  )
+)
 ```
 
-This section has a number of basic tables. The UK Analysis function guidance recommends that only small demonstration tables should be included in the publication itself. Demonstration tables are small tables which highlight one or two messages clearly and are supported by commentary.
+### Good practice
+The Government Analysis function makes a distinction between demonstration
+tables and reference tables. Demonstration tables are used to reinforce a point
+made in the text of a publication. They are smaller and less detailed than
+reference tables.
 
-When it comes to accessibility, a good rule of thumb is to use a simple structure. Use a simple table matrix with a single row of column headers describing what is in each column. Other considerations are as follows:
+#### Accessible tables
 
-* don't merge cells
-* don't have blank rows or columns
-* every column should have a heading
-* make sure all headings and labels are visible
-* use consistent rounding
-* left align text, or row labels, right align numbers
-* use thousand comma separator
-* avoid abbreviations or make sure they are explained fully when first used
-* use caption for table titles
-* put any data labels in the headings such as % or millions or STG rather than in all column cells
-* don't use symbols such as * or superscripts to create notes or explanations
+Keep the structure of tables simple so everyone can use them. This is especially
+important for people who use screen readers.
 
-### Basic table (h3)
+To ensure tables are clear and easy to read:
 
-#### Table 1: Mid ulster had the highest proportion of under 25s (h4) {#table1 .tabset .tabset-pills} 
+* do not merge cells
+* do not leave rows or columns blank
+* give every column a heading
+* make sure all headings and labels are easy to see
+* round numbers in the same way throughout the table
+* align text to the left and numbers to the right
+* use commas in large numbers, for example 1,000
+* avoid abbreviations or explain them the first time you use them
+* add labels such as %, £, or millions to the heading instead of repeating them
+in each cell
+* do not use symbols such as * or superscripts for notes or explanations
+* use [note] with numbers for notes
+
+
+### Basic table
+
+#### Table 1: Mid Ulster had the highest proportion of under 25s {#table1 .tabset} 
 
 <strong>Select the tab to view population of young or elderly people.</strong>
 
@@ -68,16 +89,19 @@ kable(df_mye_latest_year_youthrate,
   ),
 
   # use caption to keep text associated with table
-  caption = paste0("Population of young people by Local Government District in
-                   NI, ", latest_year),
+  caption = paste0(
+    "Population of young people by Local Government District in NI, ",
+    latest_year
+  ),
 
   # add thousand separator
   format.args = list(big.mark = ","),
   label = NA
-) %>%
+) |>
   kable_styling()
 ```
-Commentary describing the key messages you want readers to take from the table could go here.
+Commentary describing the key messages you want readers to take from the table
+could go here.
 
 ##### 1b Population of elderly people by LGD
 
@@ -99,19 +123,21 @@ kable(df_mye_latest_year_elderlyrate,
   ),
 
   # use caption to keep text associated with table
-  caption = paste0("Population of elderly people by Local Government District
-                   in NI, ", latest_year),
+  caption = paste0(
+    "Population of elderly people by Local Government District in NI, ",
+    latest_year
+  ),
 
   # add thousand separator
   format.args = list(big.mark = ","),
   label = NA
-) %>%
+) |>
   kable_styling()
 ```
 
-Commentary describing the key messages you want readers to take from the table could go here.
+The key messages you want the readers to take from the table could go here.
 
-### Pagination (h3)
+### Pagination
 
 #### Table 2: Northern Ireland population is growing year on year (h4)
 
@@ -126,35 +152,72 @@ datatable(df_mye_year_gender_t,
     "Males",
     "NI Population Total"
   ),
-  caption = paste0("Number of males and females making up the total NI
-                   population from ", earliest_year, -latest_year),
+  caption = paste0(
+    "Number of males and females making up the total NI population from ",
+    earliest_year,
+    "-",
+    latest_year
+  ),
   # left align first column and add thousand separator to numbers
-  options = list(columnDefs = list(list(className = "dt-left", targets = 0)))
-) %>%
-  formatRound(c("Females", "Males", "All persons"),
-    digits = 0, interval = 3,
+  options = list(
+    columnDefs = list(
+      list(
+        className = "dt-left",
+        targets = 0
+      )
+    )
+  )
+) |>
+  formatRound(
+    c(
+      "Females",
+      "Males",
+      "All persons"
+    ),
+    digits = 0,
+    interval = 3,
     mark = ","
   )
 ```
-Descriptive commentary to highlight key point from this table. Females outnumber males year on year and population growth is driven by both sexes
 
-### Cross-tabulation (h3)
+This is descriptive commentary to highlight the key points in the table above.
+There are more females than males year on year. Population growth is driven by
+both sexes.
+
+### Cross-tabulation
 #### Table 3: Under 25s were the largest age group in Northern Ireland 
 
 ```{r table_3, echo = TRUE, warnings = FALSE, message = FALSE, out.width="100%"}
-cross_tab_data <- df_mye_latest_year_agegrp_gend %>%
-  pivot_wider(names_from = gender, values_from = pop_total) %>%
-  mutate(persons = Males + Females)
+cross_tab_data <- df_mye_latest_year_agegrp_gend |>
+  pivot_wider(
+    names_from = gender,
+    values_from = pop_total
+  ) |>
+  mutate(
+    persons = Males + Females
+  )
 
 cross_tab_data["Female_Male_ratio_100"] <-
-  round_half_up(cross_tab_data$Females / cross_tab_data$Males * 100, 0)
+  round_half_up(
+    cross_tab_data$Females / cross_tab_data$Males * 100, 0
+  )
 
 # Adding thousand separator
-cross_tab_data$Females <- prettyNum(cross_tab_data$Females, big.mark = ",")
-cross_tab_data$Males <- prettyNum(cross_tab_data$Males, big.mark = ",")
-cross_tab_data$persons <- prettyNum(cross_tab_data$persons, big.mark = ",")
+cross_tab_data$Females <- prettyNum(
+  cross_tab_data$Females,
+  big.mark = ","
+)
+cross_tab_data$Males <- prettyNum(
+  cross_tab_data$Males,
+  big.mark = ","
+)
+cross_tab_data$persons <- prettyNum(
+  cross_tab_data$persons,
+  big.mark = ","
+)
 
-kable(cross_tab_data,
+kable(
+  cross_tab_data,
   # left row labels, right align numbers
   align = "lrrrr",
   # make column headings clear and descriptive
@@ -166,21 +229,32 @@ kable(cross_tab_data,
     "Number of females to every 100 males"
   ),
   # use caption for descriptive title
-  caption = paste0("Northern Ireland population by broad age band and sex ", latest_year),
-) %>%
+  caption = paste0(
+    "Northern Ireland population by broad age band and sex ",
+    latest_year
+  ),
+) |>
   kable_styling()
 ```
 
-If we group the population into broad age bands we can compare the proportion of males to females. Males outnumber females in the under 25 age group only. As age increases, the ratio of females to males increases.
+If we group the population into broad age bands we can compare the proportion of
+males to females. Males outnumber females in the under 25 age group only. As age
+increases, the ratio of females to males increases.
 
 ### Table with colour scales
-#### Table 4: Belfast saw greatest increase in population from `r latest_year - 1` to `r latest_year`
+#### Table 4: Belfast saw the greatest increase in population from `r latest_year - 1` to `r latest_year`
 
 ```{r table_4, echo = TRUE, warnings = FALSE, message = FALSE, out.width="100%"}
 # function to add thousand separator
 mycomma <- function(digits = 0) {
   require(formattable)
-  formatter("span", x ~ comma(x, digits = digits))
+  formatter(
+    "span",
+    x ~ comma(
+      x,
+      digits = digits
+    )
+  )
 }
 
 # up and down arrows added to column four
@@ -188,21 +262,32 @@ mycomma <- function(digits = 0) {
 # nisra_blue (which failed accessibility check). Seems that colour specified in
 # code is the mid point of the tiles generated so needs to be pale to ensure
 # contrast for higher levels is sufficient.
-t4 <- formattable(df_t4_html,
+t4 <- formattable(
+  df_t4_html,
   align = c("lrrrr"),
   list(
     area(col = 2:3) ~ mycomma(digits = 0), # apply mycomma fn
     area(col = 5) ~ color_tile("transparent", "#7ca6da"),
-    `Change` = formatter("span",
+    `Change` = formatter(
+      "span",
       style = ~ style(
         color = ifelse(
-          `Change` > 0, "black", "#e60000"
+          `Change` > 0,
+          "black",
+          "#e60000"
         )
       ),
-      ~ icontext(ifelse(
-        `Change` > 0, "arrow-up",
-        "arrow-down"
-      ), format(`Change`, big.mark = ","))
+      ~ icontext(
+        ifelse(
+          `Change` > 0,
+          "arrow-up",
+          "arrow-down"
+        ),
+        format(
+          `Change`,
+          big.mark = ","
+        )
+      )
     )
   )
 )
@@ -210,4 +295,5 @@ t4 <- formattable(df_t4_html,
 t4
 ```
 
-Ensure sufficient contrast between background colours and the text when using colour scales.
+Ensure sufficient contrast between background colours and the text when using
+colour scales.

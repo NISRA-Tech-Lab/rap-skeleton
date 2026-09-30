@@ -5,116 +5,201 @@ output:
   html_document:
     code_folding: hide
     toc: true
-    toc_float: true 
+    toc_float: true
     toc_depth: 4
     code_download: no
     css: "../style.css"
     includes:
-      in_header: "../meta.html"
+      in_header:
+        - "../meta.html"
+        - "../consent_head.html"
+      after_body:
+        - "../cookie_banner.html"
 knit: (function(input, ...) {
     rmarkdown::render(
       input,
-       output_dir = "../demo/demo_outputs/",
-        output_file = paste0(
-        xfun::sans_ext(input), '_', format(Sys.time(), "%d-%m-%Y_%H%M") , '.html'
+      output_dir = "../demo/demo_outputs/",
+      output_file = paste0(
+        xfun::sans_ext(input),
+        "_",
+        format(
+          Sys.time(),
+          "%d-%m-%Y_%H%M"
+        ),
+        ".html"
       ),
       envir = globalenv()
     )
   })
 params:
-  annotations:
-    true
+  annotations: false
 ---
 
-<div id = "cookie-banner"></div>
-<script src = "cookies_script.js"></script>
+<div id="cookie-banner"></div>
 
 ```{r settings, include=FALSE}
 # this chunk sets chunk options for all chunks in this file
 knitr::opts_chunk$set(
-  message = FALSE, warning = FALSE, echo = FALSE
+  message = FALSE,
+  warning = FALSE,
+  echo = FALSE
 )
 ```
 
 ```{r setup, warnings = FALSE}
 library(here)
 
-source(here("code/demo/demo_data_prep.R"))
-source(here("code/demo/demo_excel_tables.R"))
+source(
+  here(
+    "code",
+    "demo",
+    "demo_data_prep.R"
+  )
+)
+
+source(
+  here(
+    "code",
+    "demo",
+    "demo_excel_tables.R"
+  )
+)
 ```
 
 <div data-nics-theme="`r nics_theme`">
+<!-- these <header> and <main> tags are important for accessibility, they
+define landmark areas for screenreaders. -->
 
-<!-- these <header> and <main> tags are important for accessibility, they define landmark areas for screenreaders. -->
 <header>
+
 <!-- calling the banner code -->
+
 `r f_banner(title = rmarkdown::metadata$title)`
 
-
 <!-- Header section -->
+
 `r f_header()`
+
 </header>
 
 <!-- Introduction section -->
 
 <!-- open main div -->
+
 <main id="main">
 
 <!-- calling the borderline code -->
+
 `r f_borderline()`
-    
-## 1. Key findings (h2)
 
-This section includes the key points of your publication (in an unordered list).  The logos used in the banner are intentionally placed in order. NISRA logo on left and department on right, if an Accredited Official Statistics publication then this logo will be in the middle. Logo placement is automated in the code depending on which logos are required. 
+## 1. Key points
 
-There are some key accessibility features to highlight here:
+This demo report is included with the RAP Skeleton code. It contains:
 
-- the language element is set to English, which is done in the YAML section of the code 
-- there is a named accessibility contact at the end of the doc
-- you will see from the code that the main sections of the html are enclosed in div elements
+* code and files to produce all the styling, tables, charts etc contained in
+the report
+* some good practice advice
+* accessibility advice and features
 
-It can help automation of reports to include sections of text that contain numerical values calculated by code. These will then update automatically when the data changes. This has been implemented below. For key points with accompanying charts or graphics, a two column structure can be used.
+You can use it:
+
+* as worked examples of code you can copy and edit for your data
+* to inspire elements of your own reports
+* as a guidance document
+
+Throughout the report are:
+
+* features of elements in the report that may be useful to know
+* good practice advice
+* accessibility requirements and how they have been addressed
+* worked examples using population data
+
+### Features
+
+Banner
+
+* The logos used in the banner are set in order. 
+* The NISRA logo goes on the left and the department logo on the right. 
+* If this is an Accredited Official Statistics report, this logo will be in the
+middle. 
+* The code automatically puts each logo in the correct place.
+
+
+Key points
+
+* The figures and years included below are calculated automatically by the code. 
+* These will then update automatically when the data changes.
+* These key points are arranged in a two-column layout so the chart wraps below
+the text when resized.
+
 
 ### Population change
 
-```{r key_point_2_column, fig.alt="info", echo = TRUE}
-# create a bullet point in unicode called 'b'
-b <- "\U2022"
-
+```{r key_point_2_column, echo = TRUE}
 point_1 <- paste0(
-  b, " The Northern Ireland population grew from ",
-  round_half_up(ni_earliest_total, 2), " million in ",
-  earliest_year, " to ", round_half_up(ni_latest_total, 2),
-  " million in ", latest_year, ", an increase of ",
-  round_half_up(ni_earliest_latest_change, 0), " percent."
+  "In ",
+  earliest_year,
+  " about ",
+  round_half_up(
+    ni_earliest_total,
+    2
+  ),
+  " million people lived in Northern Ireland. By ",
+  latest_year,
+  ", this had grown to about ",
+  round_half_up(
+    ni_latest_total,
+    0
+  ),
+  " million people. This means the population increased by ",
+  round_half_up(
+    ni_earliest_latest_change,
+    0
+  ),
+  " percent."
 )
 
 point_2 <- paste0(
-  b, " Under 25s make up the largest age group in the ",
-  "population."
+  "Children and young people under 25 make up the largest age group ",
+  "in Northern Ireland."
 )
 
 point_3 <- paste0(
-  b, " Derry City and Strabane has seen the largest increase ",
-  "of all the LGDs (Local Government Districts)."
+  "Derry City and Strabane saw the biggest population growth ",
+  "compared with the other Local Government Districts (LGDs)."
 )
 
-
 change_chart <- here(
-  "code/demo/demo_data/images/mini_population.png"
+  "code",
+  "demo",
+  "demo_data",
+  "images",
+  "mini_population.png"
 )
 
 div(
   class = "row",
   div(
-    class = "col-sm-6", style = "margin-top: 10px; font-size:120%;",
-    point_1, p(), point_2, p(), point_3
+    class = "col-sm-6",
+    style = "margin-top: 10px; font-size: 90%;",
+    tags$ul(
+      tags$li(point_1),
+      tags$li(point_2),
+      tags$li(point_3)
+    )
   ),
   div(
     class = "col-sm-6",
     img(
       src = change_chart,
-      alt = "Column chart showing relative increase in population"
+      alt = paste0(
+        "Column chart showing population growth in Northern Ireland ",
+        "between ",
+        earliest_year,
+        " and ",
+        latest_year,
+        "."
+      )
     )
   )
 )
@@ -122,28 +207,28 @@ div(
 
 `r f_borderline()`
 
-## 2. Introduction (h2)
+## 2. Introduction
 
 ```{r introduction_sub_report, child='02_introduction.Rmd' }
 ```
 
 `r f_borderline()`
 
-## 3. Infographics and images (h2)
+## 3. Infographics and images
 
 ```{r infographics_sub_report , child='03_infographics.Rmd'}
 ```
 
 `r f_borderline()`
 
-## 4. Tables (h2)
+## 4. Tables
 
 ```{r tables_sub_report , child='04_tables.Rmd'}
 ```
 
 `r f_borderline()`
 
-## 5. Charts (h2)
+## 5. Charts
 
 ```{r charts_sub_report  , child='05_charts.Rmd'}
 ```
@@ -153,67 +238,76 @@ div(
 ## 6. Maps (h2)
 
 ```{r maps_sub_report , child='06_maps.Rmd'}
-```  
-  
-`r f_borderline()`  
-
-## 7. Download data (h2) {#download-data}
-
-```{r download_data_sub_report , child='07_download_data.Rmd'}
-```  
+```
 
 `r f_borderline()`
 
-## 8. Notes for readers  (h2)
+## 7. Download data {#download-data}
+
+```{r download_data_sub_report , child='07_download_data.Rmd'}
+```
+
+`r f_borderline()`
+
+## 8. Notes for readers 
+
 ```{r notes_for_readers_sub_report, child='08_notes_for_readers.Rmd'}
 ```
 
 `r f_borderline()`
 
-## 9. Text presentation  (h2)
+## 9. Text presentation
+
 ```{r text_presentation_sub_report, child='09_text_presentation.Rmd'}
 ```
 
 `r f_borderline()`
 
-## 10. Useful acessibility links (h2)
+## 10. Useful accessibility links
 
 ```{r useful_links_sub_report, child='10_useful_links.Rmd'}
 ```
 
 `r f_borderline()`
 
-## 11. Accredited official statistics and official statistics (h2)
+## 11. Accredited official statistics and official statistics
 
 ```{r accredited_stats_sub_report, child='11_accredited_stats.Rmd'}
 ```
 
 `r f_borderline()`
 
-## 12.Contact details (h2)
+## 12. Contact Details 
+
+
+The function called f_contact can also be used to add contact details
+automatically. This helps make reports look the same and easier for people to
+use.
+
+Email addresses should all be lowercase jo.bloggs@nisra.gov.uk and it is good
+practice to include a named individual (some exemptions apply).
 
 `r f_contact()`
 
-### Accessibility contact (h3)
+### Accessibility contact 
 
-Please contact Dissemination Branch for assistance with accessibility requirements or alternative formats. Contact details are:
+Please contact Dissemination Branch for assistance with accessibility
+requirements or alternative formats. Contact details are:
 
-<strong>Email:</strong> info@nisra.gov.uk
+<strong>Email:</strong> [info\@nisra.gov.uk](mailto:info@nisra.gov.uk){.email}
 
 <strong>Telephone:</strong> +44 (0)300 200 7836
 
-Dissemination Branch  
-NISRA  
-Colby House  
-Stranmillis Court  
-BELFAST  
-BT9 5RR  
-  
-  
-    
-<!-- close main div -->
-</main>
+Dissemination Branch\
+NISRA\
+Colby House\
+Stranmillis Court\
+BELFAST\
+BT9 5RR
 
+<!-- close main div -->
+
+</main>
 
 ```{r render-footer, results='asis', echo=FALSE}
 f_footer()
@@ -225,54 +319,94 @@ f_footer()
   const map_alt = `r if (exists("map_alt")) {map_alt} else {"[]"}`;
 </script>
 
+
 `r if (params$annotations) '<script id="annotation-script" src="annotation.js"></script>'`
 
 ```{js}
-
-// Accessibility function to remove map shapes from tab order, add tabs to table of contents and add empty alt text to map legend 
+// Accessibility function to remove map shapes from tab order, add tabs to table
+// of contents and add empty alt text to map legend
 
 function tabOrder() {
 
   // Removes tabs from individual map shapes and appends alt texts
 
-  var shapes = document.getElementsByClassName('leaflet-marker-icon leaflet-zoom-animated leaflet-interactive');
+  var shapes = document.getElementsByClassName(
+    "leaflet-marker-icon leaflet-zoom-animated leaflet-interactive"
+  );
 
-  for (var i=0; i<shapes.length; i++) {
+  for (var i = 0; i < shapes.length; i++) {
     shapes[i].tabIndex = -1;
     shapes[i].alt = map_alt[i];
   }
-  
+
   // Make side menu tabbable
-  
-  let headings = document.getElementsByClassName('tocify-item list-group-item');
-  let sections = document.getElementsByClassName('section');
-  
-  for (let i = 0; i < headings.length; i ++) {
-    headings[i].innerHTML = "<a href='#" + sections[i].id + "'>" + headings[i].innerHTML +  "</a>";
+
+  let headings = document.getElementsByClassName(
+    "tocify-item list-group-item"
+  );
+
+  let sections = document.getElementsByClassName(
+    "section"
+  );
+
+  for (let i = 0; i < headings.length; i++) {
+    headings[i].innerHTML =
+      "<a href='#" +
+      sections[i].id +
+      "'>" +
+      headings[i].innerHTML +
+      "</a>";
   }
-  
+
   // Remove white space at bottom
+
   const space_observer = new MutationObserver(() => {
-    let space = document.getElementsByClassName("tocify-extend-page");
-    for (let i = 0; i < space.length; i ++) {
+    let space = document.getElementsByClassName(
+      "tocify-extend-page"
+    );
+
+    for (let i = 0; i < space.length; i++) {
       space[i].remove();
     }
   });
 
-  space_observer.observe(document.getElementsByClassName("main-container")[0], { childList: true, subtree: true });
+  space_observer.observe(
+    document.getElementsByClassName("main-container")[0],
+    {
+      childList: true,
+      subtree: true
+    }
+  );
   
+  // Hide entire legend from screen readers
 
-// Hide entire legend from screen readers
-  var legendContainer = document.querySelector('.info.legend');
+  var legendContainer = document.querySelector(
+    ".info.legend"
+  );
+
   if (legendContainer) {
-    legendContainer.setAttribute('aria-hidden', 'true');
+    legendContainer.setAttribute(
+      "aria-hidden",
+      "true"
+    );
   }
 
- // Add empty alt text to each legend image
-  var legendImages = document.querySelectorAll('.info.legend img');
+  // Add empty alt text to each legend image
+
+  var legendImages = document.querySelectorAll(
+    ".info.legend img"
+  );
+
   for (var j = 0; j < legendImages.length; j++) {
-    legendImages[j].setAttribute('alt', '');
-    legendImages[j].setAttribute('aria-hidden', 'true'); // Extra assurance
+    legendImages[j].setAttribute(
+      "alt",
+      ""
+    );
+
+    legendImages[j].setAttribute(
+      "aria-hidden",
+      "true"
+    ); // Extra assurance
   }
 }
 
